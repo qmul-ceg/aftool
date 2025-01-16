@@ -115,7 +115,7 @@ const Data = () => {
             <tr className="text-[#21376A]">
             {/* CHA₂DS₂-VASc */}
                <th className="border-r-[0.1em]  border-t-[0.1em] border-[#21376A] hover:cursor-pointer " 
-                  onClick={handleSortClick}   
+                  // onClick={handleSortClick}   
                >
                   {/* {sortChdValue === "asc" ? ' ↑' : ' ↓'} */}
                   <span>Value </span>
