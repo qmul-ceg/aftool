@@ -8,25 +8,31 @@ import { AFibColumns } from '@/enums/AFibColumns'
 
 const Filter = () => {
 
+   //functions and state variables from MainContext
    const{  
-         selectedAges, handleAgeSelection, removeAgeDisplay,
-         nsaid, handleNSAID, 
-         cvd, handleCVD, 
-         selectedBP, handleBP, removeBP,
-         selectedChdValue,handleChdValue,  removeChdValue,
-         selectedChdDate,handleChdDate, removeChdDate,
-         // selectedChd, handleChd,
-         selectedOrbit, handleOrbit, removeOrbitDisplay,
-         medReview, handleMedReview, setMedReview,
-         handleVulnerabilitesFilter,
-         selectedAnti, handleAntiFilter, setSelectedAnti, removeAntiFilter,
-         selectedVulnerabilities, 
-         setSelectedVulnerabilities, 
-         importedData, relativeRunDate,
-         resetFilters, resetAllFilters, data, quickFilter, handleQuickFilter,
-         //REMOVE FILTERS
-         removeNsaidFilter, removeVulnerabilities, removeCvdFilter
-         } = useContext(MainContext);
+      selectedAges, handleAgeSelection, removeAgeDisplay,
+      nsaid, handleNSAID, 
+      cvd, handleCVD, 
+      selectedBP, handleBP, removeBP,
+      selectedChdValue,handleChdValue,  removeChdValue,
+      selectedChdDate,handleChdDate, removeChdDate,
+      // selectedChd, handleChd,
+      selectedOrbit, handleOrbit, removeOrbitDisplay,
+      medReview, handleMedReview, setMedReview,
+      handleVulnerabilitesFilter,
+      selectedAnti, handleAntiFilter, setSelectedAnti, removeAntiFilter,
+      selectedVulnerabilities, 
+      setSelectedVulnerabilities, 
+      importedData, relativeRunDate,
+      resetFilters, resetAllFilters, data, quickFilter, handleQuickFilter,
+      //REMOVE FILTERS
+      removeNsaidFilter, removeVulnerabilities, removeCvdFilter,
+
+      //ORBIT SELECTION
+      handleOrbitValueSelection, handleOrbitDateRecordedSelection,
+      selectedOrbitValue, selectedOrbitDateRecorded, removeSelectedOrbitValue,
+      removeSelectedOrbitDate
+   } = useContext(MainContext);
 
 
 
@@ -198,11 +204,13 @@ const Filter = () => {
       '0' : '0'
    }
 
-   const selectedChdDateLabel = {
+   const selectedRecordedDateLabel = {
       '>12m' : 'Recorded > 12',
       'not_recorded' : 'Not recorded',
       '<12m' : 'Recorded < 12'
    }
+
+  
 
    // console.log(selectedFilters)
    return (
@@ -284,7 +292,7 @@ const Filter = () => {
                   {(importedData.length > 0 && selectedChdValue.length === 0 && selectedChdDate) && (
                       console.log("displaying 2"),
                      <button key = {selectedChdDate} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                        <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedChdDateLabel[selectedChdDate]} 
+                        <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedRecordedDateLabel[selectedChdDate]} 
                         {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>x</button>}
                      </button>
                      
@@ -295,20 +303,64 @@ const Filter = () => {
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">CHA₂DS₂-VASc: </strong>{selectedChdValueLabel[item]}
                            {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item )}>x</button>}
-                           <span className="ml-2">{selectedChdDateLabel[selectedChdDate]} </span>
+                           <span className="ml-2">{selectedRecordedDateLabel[selectedChdDate]} </span>
                            {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>x</button>}
                         </button>
                   ))}
 
                   {/* ORBIT DISPLAY */}
-                  {(importedData.length > 0 && selectedOrbit.length > 0) && (
+                  {/* Display for when only the orbit value is selected */}
+                  {(importedData.length > 0 && selectedOrbitValue && !selectedOrbitDateRecorded) && (
+                     
+   
+                        <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                           <strong className ="mr-2">ORBIT: </strong> ≥ 4
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>x</button>}
+                        </button>
+                     
+                  )}
+                  {/* Display for only when orbit date is selected  */}
+                  {(importedData.length > 0 && !selectedOrbitValue && selectedOrbitDateRecorded) && (
+                      
+                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <strong className ="mr-2">ORBIT: </strong> {selectedRecordedDateLabel[selectedOrbitDateRecorded]} 
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>x</button>}
+                     </button>
+                     
+                  )}
+                  {/* display for when both the value and date are selected  */}
+                  {(importedData.length > 0 && selectedOrbitValue && selectedOrbitDateRecorded) && (
+                     
+                        <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                           <strong className ="mr-2">ORBIT: </strong> ≥ 4
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>x</button>}
+                           <span className="ml-2">{selectedRecordedDateLabel[selectedOrbitDateRecorded]} </span>
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>x</button>}
+                        </button>
+                  )}
+                  
+                  
+                  
+                  
+                  {/* {(importedData.length > 0 && selectedOrbit.length > 0) && (
                      selectedOrbit.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">ORBIT:</strong> {item.label} 
                            {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeOrbitDisplay(item.value)}>x</button>}
                         </button>
                      )
-                  )}
+                  )} */}
+
+
+
+
+
+
+
+
+
+
+
                   {/* AGE DISPLAY */}
                   {(importedData.length > 0 && selectedAges.length > 0) && (
                      selectedAges.map((item, id) => 
@@ -594,7 +646,7 @@ const Filter = () => {
                                  ))
                               }
                               
-                              <div className="w-full border"></div>
+                              <div className="w-full border mt-1 mb-1"></div>
                               
                               {[ '>12m', 'not_recorded', '<12m'].map((item, index) => 
                                  (
@@ -607,44 +659,11 @@ const Filter = () => {
                                           className="checkbox_input"
                                        />
                                        <div className="custom_checkbox"></div>
-                                       <span>{selectedChdDateLabel[item]}</span>
+                                       <span>{selectedRecordedDateLabel[item]}</span>
                                     </label>
                               ))}
                               
-                              {/* {[
-                                 { value: 'gte2', label: '≥ 2' },
-                                 { value: '1', label: '1' },
-                                 { value: '0', label: '0' }
-                              ].map((item, index) => (
-                                 <label key={index} className="flex items-center space-x-2 ml-4">
-                                    <input
-                                       type="checkbox"
-                                       value={item.value}
-                                       checked={selectedChdValue.some(object => object.value === item.value)}
-                                       onChange={() => handleChdValue(item.value, item.label)}
-                                    
-                                    />
-                                    <span>{item.label}</span>
-                                 </label>
-                              ))}
                               
-                              <div className="w-full border"></div>
-                              
-                              {[
-                                 { value: '>12m', label: 'Recorded > 12m' },
-                                 { value: 'not_recorded', label: 'Not Recorded' },
-                                 { value: '<12m', label: 'Recorded < 12m' }
-                              ].map((item, index) => (
-                                 <label key={index + 3} className="flex items-center space-x-2 ml-4">
-                                    <input
-                                    type="checkbox"
-                                    value={item.value}
-                                    checked= {selectedChdDate && selectedChdDate.value === item.value}
-                                    onChange={() => handleChdDate(item.value, item.label)}
-                                    />
-                                    <span>{item.label}</span>
-                                 </label>
-                              ))} */}
                                 
                               </SelectContent>
                         </Select>
@@ -653,30 +672,39 @@ const Filter = () => {
                         <Select>
                            <SelectTrigger className=" bg-[#21376A]  text-white">
                               <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">ORBIT</h1>
-                              {/* <SelectValue placeholder="VULNERABILITIES" /> */}
+                             
                            </SelectTrigger>
                            <SelectContent>
-                              {[
-                                 {value: "gte4", label : "≥ 4"},
-                                 {value: ">12m", label : "Recorded > 12m"},
-                                 {value: "not_recorded", label : "Not recorded"}
-                              ].map((item, index) =>{
-                                 return (
+                              
+                              {/* ORBIT VALUE */}
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input 
+                                    type="checkbox"
+                                    value ="gte4"
+                                    checked ={selectedOrbitValue === "gte4"}
+                                    onChange = {()=>handleOrbitValueSelection("gte4")}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>≥ 4</span>
+                              </label>
+
+                              <div className="w-full border mt-1 mb-1"></div>
+                              {/* ORBIT DATE RECORDED */}
+                              {[ '>12m', 'not_recorded', '<12m'].map((item, index) => 
+                                 (
                                     <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                    <input
-                                       type="checkbox"
-                                       value={item.value}
-                                       checked={selectedOrbit.some(object =>object.value === item.value)}
-                                       onChange={() => handleOrbit(item.value, item.label)}
-                                       className="checkbox_input"
-                                       
-                                    />
-                                    <div className="custom_checkbox"></div>
-                                    <span>{item.label}</span>
-                                    
-                                 </label>
-                                 )
-                              })}
+                                       <input
+                                          type="checkbox"
+                                          value={item}
+                                          checked= {selectedOrbitDateRecorded === item}
+                                          onChange={() => handleOrbitDateRecordedSelection(item)}
+                                          className="checkbox_input"
+                                       />
+                                       <div className="custom_checkbox"></div>
+                                       <span>{selectedRecordedDateLabel[item]}</span>
+                                    </label>
+                              ))}
                               
                            </SelectContent>
                         </Select>      
@@ -1004,4 +1032,58 @@ export default Filter
                                                       <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">https://www.qmul.ac.uk/ceg/</a></li>
 
                                                    </ul>
-                                                </div> */}
+                                                </div> */}{/* {[
+                                 { value: 'gte2', label: '≥ 2' },
+                                 { value: '1', label: '1' },
+                                 { value: '0', label: '0' }
+                              ].map((item, index) => (
+                                 <label key={index} className="flex items-center space-x-2 ml-4">
+                                    <input
+                                       type="checkbox"
+                                       value={item.value}
+                                       checked={selectedChdValue.some(object => object.value === item.value)}
+                                       onChange={() => handleChdValue(item.value, item.label)}
+                                    
+                                    />
+                                    <span>{item.label}</span>
+                                 </label>
+                              ))}
+                              
+                              <div className="w-full border"></div>
+                              
+                              {[
+                                 { value: '>12m', label: 'Recorded > 12m' },
+                                 { value: 'not_recorded', label: 'Not Recorded' },
+                                 { value: '<12m', label: 'Recorded < 12m' }
+                              ].map((item, index) => (
+                                 <label key={index + 3} className="flex items-center space-x-2 ml-4">
+                                    <input
+                                    type="checkbox"
+                                    value={item.value}
+                                    checked= {selectedChdDate && selectedChdDate.value === item.value}
+                                    onChange={() => handleChdDate(item.value, item.label)}
+                                    />
+                                    <span>{item.label}</span>
+                                 </label>
+                              ))} */} 
+                               {/* {[
+                                 {value: "gte4", label : "≥ 4"},
+                                 {value: ">12m", label : "Recorded > 12m"},
+                                 {value: "not_recorded", label : "Not recorded"}
+                              ].map((item, index) =>{
+                                 return (
+                                    <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                    <input
+                                       type="checkbox"
+                                       value={item.value}
+                                       checked={selectedOrbit.some(object =>object.value === item.value)}
+                                       onChange={() => handleOrbit(item.value, item.label)}
+                                       className="checkbox_input"
+                                       
+                                    />
+                                    <div className="custom_checkbox"></div>
+                                    <span>{item.label}</span>
+                                    
+                                 </label>
+                                 )
+                              })} */}

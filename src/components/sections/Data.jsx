@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import { MainContext } from '@/MainContext'
 import { AFibColumns } from '@/enums/AFibColumns'
@@ -73,6 +73,17 @@ const Data = () => {
    }
 
 
+   const theadRef= useRef(null);
+   const [headerHeight, setHeaderHeight] = useState(0)
+
+   useEffect(() => {
+      if(theadRef.current){
+         setHeaderHeight(theadRef.current.offsetHeight)
+      }
+   }, [])
+
+   console.log("header height: " + headerHeight)
+
   return (
 
    // max-h-[400px]
@@ -80,7 +91,7 @@ const Data = () => {
    <div className=" rounded-t-lg  ">   
       <table className="w-full border-separate border-spacing-0 ">
         
-         <thead className=" text-[10em] lg:text-xs xl:text-sm 2xl:text-[1em] table_header ">
+         <thead ref = {theadRef} className=" text-[10em] lg:text-xs xl:text-sm 2xl:text-[1em] table_header ">
             <tr className="text-[#21376A] ">
                <th 
                   rowSpan={2} 
