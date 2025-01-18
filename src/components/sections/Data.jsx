@@ -118,17 +118,15 @@ const Data = () => {
                <th rowSpan={2} className="">NSAID</th>
                <th rowSpan={2} className="w-[6%] ">Statin issued (6m)</th>
                <th rowSpan={2} className="w-[4%] ">CVD</th>
-               <th rowSpan={2} className="w-[4%]">HTN</th>
+               {/* <th rowSpan={2} className="w-[4%]">HTN</th> */}
                <th rowSpan={2} className="w-[4%] ">BP</th>
                <th rowSpan={2} className="med_review">Med review date</th>
             </tr>
 
             <tr className="text-[#21376A]">
-            {/* CHA₂DS₂-VASc */}
-               <th className="border-r-[0.1em]  border-t-[0.1em] border-[#21376A] hover:cursor-pointer " 
-                  // onClick={handleSortClick}   
-               >
-                  {/* {sortChdValue === "asc" ? ' ↑' : ' ↓'} */}
+            
+               <th className="border-r-[0.1em]  border-t-[0.1em] border-[#21376A] " >
+                  {/* {sortChdValue === "asc" ? ' ↑' : ' ↓'} hover:cursor-pointer */}
                   <span>Value </span>
                </th>
                <th className="border-r-[0.1em]   border-t-[0.1em] border-[#21376A]">Latest date</th>
@@ -174,7 +172,7 @@ const Data = () => {
                      <td>{patient[AFibColumns.OnNSAID]}</td>
                      <td>{patient[AFibColumns.OnStatin]}</td>
                      <td>{patient[AFibColumns.CVD]}</td>
-                     <td>{patient[AFibColumns.Hypertension]}</td>
+                     {/* <td>{patient[AFibColumns.Hypertension]}</td> */}
                      <td>{patient[AFibColumns.BP]}</td>
                      <td>{patient[AFibColumns.MedsReviewDate]}</td>
                   </tr>

@@ -273,12 +273,12 @@
    border-bottom: none;
    /* border-right: 1px solid #21376A; */
 
-   /* border-top-right-radius: 150vw; */
+   border-top-right-radius: 150vw;
    
    border-bottom-left-radius: 100vw; 
    border-bottom-right-radius: 100vw;
-   margin-block-start: 62px;
-   border-top: 0.4em solid #21376A;
+   /* margin-block-start: 62px;
+   border-top: 0.4em solid #21376A; */
    
 }
 
@@ -331,6 +331,25 @@
    
    }
 }
+
+.progress_data{
+   position: absolute;
+   top:50%;
+   left:50%;
+   transform: translate(-50%, -50%)
+}
+
+.progress_fill{
+   /* background: linear-gradient(to right, #7B0E72 70%, #E6007E); */
+   background: #E2725B;
+}
+/* .progress {
+   width: 2em;
+   background: white;
+   border: 1px solid gray;
+   
+} */
+
 
 /* position: relative;
    width:100%;

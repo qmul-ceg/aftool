@@ -6,6 +6,7 @@ import Modal from './components/sections/Modal'
 // import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog"
 import { MainContext } from './MainContext'
 import Preloader from './components/sections/Preloader'
+import nc_sa_logo from '/images/nc_sa_logo.png'
 // import { useNavigate } from 'react-router-dom'
 
 
@@ -49,10 +50,10 @@ const Display = () => {
          </section>
             
         
-         <div className=" mt-2 mx-4 px-2 text-left flex justify-between">
+         <div className="mt-2 mx-4 px-2  flex justify-between  lg:text-sm xl:text-[1em]">
             <p>Patient count: <strong className='text-[#E6007E]'>{dataCount}</strong></p>
             <p>Relative run date: <strong className='text-[#E6007E]'>{relativeRunDate}</strong></p>
-
+            
          </div>
          
          {/* DISPLAY DATA */}
@@ -68,9 +69,14 @@ const Display = () => {
             
          {/* </section> */}
          
-         <footer className=" flex gap-2  mx-4 mb-2 justify-center lg:text-xs xl:text-sm 2xl:text-sm sticky mt-auto  ">
+         <footer className=" flex gap-2  mx-4 mb-2 justify-center items-center lg:text-xs xl:text-sm 2xl:text-sm sticky mt-auto  ">
             <p className="font-semibold"> © Clinical Effectiveness Group (CEG), Queen Mary University of London. All rights reserved.</p> 
             <p className="font-semibold">Attribution-NonCommercial-ShareAlike CC BY-NC-SA.</p>
+            <div className="w-[4em]">
+               <img 
+                  src={nc_sa_logo}
+               />
+            </div>
          </footer>
          
          {/* max-h-[400px] overflow-y-auto */}

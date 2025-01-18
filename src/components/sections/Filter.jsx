@@ -339,28 +339,6 @@ const Filter = () => {
                         </button>
                   )}
                   
-                  
-                  
-                  
-                  {/* {(importedData.length > 0 && selectedOrbit.length > 0) && (
-                     selectedOrbit.map((item, id) => 
-                        <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                           <strong className ="mr-2">ORBIT:</strong> {item.label} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeOrbitDisplay(item.value)}>x</button>}
-                        </button>
-                     )
-                  )} */}
-
-
-
-
-
-
-
-
-
-
-
                   {/* AGE DISPLAY */}
                   {(importedData.length > 0 && selectedAges.length > 0) && (
                      selectedAges.map((item, id) => 
@@ -372,8 +350,6 @@ const Filter = () => {
                   )}
                   
                </div>
-
-               
             </div>
             
             {/* Reset Filters button */}
@@ -442,13 +418,11 @@ const Filter = () => {
                                              <div className="custom_checkbox"></div>
                                              <span>{item.label}</span>       
                                           </label>
-
                                        )
                                     })}
                                  </div>
                               </PopoverContent>
                         </Popover>
-
                         </div>
                      )
                   }
@@ -500,7 +474,6 @@ const Filter = () => {
                      ) 
                   }
                   
-                  
                   {/* w-[70vh] flex justify-between */}
                   {/* FILTERS */}
                   <div className="flex gap-2 max-w-[560px]">
@@ -549,7 +522,7 @@ const Filter = () => {
                         <Select>
                            <SelectTrigger className=" bg-[#21376A]  text-white">
                               <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Medication review {">"} 12m</h1>
-                              {/* <SelectValue placeholder="CHA₂DS₂-VASc" /> */}
+                             
                            </SelectTrigger>
                            <SelectContent>
                               <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
@@ -847,8 +820,8 @@ const Filter = () => {
                   </div>
                   
                   
-                  {/* SUMMARY */}
-                  <div className="  min-w-[470px] max-w-[560px] flex-1 flex flex-col justify-between ml-2">
+                  {/* SUMMARY min-w-[470px]*/} 
+                  <div className="  min-w-[480px] max-w-[560px] flex-1 flex flex-col justify-between ml-2">
                      <div>
                         <header className=" flex  rounded-t-lg px-2 py-2 bg-[#21376A] text-white">
                            <p className ="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Summary</p>
@@ -857,13 +830,13 @@ const Filter = () => {
                         <div className=" border-t-0 border-[0.1em] border-[#21376A] flex flex-col pt-2 px-2" >
                            <table className=" lg:text-xs xl:text-sm 2xl:text-sm summary_table">
                               <tbody className=" ">
-                                 <tr className="border-b border-gray-200">
+                                 <tr className="">
                                     <td className=" font-bold">Atrial Fibrillation Register</td>
-                                    <td className=" font-semibold text-right">{importedData.length}</td>
-                                    <td className="  font-semibold text-right">{ percentageFormatter(importedData.length, importedData.length) }</td>
+                                    <td className=" font-semibold text-center">{importedData.length}</td>
+                                    <td className="  font-semibold text-center">{ percentageFormatter(importedData.length, importedData.length) }</td>
                                  </tr>
-                                 <tr className="border-b border-gray-200 bg-gray-100 text-left">
-                                    <td className="flex flex-nowrap">*Modified AF008: CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m)
+                                 <tr className=" bg-gray-100 text-left ">
+                                    <td className="flex flex-nowrap ">*Modified AF008: CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m)
                                        <div className="ml-2 my-auto">
                                           <Popover>
                                              <PopoverTrigger 
@@ -882,39 +855,110 @@ const Filter = () => {
                                              </PopoverContent>
                                           </Popover>
                                        </div>
-
-
-
-
                                     </td>
                                        
-                                    <td className=" text-right">{ importedData.reduce(chadsvasce2Anticoag,0) }</td>
-                                    <td className=" text-right">{ percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }</td>
+                                    <td className=" text-center">{ importedData.reduce(chadsvasce2Anticoag,0) }</td>
+                                    <td className="relative rounded-r-sm">
+                                       <div 
+                                          style ={{
+                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }`,
+                                                
+                                             }}
+                                             className={` absolute h-full top-0 progress_fill
+                                                          ${ percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
+                                                `}
+                                             
+                                       ></div>
+                                       <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }</span>
+                                       
+                                    </td>   
                                  </tr> 
-                                 <tr className="border-b border-gray-200">
+                                 <tr className="">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 and NOT issued Anticoagulants (6m)</td>
-                                    <td className=" text-right">{ importedData.reduce(chadsvasce2NotOnAnticoag,0) }</td>
-                                    <td className=" text-right">{ percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) }</td>
+                                    <td className=" text-center">{ importedData.reduce(chadsvasce2NotOnAnticoag,0) }</td>
+                                    <td className="relative rounded-r-sm">
+                                       <div 
+                                          style ={{
+                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0))}`,
+                                                
+                                             }}
+                                             className={` absolute h-full top-0 progress_fill
+                                                          ${ percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
+                                                `}
+                                       ></div>
+                                       <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) }</span>
+                                    </td>   
+                                    {/* <td className=" relative rounded-r-sm">
+                                      { percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) }
+                                    </td> */}
                                  </tr>
-                                 <tr className="border-b border-gray-200 bg-gray-100">
+                                 <tr className=" bg-gray-100">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 issued Aspirin/Antiplatelets ONLY (6m) </td>
-                                    <td className=" text-right">{ importedData.reduce(chadsvasce2OnAspAntipOnly,0) }</td>
-                                    <td className=" text-right">{ percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0)) }</td>
+                                    <td className=" text-center">{ importedData.reduce(chadsvasce2OnAspAntipOnly,0) }</td>
+                                    <td className="relative rounded-r-sm">
+                                       <div 
+                                          style ={{
+                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0))}`,
+                                                
+                                             }}
+                                             className={` absolute h-full top-0 progress_fill
+                                                          ${ percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
+                                                `}
+                                       ></div>
+                                       <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0))}</span>
+                                    </td>   
+                                    {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
-                                    <tr className="border-b border-gray-200">
+                                    <tr className=" border-gray-200">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 issued BOTH Anticoagulants + Antiplatelets (6m)</td>
-                                    <td className=" text-right">{ importedData.reduce(chadsvasce2OnAnticoagAspAntip,0) }</td>
-                                    <td className=" text-right">{ percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0)) }</td>
+                                    <td className=" text-center">{ importedData.reduce(chadsvasce2OnAnticoagAspAntip,0) }</td>
+                                    <td className="relative rounded-r-sm">
+                                       <div 
+                                          style ={{
+                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0))}`,
+                                                
+                                             }}
+                                             className={` absolute h-full top-0 progress_fill
+                                                          ${ percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
+                                                `}
+                                       ></div>
+                                       <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0))}</span>
+                                    </td>   
+                                    {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
-                                 <tr className="border-b border-gray-200 bg-gray-100">
+                                 <tr className=" bg-gray-100">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 issued DOAC (6m)</td>
-                                    <td className=" text-right">{ importedData.reduce(chadsvasce2DOAC,0) }</td>
-                                    <td className=" text-right">{ percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0)) }</td>
+                                    <td className=" text-center">{ importedData.reduce(chadsvasce2DOAC,0) }</td>
+                                    <td className="relative rounded-r-sm">
+                                       <div 
+                                          style ={{
+                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}`,
+                                                
+                                             }}
+                                             className={` absolute h-full top-0 progress_fill
+                                                          ${ percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
+                                                `}
+                                       ></div>
+                                       <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}</span>
+                                    </td>   
+                                    {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
-                                 <tr className="border-b border-gray-200">
+                                 <tr className=" border-gray-200 ">
                                     <td className="">*Modified AF006: new CHA₂DS₂-VASc ≥ 2 in last 12m</td>
-                                    <td className=" text-right">{ importedData.reduce(newChadsvasce2,0) }</td>
-                                    <td className=" text-right">{ percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</td>
+                                    <td className=" text-center">{ importedData.reduce(newChadsvasce2,0) }</td>
+                                    <td className="relative rounded-r-sm">
+                                       <div 
+                                          style ={{
+                                                width: `${percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }`,
+                                                
+                                             }}
+                                             className={` absolute h-full top-0 progress_fill
+                                                          ${percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) )  === '100%'? 'rounded-sm' : 'rounded-l-sm'}
+                                                `}
+                                       ></div>
+                                       <span className="progress_data">{percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</span>
+                                    </td>   
+                                    {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</td> */}
                                  </tr>
                               </tbody>
                            </table>
@@ -1086,4 +1130,18 @@ export default Filter
                                     
                                  </label>
                                  )
-                              })} */}
+                              })} */}{/* <div className="flex border w-[4em] bg-white rounded-sm" >
+                                         <div className="w-[100%] bg-red-100"></div>
+                                         <span>10%</span>
+                                       </div> */}
+                                       
+                                       {/* <span className="">{ percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }</span> */}
+                                       {/* <div className = "w-full h-full border bg-white">
+                                           // style ={{
+                                             //    width: `${percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0))}`,
+                                                
+                                             // }}
+                                          <span>10%</span>
+
+                                       </div> */}
+                                       {/* { percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) } */}
