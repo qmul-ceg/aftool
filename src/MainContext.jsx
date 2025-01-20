@@ -14,7 +14,7 @@ const MainProvider = ({ children }) => {
    const [isModalOpen, setIsModalOpen] =useState(false)
    const [selectedPatientData, setSelectedPatientData] =useState()
    const [selectedPatientIndex, setSelectedPatientIndex] =useState()
-
+   const [exportCount, setExportCount] = useState(0)
 
 //MODAL PATIENT CLICK
    const handlePatientClick = (index) =>{
@@ -739,7 +739,10 @@ const MainProvider = ({ children }) => {
       //ORBIT FUNCTIONS AND STATES
       handleOrbitValueSelection, handleOrbitDateRecordedSelection,
       selectedOrbitValue, selectedOrbitDateRecorded, removeSelectedOrbitValue,
-      removeSelectedOrbitDate
+      removeSelectedOrbitDate,
+
+      //EXPORT COUNT
+      exportCount, setExportCount
    }
 
 

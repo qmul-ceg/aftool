@@ -15,7 +15,7 @@ import nc_sa_logo from '/images/nc_sa_logo.png'
 const Display = () => {
   
 
-   const { isModalOpen, dataCount, relativeRunDate } = useContext(MainContext)
+   const { isModalOpen, dataCount, relativeRunDate, exportCount } = useContext(MainContext)
    const [loading, setLoading] = useState(false)
 
    useEffect(() => {
@@ -28,7 +28,7 @@ const Display = () => {
    
    return (
       // justify-center align-center 
-      <div className="h-screen  display_container">
+      <div className="h-screen  display_container pt-1">
            
          {/* HEADER */}
          {/* {loading && <Preloader />} */}
@@ -51,7 +51,7 @@ const Display = () => {
             
         
          <div className="mt-2 mx-4 px-2  flex justify-between  lg:text-sm xl:text-[1em]">
-            <p>Patient count: <strong className='text-[#E6007E]'>{dataCount}</strong></p>
+            <p>Patient count: <strong className='text-[#E6007E]'>{dataCount} </strong>(Selected for export: {exportCount})</p>
             <p>Relative run date: <strong className='text-[#E6007E]'>{relativeRunDate}</strong></p>
             
          </div>

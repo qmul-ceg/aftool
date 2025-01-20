@@ -13,53 +13,64 @@ const Data = () => {
       handlePatientClick,
       handleSortClick,
       data, sortChdValue,
-      setImportedData
+      setImportedData, setExportCount
       } = useContext(MainContext)
 
-   
-   const [selectAll, setSelectAll] = useState(true)
+   // console.log(data)
+   // const [selectAll, setSelectAll] = useState(true)
    const [selectedRows, setSelectedRows] = useState([])
    
 
-   // const handleSelectAll = () => {
-   //    setSelectAll(!selectAll)
-   // }
-
    const [selectedForExport, setSelectedForExport] = useState({})
-   //Initiate a useState variable that holds an object containing the ids of patients we want to export
-   
-   // useEffect(() => {
-   //    const patientsSelectedForExport = {}
-   //    data.map((patient) =>{
-   //       patientsSelectedForExport[patient.id] = true
-   //    })
+   const [masterCheckbox, setMasterCheckbox] = useState(true)
+   const [currentData, setCurrentData] = useState({})
 
-   //    setSelectedForExport(patientsSelectedForExport)
-   // }, [data])
-   
-   
-   
-   const handleSelectAll = () => {
-      // This function toggles the select all button table header it allows the user to 
-      // select and deselect patients they want to add to the export list
-      // selected patients are added based on their ids to the selectedForExport variable 
 
-      const selectedPatientsForExport = {}
    
-      if (Object.keys(selectedForExport).length === 0){
-         data.map((patient) => (
-            selectedPatientsForExport[patient.id] = true
-         ));
-         setSelectedForExport(selectedPatientsForExport)
-      }
-      else {
+   // console.log("Current data: " + currentData)
+   useEffect(()=>{
+      const patientsSelectedForExport = {}
+
+      if(masterCheckbox){
+        
          setSelectedForExport({})
       }
-   }
-   //when we click the header we should be able to toggle the select all 
-   // if we click an individaual patient we remove individual ids from select all
-   const toggleSelectedPatient = (id) => {
+      else if (!masterCheckbox){
+         
       
+         data.map((patient) => {
+            patientsSelectedForExport[patient[0]] = true;
+         })
+         setSelectedForExport(patientsSelectedForExport)
+      }
+      
+      console.log(data)
+      console.log(masterCheckbox)
+   }, [masterCheckbox, data])
+
+
+   const handleMasterCheckBox = () => {
+      setMasterCheckbox(!masterCheckbox)
+      //if master checkbox is true make it false and empt the selected for export list
+      // if(masterCheckbox){
+      //    setMasterCheckbox(false)
+      //    setSelectedForExport({})
+      // }
+      // else if (!masterCheckbox){
+         
+      //    setMasterCheckbox(true)
+      //    data.map((patient) => {
+      //       patientsSelectedForExport[patient[0]] = true;
+      //    })
+      //    setSelectedForExport(patientsSelectedForExport)
+      // }
+   
+
+   }
+   
+   console.log(Object.keys(selectedForExport).length)
+  
+   const toggleSelectedPatient = (id) => {
       
       setSelectedForExport((prev) => {
          console.log('Previous State:', prev); // Log previous state
@@ -68,10 +79,16 @@ const Data = () => {
             ...prev, 
             [id] : !prev[id],
          }
-   })
+      })
       
    }
-
+   useEffect(()=>{
+      const patientExportCount  = Object.fromEntries(
+         Object.entries(selectedForExport).filter(([key, value]) => value == true )
+      )
+      setExportCount(Object.keys(patientExportCount).length)
+   },[toggleSelectedPatient])
+   
 
    const theadRef= useRef(null);
    const [headerHeight, setHeaderHeight] = useState(0)
@@ -82,7 +99,7 @@ const Data = () => {
       }
    }, [])
 
-   console.log("header height: " + headerHeight)
+   // console.log("header height: " + headerHeight)
 
   return (
 
@@ -100,10 +117,12 @@ const Data = () => {
                >
                      <input
                         type="checkbox"
-                        onChange={handleSelectAll}
-                        // checked={selectAll}
+                        checked={masterCheckbox}
                         className="header_checkbox"
+                        onChange={handleMasterCheckBox}
                      />
+                     {/* // onChange={()=>setSelectAll(!selectAll)}
+                        // checked={selectAll} */}
                      {/* below div is for customised check box, styling can be found in index.css */}
                      <div className="custom_header_checkbox"></div> 
                </th>
@@ -147,9 +166,9 @@ const Data = () => {
                      <td className=" ">
                         <input
                            type="checkbox"
-                           checked={selectedForExport[patient.id] || false}
+                           checked={selectedForExport[patient[0]]}
                            className="patient_checkbox"
-                           onChange={()=>toggleSelectedPatient(patient.id)}
+                           onChange={()=>toggleSelectedPatient(patient[0])}
                         />
                            {/* below div is for customised check box, styling can be found in index.css */}
                            <div className="custom_patient_checkbox"></div> 
@@ -405,3 +424,39 @@ export default Data
    // }, [selectedRows])
    
    // handleSelectedRow()
+   //  // const handleSelectAll = () => {
+   //    // This function toggles the select all button table header it allows the user to 
+   //    // select and deselect patients they want to add to the export list
+   //    // selected patients are added based on their ids to the selectedForExport variable 
+
+   //    const selectedPatientsForExport = {}
+   
+   //    if (Object.keys(selectedForExport).length === 0){
+   //       data.map((patient) => (
+   //          selectedPatientsForExport[patient.id] = true
+   //       ));
+   //       setSelectedForExport(selectedPatientsForExport)
+   //    }
+   //    else {
+   //       setSelectedForExport({})
+   //    }
+   // }
+   //when we click the header we should be able to toggle the select all 
+   // if we click an individaual patient we remove individual ids from select all 
+   // // console.log(masterCheckbox)
+   // useEffect(() => {
+   //    const patientsSelectedForExport = {}
+   //    if(masterCheckbox){
+        
+   //       data.map((patient) =>{
+   //          patientsSelectedForExport[patient.id] = true
+   //       })
+
+   //       setSelectedForExport(patientsSelectedForExport)
+   //    }
+      
+   //    if(!masterCheckbox){
+   //       setSelectedForExport({})
+   //    }
+      
+   // }, [masterCheckbox])
