@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import { MainContext } from '@/MainContext'
 import { AFibColumns } from '@/enums/AFibColumns'
+
 // import { useReactTable } from '@tanstack/react-table'
 
 
@@ -22,73 +23,152 @@ const Data = () => {
    
 
    const [selectedForExport, setSelectedForExport] = useState({})
-   const [masterCheckbox, setMasterCheckbox] = useState(true)
+   const [masterCheckbox, setMasterCheckbox] = useState(null)
    const [currentData, setCurrentData] = useState({})
 
 
    
    // console.log("Current data: " + currentData)
    useEffect(()=>{
+
       const patientsSelectedForExport = {}
 
-      if(masterCheckbox){
-        
-         setSelectedForExport({})
-      }
-      else if (!masterCheckbox){
-         
-      
-         data.map((patient) => {
+      const updateSelectedForExport = () => {
+         data.forEach((patient) => {
             patientsSelectedForExport[patient[0]] = true;
          })
          setSelectedForExport(patientsSelectedForExport)
+         // const dataArray = []
+         // dataArray.push(data)
+
+        
       }
-      
-      console.log(data)
-      console.log(masterCheckbox)
-   }, [masterCheckbox, data])
+      // // const updateSelectedForExport=()=>{
 
+      //    //Push the data automatically into patients selected for export
+      //    //if the length of the data == length of selected for export then masterCheckbox is et to true
+      //    // if(masterCheckbox){
+      //    //    const patientsSelectedForExport = {}
+            
+      //    //    data.forEach((patient) => {
+      //    //       patientsSelectedForExport[patient[0]] = true;
+      //    //    })
+      //    //    setSelectedForExport(patientsSelectedForExport)
+      //    // }
+      //    // else {
+      //    //    setSelectedForExport({})
+      //    // }
 
-   const handleMasterCheckBox = () => {
-      setMasterCheckbox(!masterCheckbox)
-      //if master checkbox is true make it false and empt the selected for export list
-      // if(masterCheckbox){
-      //    setMasterCheckbox(false)
-      //    setSelectedForExport({})
-      // }
-      // else if (!masterCheckbox){
-         
-      //    setMasterCheckbox(true)
-      //    data.map((patient) => {
+      //    const patientsSelectedForExport = {}
+      //    data.forEach((patient) => {
       //       patientsSelectedForExport[patient[0]] = true;
       //    })
       //    setSelectedForExport(patientsSelectedForExport)
-      // }
-   
+      //    // const dataArray = []
+      //    // dataArray.push(data)
 
-   }
-   
-   console.log(Object.keys(selectedForExport).length)
-  
-   const toggleSelectedPatient = (id) => {
+      //    if(data.length !== Object.keys(selectedForExport).length ){
+      //       setMasterCheckbox(false)
+      //    }
+      //    else{
+      //       setMasterCheckbox(true)
+      //    }
+      // }
       
-      setSelectedForExport((prev) => {
-         console.log('Previous State:', prev); // Log previous state
-         console.log('Toggling ID:', id); 
-         return {
-            ...prev, 
-            [id] : !prev[id],
+      updateSelectedForExport()
+   }, [ data])
+
+
+   useEffect(()=>{
+      if(data.length !== Object.keys(selectedForExport).length ){
+         setMasterCheckbox(false)
+      }
+      else{
+         setMasterCheckbox(true)
+      }
+   }, [selectedForExport, data])
+
+
+
+   const handleMasterCheckBox = () => {
+      setMasterCheckbox((prevMasterCheckBoxState) => {
+         const newMasterCheckBoxState = !prevMasterCheckBoxState;
+
+         if(newMasterCheckBoxState){
+               const patientsSelectedForExport = {}
+
+
+            data.forEach((patient) => {
+            patientsSelectedForExport[patient[0]] = true;
+            })
+            setSelectedForExport(patientsSelectedForExport)
          }
+         else{
+            setSelectedForExport({})
+         }
+            return newMasterCheckBoxState
       })
+     
+      // if(masterCheckbox){
+
+      //    const patientsSelectedForExport = {}
+
+
+      //    data.forEach((patient) => {
+      //       patientsSelectedForExport[patient[0]] = true;
+      //    })
+      //       setSelectedForExport(patientsSelectedForExport)
+         
+      //if the length of my selected forExports is not equal to the length of my data
+      //master checkbox can not be checked
+      }
       
-   }
+   // const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
+   // console.log(Object.keys(selectedForExportCount).length)
+  
+   const toggleSelectedPatient = (patient) => {
+      
+      setSelectedForExport((prev) => { 
+         const exists = patient in prev;
+
+         if(exists){
+            const updated = {...prev};
+            delete updated[patient]
+            return updated;
+            
+         }
+         else {
+            return {
+               ...prev,
+               [patient]: true
+            }
+         }
+      } 
+   )}
+   const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
+   console.log(Object.keys(selectedForExportCount).length)
+   // console.log(selectedForExport.length + data.length)
+   console.log(data.length)
+   
+   
+  
    useEffect(()=>{
       const patientExportCount  = Object.fromEntries(
          Object.entries(selectedForExport).filter(([key, value]) => value == true )
       )
       setExportCount(Object.keys(patientExportCount).length)
+
+      // if (selectedForExport.length != data.length){
+      //    setMasterCheckbox(false)
+      // }
+     
    },[toggleSelectedPatient])
    
+
+
+
+
+
 
    const theadRef= useRef(null);
    const [headerHeight, setHeaderHeight] = useState(0)
@@ -459,4 +539,33 @@ export default Data
    //       setSelectedForExport({})
    //    }
       
-   // }, [masterCheckbox])
+   // }, [masterCheckbox]) 
+   // //if master checkbox is true make it false and empt the selected for export list
+      // if(masterCheckbox){
+      //    setMasterCheckbox(false)
+      //    setSelectedForExport({})
+      // }
+      // else if (!masterCheckbox){
+         
+      //    setMasterCheckbox(true)
+      //    data.map((patient) => {
+      //       patientsSelectedForExport[patient[0]] = true;
+      //    })
+      //    setSelectedForExport(patientsSelectedForExport)
+      // }
+    // return {
+         //    ...prev, 
+         //    [patient] : !prev[patient],
+         // }
+ // const updateMasterCheckBox =()=>{
+      //    const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
+
+      //    if (selectedForExportCount.length !== data.length){
+      //       setMasterCheckbox(false)
+      //    }
+      //    console.log(selectedForExportCount.length)
+      //    console.log(data.length)
+
+         
+      // }
+      // updateMasterCheckBox()
