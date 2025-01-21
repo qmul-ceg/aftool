@@ -14,7 +14,8 @@ const Data = () => {
       handlePatientClick,
       handleSortClick,
       data, sortChdValue,
-      setImportedData, setExportCount
+      setImportedData, setExportCount,
+      selectedForExport, setSelectedForExport
       } = useContext(MainContext)
 
    // console.log(data)
@@ -22,7 +23,7 @@ const Data = () => {
    const [selectedRows, setSelectedRows] = useState([])
    
 
-   const [selectedForExport, setSelectedForExport] = useState({})
+   // const [selectedForExport, setSelectedForExport] = useState({})
    const [masterCheckbox, setMasterCheckbox] = useState(null)
    const [currentData, setCurrentData] = useState({})
 
@@ -30,7 +31,7 @@ const Data = () => {
    
    // console.log("Current data: " + currentData)
    useEffect(()=>{
-
+      // setSelectedForExport({})
       const patientsSelectedForExport = {}
 
       const updateSelectedForExport = () => {

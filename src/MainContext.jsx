@@ -15,6 +15,7 @@ const MainProvider = ({ children }) => {
    const [selectedPatientData, setSelectedPatientData] =useState()
    const [selectedPatientIndex, setSelectedPatientIndex] =useState()
    const [exportCount, setExportCount] = useState(0)
+    const [selectedForExport, setSelectedForExport] = useState({})
 
 //MODAL PATIENT CLICK
    const handlePatientClick = (index) =>{
@@ -742,7 +743,9 @@ const MainProvider = ({ children }) => {
       removeSelectedOrbitDate,
 
       //EXPORT COUNT
-      exportCount, setExportCount
+      exportCount, setExportCount,
+
+      selectedForExport, setSelectedForExport
    }
 
 
