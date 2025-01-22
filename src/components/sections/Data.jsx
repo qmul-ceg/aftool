@@ -15,7 +15,7 @@ const Data = () => {
       handleSortClick,
       data, sortChdValue,
       setImportedData, setExportCount,
-      selectedForExport, setSelectedForExport
+      selectedForExport, setSelectedForExport, 
       } = useContext(MainContext)
 
    // console.log(data)
@@ -29,6 +29,8 @@ const Data = () => {
 
 
    
+   
+
    // console.log("Current data: " + currentData)
    useEffect(()=>{
       // setSelectedForExport({})
@@ -44,37 +46,7 @@ const Data = () => {
 
         
       }
-      // // const updateSelectedForExport=()=>{
-
-      //    //Push the data automatically into patients selected for export
-      //    //if the length of the data == length of selected for export then masterCheckbox is et to true
-      //    // if(masterCheckbox){
-      //    //    const patientsSelectedForExport = {}
-            
-      //    //    data.forEach((patient) => {
-      //    //       patientsSelectedForExport[patient[0]] = true;
-      //    //    })
-      //    //    setSelectedForExport(patientsSelectedForExport)
-      //    // }
-      //    // else {
-      //    //    setSelectedForExport({})
-      //    // }
-
-      //    const patientsSelectedForExport = {}
-      //    data.forEach((patient) => {
-      //       patientsSelectedForExport[patient[0]] = true;
-      //    })
-      //    setSelectedForExport(patientsSelectedForExport)
-      //    // const dataArray = []
-      //    // dataArray.push(data)
-
-      //    if(data.length !== Object.keys(selectedForExport).length ){
-      //       setMasterCheckbox(false)
-      //    }
-      //    else{
-      //       setMasterCheckbox(true)
-      //    }
-      // }
+      
       
       updateSelectedForExport()
    }, [ data])
@@ -194,7 +166,7 @@ const Data = () => {
                <th 
                   rowSpan={2} 
                   // className="w-[2%] border-l-[0.1em] border-[#21376A]"
-                  className="w-[2%] "
+                  className="w-[2%] relative"
                >
                      <input
                         type="checkbox"
@@ -243,12 +215,12 @@ const Data = () => {
          <tbody className="text-center lg:text-xs xl:text-sm 2xl:text-sm ">
             {data.map((patient, id) => 
                 (
-                  <tr key={patient.id} className="border-b hover:bg-gray-100" >
+                  <tr key={patient.id} className="border-b hover:bg-gray-100 relative" >
                      <td className=" ">
                         <input
                            type="checkbox"
                            checked={selectedForExport[patient[0]]}
-                           className="patient_checkbox"
+                           className="patient_checkbox "
                            onChange={()=>toggleSelectedPatient(patient[0])}
                         />
                            {/* below div is for customised check box, styling can be found in index.css */}
@@ -569,4 +541,34 @@ export default Data
 
          
       // }
-      // updateMasterCheckBox()
+      // updateMasterCheckBox()// // const updateSelectedForExport=()=>{
+
+      //    //Push the data automatically into patients selected for export
+      //    //if the length of the data == length of selected for export then masterCheckbox is et to true
+      //    // if(masterCheckbox){
+      //    //    const patientsSelectedForExport = {}
+            
+      //    //    data.forEach((patient) => {
+      //    //       patientsSelectedForExport[patient[0]] = true;
+      //    //    })
+      //    //    setSelectedForExport(patientsSelectedForExport)
+      //    // }
+      //    // else {
+      //    //    setSelectedForExport({})
+      //    // }
+
+      //    const patientsSelectedForExport = {}
+      //    data.forEach((patient) => {
+      //       patientsSelectedForExport[patient[0]] = true;
+      //    })
+      //    setSelectedForExport(patientsSelectedForExport)
+      //    // const dataArray = []
+      //    // dataArray.push(data)
+
+      //    if(data.length !== Object.keys(selectedForExport).length ){
+      //       setMasterCheckbox(false)
+      //    }
+      //    else{
+      //       setMasterCheckbox(true)
+      //    }
+      // }

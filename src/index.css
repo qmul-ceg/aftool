@@ -120,8 +120,8 @@
 } */
 
 /* DATA TABLE CUSTOM CHECK BOX */
-/* .header_checkbox{
-   position: relative;
+ .header_checkbox{
+   position: absolute;
    width:100%;
    height:100%;
    margin:0;
@@ -129,9 +129,8 @@
    left:0;
    bottom:0;
    right:0;
-   opacity:1;
+   opacity:0;
    z-index: 2;
-
 }
 
 .custom_header_checkbox{
@@ -155,19 +154,19 @@
 .header_checkbox:checked + .custom_header_checkbox{
    background-color: #21376A;
    
-}  */
+}  
 
 /* CUSTOM PATIENT CHECKBOX */
-/* .patient_checkbox{
+.patient_checkbox{
    position:absolute;
-   width:100%;
+   width:2%;
    height:100%;
    top:0;
    left:0;
    right:0;
    bottom: 0;
    margin:0;
-   z-index:2;
+   z-index:1;
    opacity:0;
 }
 
@@ -193,7 +192,7 @@
 
 .patient_checkbox:checked + .custom_patient_checkbox{
    background-color: #21376A
-} */
+} 
 
 
 /* FILTER CHECKBOX */
