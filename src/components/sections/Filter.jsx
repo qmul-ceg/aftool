@@ -234,7 +234,7 @@ const Filter = () => {
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md ">
                         <strong className ="mr-2">AntiCoag/AntiP:</strong> {selectedAnti.label } 
                        
-                        {<button className="  ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeAntiFilter()}>&#10005;</button>}
+                        {<button className="  ml-2 text-red-500 text-xs hover:text-sm" onClick={()=>removeAntiFilter()}>&#10005;</button>}
                      </button>
                   )}
 
@@ -242,7 +242,7 @@ const Filter = () => {
                   {(importedData.length > 0 && displayMedReview[0].value !== "") && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Med Review:</strong> {displayMedReview[0].value } 
-                        {<button className=" ml-2 font-bold text-red-500 hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
+                        {<button className=" ml-2 font-bold text-red-500 text-xs hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
                      </button>
                   )}
                   
@@ -251,7 +251,7 @@ const Filter = () => {
                      selectedVulnerabilities.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">Vulnerabilities: </strong> {item.label} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeVulnerabilities(item.value)}>&#10005;</button>}
+                           {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeVulnerabilities(item.value)}>&#10005;</button>}
                         </button>
                      )
                   )}
@@ -260,21 +260,21 @@ const Filter = () => {
                   {(importedData.length > 0 && nsaid && !statin) && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication:</strong> NSAID - {nsaid} 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
                      </button>
                   )}
                   {(importedData.length > 0 && statin && !nsaid) && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication:</strong> Statin - {statin} 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm " onClick={removeStatinFilter}> &#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeStatinFilter}> &#10005;</button>}
                      </button>
                   )}
                   {(importedData.length > 0 && nsaid && statin) && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication:</strong> NSAID - {nsaid} 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
                         <span className="ml-2">STATIN - {statin}</span>
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeStatinFilter}> &#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeStatinFilter}> &#10005;</button>}
                      </button>
                   )}
                   {/* {(importedData.length > 0 && displayNsaid[0].value !== "") && (
@@ -287,7 +287,7 @@ const Filter = () => {
                   {(importedData.length > 0 && cvd)  && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">CVD:</strong> {cvd.value } 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeCvdFilter}> &#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeCvdFilter}> &#10005;</button>}
                      </button>
                   )}
                  
@@ -297,7 +297,7 @@ const Filter = () => {
                      selectedBP.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">BP:</strong> {item.label} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeBP(item.value)}>&#10005;</button>}
+                           {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeBP(item.value)}>&#10005;</button>}
                         </button>
                      )
                   )}
@@ -307,7 +307,7 @@ const Filter = () => {
                      selectedChdValue.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedChdValueLabel[item]} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item)}>&#10005;</button>}
+                           {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeChdValue(item)}>&#10005;</button>}
                         </button>
                      )
                   )}
@@ -317,7 +317,7 @@ const Filter = () => {
                       
                      <button key = {selectedChdDate} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedRecordedDateLabel[selectedChdDate]} 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
                      </button>
                      
                   )}
@@ -328,7 +328,7 @@ const Filter = () => {
                            <strong className ="mr-2">CHA₂DS₂-VASc: </strong>{selectedChdValueLabel[item]}
                            {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item )}>&#10005;</button>}
                            <span className="ml-2">{selectedRecordedDateLabel[selectedChdDate]} </span>
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
+                           {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
                         </button>
                   ))}
 
@@ -337,7 +337,7 @@ const Filter = () => {
                   {(importedData.length > 0 && selectedOrbitValue && !selectedOrbitDateRecorded) && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">ORBIT: </strong> ≥ 4
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-sm hover:text-lg" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
                      </button>
                   )}
                   {/* Display for only when orbit date is selected  */}
@@ -345,7 +345,7 @@ const Filter = () => {
                       
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">ORBIT: </strong> {selectedRecordedDateLabel[selectedOrbitDateRecorded]} 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
                      </button>
                      
                   )}
@@ -356,7 +356,7 @@ const Filter = () => {
                            <strong className ="mr-2">ORBIT: </strong> ≥ 4
                            {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
                            <span className="ml-2">{selectedRecordedDateLabel[selectedOrbitDateRecorded]} </span>
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
+                           {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
                         </button>
                   )}
                   
@@ -365,7 +365,7 @@ const Filter = () => {
                      selectedAges.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">Age:</strong> {item.label} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeAgeDisplay(item.value)}>&#10005;</button>}
+                           {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeAgeDisplay(item.value)}>&#10005;</button>}
                         </button>
                      )
                   )}
