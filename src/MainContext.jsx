@@ -57,6 +57,7 @@ const MainProvider = ({ children }) => {
       selectedAnti: null,
       selectedAges: [],
       nsaid:"",
+      statin: "",
       cvd: null,
       selectedBP: [],
       selectedChdValue: [],
@@ -82,6 +83,7 @@ const MainProvider = ({ children }) => {
    
 
    const [nsaid, setNsaid] = useState (defaultFilters.nsaid);
+   const [statin, setStatin] = useState(defaultFilters.statin);
    const [cvd, setCvd] = useState (defaultFilters.cvd);
    const [selectedBP, setSelectedBP] = useState(defaultFilters.selectedBP);
 
@@ -97,6 +99,7 @@ const MainProvider = ({ children }) => {
       setSelectedAnti(defaultFilters.selectedAnti);
       setSelectedAges(defaultFilters.selectedAges);
       setNsaid(defaultFilters.nsaid);
+      setStatin(defaultFilters.statin);
       setCvd(defaultFilters.cvd);
       setSelectedBP(defaultFilters.selectedBP);
       setSelectedChdDate(defaultFilters.selectedChdDate);
@@ -117,6 +120,7 @@ const MainProvider = ({ children }) => {
       setSelectedAnti(defaultFilters.selectedAnti);
       setSelectedAges(defaultFilters.selectedAges);
       setNsaid(defaultFilters.nsaid);
+      setStatin(defaultFilters.statin);
       setCvd(defaultFilters.cvd);
       setSelectedBP(defaultFilters.selectedBP);
       setSelectedChdDate(defaultFilters.selectedChdDate);
@@ -179,6 +183,10 @@ const MainProvider = ({ children }) => {
    //NSAID Filter Logic
    const handleNSAID = (value) => {
       setNsaid((prev) => (prev === value ? "" : value)); // Toggle value off
+   };
+
+   const handleStatin = (value) => {
+      setStatin((prev) => (prev === value ? "" : value)); // Toggle value off
    };
 
     //CVD Filter Logic
@@ -362,6 +370,11 @@ const MainProvider = ({ children }) => {
       setQuickFilter("")
    }
 
+   const removeStatinFilter =()=>{
+      handleStatin("")
+      setQuickFilter("")
+   }
+
    const removeCvdFilter =()=>{
       setCvd("")
       setQuickFilter("")
@@ -528,6 +541,11 @@ const MainProvider = ({ children }) => {
             nsaid === "No" && patient[AFibColumns.OnNSAID] === "NO" ||
             !nsaid;
 
+         const statinFilter = 
+            statin === "Yes" && patient[AFibColumns.OnStatin] ==="YES" ||
+            statin === "No" && patient[AFibColumns.OnStatin] === "NO" ||
+            !statin;
+
          const cvdFilter =
             (cvd && cvd.value === "Yes" && patient[AFibColumns.CVD]  ==="YES") ||
             (cvd && cvd.value === "No" && patient[AFibColumns.CVD]  === "NO") ||
@@ -659,7 +677,7 @@ const MainProvider = ({ children }) => {
             (selectedVulnerabilities.some(item => item.value === "housebound") && patient[AFibColumns.HouseboundConcept].trim() !== "");
             
          return   ageFilter && nsaidFilter && cvdFilter && bloodPressureFilter &&  
-                  orbitFilter && medReviewFilter && antiFilterControl && vulnerabFilter 
+                  orbitFilter && medReviewFilter && antiFilterControl && vulnerabFilter && statinFilter
                   && applyChdFilter() && applyOrbitFilter();
          });   
    }
@@ -674,7 +692,7 @@ const MainProvider = ({ children }) => {
    // const filteredPatients = getFilteredPatients()
    const filteredPatients = React.useMemo(() => {
       return getFilteredPatients();  // Only recompute when dependencies (filters) change
-   }, [importedData, selectedAnti, selectedAges, nsaid, cvd, selectedBP, selectedChdValue, selectedChdDate, selectedOrbit, selectedOrbitValue, selectedOrbitDateRecorded, medReview, relativeRunDate, selectedVulnerabilities]);
+   }, [importedData, selectedAnti, selectedAges, nsaid, statin, cvd, selectedBP, selectedChdValue, selectedChdDate, selectedOrbit, selectedOrbitValue, selectedOrbitDateRecorded, medReview, relativeRunDate, selectedVulnerabilities]);
 
    // console.log(filteredPatients)
    const handleSortClick = () => {
@@ -735,7 +753,7 @@ const MainProvider = ({ children }) => {
       resetAllFilters,
 
       //REMOVE FILTERS
-      removeNsaidFilter, removeCvdFilter, removeVulnerabilities,
+      removeNsaidFilter, removeCvdFilter, removeVulnerabilities, removeStatinFilter,
 
       //ORBIT FUNCTIONS AND STATES
       handleOrbitValueSelection, handleOrbitDateRecordedSelection,
@@ -745,10 +763,10 @@ const MainProvider = ({ children }) => {
       //EXPORT COUNT
       exportCount, setExportCount,
 
-      selectedForExport, setSelectedForExport,
+      selectedForExport, setSelectedForExport, handleStatin, statin
 
       //
-      removeAgeDisplay
+      // removeAgeDisplay
    }
 
 

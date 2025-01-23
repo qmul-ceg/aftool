@@ -31,7 +31,9 @@ const Filter = () => {
       //ORBIT SELECTION
       handleOrbitValueSelection, handleOrbitDateRecordedSelection,
       selectedOrbitValue, selectedOrbitDateRecorded, removeSelectedOrbitValue,
-      removeSelectedOrbitDate
+      removeSelectedOrbitDate,
+      //statin
+      handleStatin, statin, removeStatinFilter
    } = useContext(MainContext);
 
 
@@ -232,99 +234,118 @@ const Filter = () => {
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md ">
                         <strong className ="mr-2">AntiCoag/AntiP:</strong> {selectedAnti.label } 
                        
-                        {<button className="  ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeAntiFilter()}>x</button>}
+                        {<button className="  ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeAntiFilter()}>&#10005;</button>}
                      </button>
                   )}
 
-                  {/* MED REVIEW DISPLAY */}
+                  {/* MEDICATION REVIEW DISPLAY */}
                   {(importedData.length > 0 && displayMedReview[0].value !== "") && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Med Review:</strong> {displayMedReview[0].value } 
-                        {<button className=" ml-2 font-bold text-red-500 hover:text-sm"onClick={() => handleMedReview("")}>x</button>}
+                        {<button className=" ml-2 font-bold text-red-500 hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
                      </button>
                   )}
-
-                  {/* NSAID DISPLAY */}
-                  {(importedData.length > 0 && displayNsaid[0].value !== "") && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                         <strong className ="mr-2">NSAID:</strong> {displayNsaid[0].value } 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeNsaidFilter}>x</button>}
-                     </button>
-                  )}
-                  {/* CVD DISPLAY */}
-                  {(importedData.length > 0 && cvd)  && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                         <strong className ="mr-2">CVD:</strong> {cvd.value } 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeCvdFilter}>x</button>}
-                     </button>
-                  )}
+                  
                   {/* VULNERABILITIES DISPLAY */}
                   {(importedData.length > 0 && selectedVulnerabilities.length > 0) && (
                      selectedVulnerabilities.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">Vulnerabilities: </strong> {item.label} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeVulnerabilities(item.value)}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeVulnerabilities(item.value)}>&#10005;</button>}
                         </button>
                      )
                   )}
+
+                  {/* MEDICATION DISPLAY */}
+                  {(importedData.length > 0 && nsaid && !statin) && (
+                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                         <strong className ="mr-2">Medication:</strong> NSAID - {nsaid} 
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
+                     </button>
+                  )}
+                  {(importedData.length > 0 && statin && !nsaid) && (
+                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                         <strong className ="mr-2">Medication:</strong> Statin - {statin} 
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm " onClick={removeStatinFilter}> &#10005;</button>}
+                     </button>
+                  )}
+                  {(importedData.length > 0 && nsaid && statin) && (
+                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                         <strong className ="mr-2">Medication:</strong> NSAID - {nsaid} 
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
+                        <span className="ml-2">STATIN - {statin}</span>
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeStatinFilter}> &#10005;</button>}
+                     </button>
+                  )}
+                  {/* {(importedData.length > 0 && displayNsaid[0].value !== "") && (
+                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                         <strong className ="mr-2">NSAID:</strong> {displayNsaid[0].value } 
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeNsaidFilter}>x</button>}
+                     </button>
+                  )} */}
+                  {/* CVD DISPLAY */}
+                  {(importedData.length > 0 && cvd)  && (
+                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                         <strong className ="mr-2">CVD:</strong> {cvd.value } 
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeCvdFilter}> &#10005;</button>}
+                     </button>
+                  )}
+                 
                   
                   {/* BP DISPLAY */}
                   {(importedData.length > 0 && selectedBP.length > 0) && (
                      selectedBP.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">BP:</strong> {item.label} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeBP(item.value)}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeBP(item.value)}>&#10005;</button>}
                         </button>
                      )
                   )}
                   {/* CHA₂DS₂-VASc DISPLAY */}
                   {(importedData.length > 0 && selectedChdValue.length > 0 && !selectedChdDate) && (
-                     console.log("displaying 1"),
+                     
                      selectedChdValue.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedChdValueLabel[item]} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item)}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item)}>&#10005;</button>}
                         </button>
                      )
                   )}
                   
 
                   {(importedData.length > 0 && selectedChdValue.length === 0 && selectedChdDate) && (
-                      console.log("displaying 2"),
+                      
                      <button key = {selectedChdDate} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedRecordedDateLabel[selectedChdDate]} 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>x</button>}
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
                      </button>
                      
                   )}
                   {(importedData.length > 0 && selectedChdValue.length > 0 && selectedChdDate) && (
-                      console.log("displaying 3"),
-                      selectedChdValue.map((item, id) => 
+                      
+                     selectedChdValue.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">CHA₂DS₂-VASc: </strong>{selectedChdValueLabel[item]}
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item )}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item )}>&#10005;</button>}
                            <span className="ml-2">{selectedRecordedDateLabel[selectedChdDate]} </span>
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
                         </button>
                   ))}
 
                   {/* ORBIT DISPLAY */}
                   {/* Display for when only the orbit value is selected */}
                   {(importedData.length > 0 && selectedOrbitValue && !selectedOrbitDateRecorded) && (
-                     
-   
-                        <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                           <strong className ="mr-2">ORBIT: </strong> ≥ 4
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>x</button>}
-                        </button>
-                     
+                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <strong className ="mr-2">ORBIT: </strong> ≥ 4
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
+                     </button>
                   )}
                   {/* Display for only when orbit date is selected  */}
                   {(importedData.length > 0 && !selectedOrbitValue && selectedOrbitDateRecorded) && (
                       
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">ORBIT: </strong> {selectedRecordedDateLabel[selectedOrbitDateRecorded]} 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>x</button>}
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
                      </button>
                      
                   )}
@@ -333,9 +354,9 @@ const Filter = () => {
                      
                         <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">ORBIT: </strong> ≥ 4
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
                            <span className="ml-2">{selectedRecordedDateLabel[selectedOrbitDateRecorded]} </span>
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
                         </button>
                   )}
                   
@@ -344,7 +365,7 @@ const Filter = () => {
                      selectedAges.map((item, id) => 
                         <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">Age:</strong> {item.label} 
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeAgeDisplay(item.value)}>x</button>}
+                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeAgeDisplay(item.value)}>&#10005;</button>}
                         </button>
                      )
                   )}
@@ -682,8 +703,79 @@ const Filter = () => {
                            </SelectContent>
                         </Select>      
                         
-                        {/* AGE FILTER*/}
+                       
+                        
+                        {/*MEDICATIONS FILTER*/}
                         <Select>
+                              <SelectTrigger className=" bg-[#21376A] text-white">
+                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Medication</h1>
+                                 {/* <SelectValue placeholder="" /> NSAID*/}
+                              </SelectTrigger>
+                              <SelectContent>
+                                 <div>
+                                    <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Statin</p>
+                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                       <input
+                                          type="checkbox"
+                                          name="statin"
+                                          value="Yes"
+                                          checked= {statin === "Yes"}
+                                          onChange= {()=>handleStatin("Yes")}
+                                          className="checkbox_input"
+                                       />
+                                       <div className="custom_checkbox"></div>
+                                       <span>{"Yes"}</span>
+                                    </label>
+
+                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                       <input
+                                          type="checkbox"
+                                          name="statin"
+                                          value="No"
+                                          checked={statin === "No"}
+                                          onChange={()=>handleStatin("No")}
+                                          className="checkbox_input"
+                                       />
+                                       <div className="custom_checkbox"></div>
+                                       <span>{"No"}</span>
+                                    </label>
+                                    <div className="w-full border mt-1 mb-1"></div>
+                                    <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">NSAID</p>
+                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                       <input
+                                          type="checkbox"
+                                          name="nsaid"
+                                          value="Yes"
+                                          checked= {nsaid=== "Yes"}
+                                          onChange= {()=>handleNSAID("Yes")}
+                                          className="checkbox_input"
+                                       />
+                                       <div className="custom_checkbox"></div>
+                                       <span>{"Yes"}</span>
+                                    </label>
+
+                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                       <input
+                                             type="checkbox"
+                                             name="nsaid"
+                                             value="No"
+                                             checked={nsaid === "No"}
+                                             onChange={()=>handleNSAID("No")}
+                                             className="checkbox_input"
+                                       />
+                                       <div className="custom_checkbox"></div>
+                                       <span>{"No"}</span>
+                                    </label>
+                                 </div>
+                              </SelectContent>
+                        </Select>
+                     </div>
+                     
+                     {/* FILTER COLUMN 3 */}
+                     <div className= "flex flex-col gap-6 ">
+                         {/* AGE FILTER*/}
+                        
+                         <Select>
                            <SelectTrigger className=" bg-[#21376A]  text-white">
                               <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Age</h1>
                            </SelectTrigger>
@@ -709,45 +801,6 @@ const Filter = () => {
                               })}
 
                            </SelectContent>
-                        </Select>
-
-                     </div>
-                     
-                     {/* FILTER COLUMN 3 */}
-                     <div className= "flex flex-col gap-6 ">
-                        {/*NSAID FILTER*/}
-                        <Select>
-                              <SelectTrigger className=" bg-[#21376A] text-white">
-                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">NSAID</h1>
-                                 {/* <SelectValue placeholder="" /> */}
-                              </SelectTrigger>
-                              <SelectContent>
-                                 <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                    <input
-                                       type="checkbox"
-                                       name="nsaid"
-                                       value="Yes"
-                                       checked= {nsaid=== "Yes"}
-                                       onChange= {()=>handleNSAID("Yes")}
-                                       className="checkbox_input"
-                                    />
-                                    <div className="custom_checkbox"></div>
-                                    <span>{"Yes"}</span>
-                                 </label>
-
-                                 <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                    <input
-                                          type="checkbox"
-                                          name="nsaid"
-                                          value="No"
-                                          checked={nsaid === "No"}
-                                          onChange={()=>handleNSAID("No")}
-                                          className="checkbox_input"
-                                    />
-                                    <div className="custom_checkbox"></div>
-                                    <span>{"No"}</span>
-                                 </label>
-                              </SelectContent>
                         </Select>
 
                         {/*CVD FILTER*/}

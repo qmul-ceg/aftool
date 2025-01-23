@@ -253,11 +253,9 @@ const Data = () => {
          </tbody>
       
       </table>     
-       
-     
+
     </div>
 
-   
   )
 }
 
