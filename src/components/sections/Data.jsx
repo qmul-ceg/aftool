@@ -147,12 +147,26 @@ const Data = () => {
    const [headerHeight, setHeaderHeight] = useState(0)
 
    useEffect(() => {
-      if(theadRef.current){
-         setHeaderHeight(theadRef.current.offsetHeight)
+
+      const updateTableHeaderHeight= () =>{
+         if(theadRef.current){
+            const newHeight = theadRef.current.offsetHeight - 6
+            setHeaderHeight(theadRef.current.offsetHeight)
+            document.documentElement.style.setProperty('--header-height', `${newHeight}px`)
+         }
       }
+      
+      updateTableHeaderHeight();
+
+      window.addEventListener("resize", updateTableHeaderHeight)
+
+      return () => {
+         window.addEventListener("resize", updateTableHeaderHeight)
+      }
+
    }, [])
 
-   // console.log("header height: " + headerHeight)
+   console.log("header height: " + headerHeight)
 
   return (
 

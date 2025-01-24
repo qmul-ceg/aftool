@@ -47,6 +47,7 @@ const Filter = () => {
 
    const [selectedAntiLabel, setSelectedAntiLabel] = useState()
    const [resizeQuickFilter, setResizeQuickFilter] = useState(true)
+   const [removeProgressBar, setRemoveProgressBar] = useState(true)
 
    
    const checkScreenSize = () =>{
@@ -57,11 +58,22 @@ const Filter = () => {
       }
    }
 
+   const checkScreenSizeForProgressBar = () =>{
+      if(window.innerWidth < 1163){
+         setRemoveProgressBar(true)
+      }else {
+         setRemoveProgressBar(false)
+      }
+   }
+
    useEffect(() => {
       checkScreenSize(); //Calls checkScreenSize when we first mount 
+      checkScreenSizeForProgressBar();
       window.addEventListener('resize', checkScreenSize)
+      window.addEventListener('resize', checkScreenSizeForProgressBar)
 
       return () => {
+         window.removeEventListener('resize', checkScreenSizeForProgressBar)
          window.removeEventListener('resize', checkScreenSize)
       }
    }, [])
@@ -874,14 +886,17 @@ const Filter = () => {
                   
                   
                   {/* SUMMARY min-w-[470px] */} 
-                  <div className=" min-w-[480px] lg:max-w-[490px] xl:max-w-[560px] flex-1 flex flex-col justify-between ml-2">
+                  {/* 
+                     <div className=" min-w-[660px] lg:max-w-[650px]lg:max-w-[620px] xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2">
+                  */}
+                  <div className=" min-w-[500px]  xl:max-w-[610px] 2xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2">
                      <div>
                         <header className=" flex  rounded-t-lg px-2 py-2 bg-[#21376A] text-white">
                            <p className ="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Summary</p>
                         </header>
 
                         <div className=" border-t-0 border-[0.1em] border-[#21376A] flex flex-col pt-2 px-2" >
-                           <table className=" lg:text-xs xl:text-sm 2xl:text-sm summary_table">
+                           <table className=" lg:text-xs xl:text-[0.85em] 2xl:text-sm summary_table">
                               <tbody className=" ">
                                  <tr className="">
                                     <td className=" font-bold">Atrial Fibrillation Register</td>
@@ -889,7 +904,7 @@ const Filter = () => {
                                     <td className="  font-semibold text-center">{ percentageFormatter(importedData.length, importedData.length) }</td>
                                  </tr>
                                  <tr className=" bg-gray-100 text-left ">
-                                    <td className="flex flex-nowrap ">*Modified AF008: CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m)
+                                    <td className="flex flex-nowrap">*Modified AF008: CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m)
                                        <div className="ml-2 my-auto">
                                           <Popover>
                                              <PopoverTrigger 
@@ -903,105 +918,145 @@ const Filter = () => {
                                                 className="min-w-[30em] text-xs  
                                                 text-left xl:text-sm 2xl:text-sm pr-2  py-1 pl-1"
                                              >
-                                                   Modified QOF: no exclusions for contraindication or declined
-                                                
+                                                Modified QOF: no exclusions for contraindication or declined
                                              </PopoverContent>
                                           </Popover>
                                        </div>
                                     </td>
-                                       
                                     <td className=" text-center">{ importedData.reduce(chadsvasce2Anticoag,0) }</td>
                                     <td className="relative">
-                                       <div 
-                                          style ={{
-                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }`,
-                                                
-                                             }}
-                                             className="absolute h-full top-0 progress_fill"
-                                             // className={` absolute h-full top-0 progress_fill
-                                             //              ${ percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
-                                             //    `}
-                                             
-                                       ></div>
                                        <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }</span>
-                                       
-                                    </td>   
+                                    </td>
+                                    {
+                                       importedData.length > 0 && importedData.reduce(chadsvasce2Anticoag,0) > 0 && !removeProgressBar && (
+                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                             <div 
+                                                style =
+                                                   {{
+                                                      width: `${percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }`,
+                                                   }}
+                                                   className="absolute h-full top-0 bg-[#21376A] "
+                                                      // {` 
+                                                      //          ${ percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : ""}
+                                                      // `}      
+                                             >
+                                             </div>
+                                          </td> 
+                                       ) 
+                                    } 
+                                    
                                  </tr> 
+
                                  <tr className="">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 and NOT issued Anticoagulants (6m)</td>
-                                    <td className=" text-center">{ importedData.reduce(chadsvasce2NotOnAnticoag,0) }</td>
+                                    <td className=" text-center">{importedData.reduce(chadsvasce2NotOnAnticoag,0) }</td>
                                     <td className="relative ">
-                                       <div 
-                                          style ={{
-                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0))}`,
-                                                
-                                             }}
-                                             className="absolute h-full top-0 progress_fill"
-                                             // className={` absolute h-full top-0 progress_fill
-                                             //              ${ percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
-                                             //    `}
-                                       ></div>
                                        <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) }</span>
-                                    </td>   
-                                    {/* <td className=" relative rounded-r-sm">
-                                      { percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) }
-                                    </td> */}
+                                    </td> 
+                                    {
+                                       importedData.length > 0 && importedData.reduce(chadsvasce2NotOnAnticoag,0) > 0 && !removeProgressBar && (
+                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                          <div 
+                                             style =
+                                                {{
+                                                   width: `${percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0))}`,
+                                                   
+                                                }}
+                                                className="absolute h-full top-0 bg-[#21376A]"    
+                                          >
+                                          </div>
+                                       </td>    
+                                       )
+                                    }
                                  </tr>
                                  <tr className=" bg-gray-100">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 issued Aspirin/Antiplatelets ONLY (6m) </td>
                                     <td className=" text-center">{ importedData.reduce(chadsvasce2OnAspAntipOnly,0) }</td>
                                     <td className="relative ">
                                        <div 
-                                          style ={{
-                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0))}`,
-                                                
-                                             }}
-                                             className="absolute h-full top-0 progress_fill"
-                                             // rounded-r-sm 
-                                             // className={` absolute h-full top-0 progress_fill
-                                             //              ${ percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
-                                             //    `}
+                                          
                                        ></div>
                                        <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0))}</span>
-                                    </td>   
+                                    </td>
+                                    {
+                                       importedData.length > 0 && importedData.reduce(chadsvasce2OnAspAntipOnly,0) > 0 && !removeProgressBar &&(
+
+                                       <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                       <div 
+                                             style =
+                                                {{
+                                                   width: `${percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0))}`,
+                                                   
+                                                }}
+                                                className= "absolute h-full top-0 bg-[#21376A]"
+                                                   // {` absolute h-full top-0 bg-[#21376A]
+                                                   //           ${percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0))  === '100%'? 'rounded-sm' : 'rounded-r-sm'}
+                                                   // `}      
+                                       ></div>
+                                    </td>  
+                                       )
+                                    }
+                                         
                                     {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2OnAspAntipOnly,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
                                     <tr className=" border-gray-200">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 issued BOTH Anticoagulants + Antiplatelets (6m)</td>
                                     <td className=" text-center">{ importedData.reduce(chadsvasce2OnAnticoagAspAntip,0) }</td>
                                     <td className="relative ">
-                                       <div 
-                                          style ={{
-                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0))}`,
-                                                
-                                             }}
-                                             className="absolute h-full top-0 progress_fill"
-                                             // rounded-r-sm className={` absolute h-full top-0 progress_fill
-                                             //              ${ percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
-                                             //    `}
-                                       ></div>
+                                       
                                        <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0))}</span>
-                                    </td>   
+                                    </td> 
+                                    {
+                                       importedData.length > 0 && importedData.reduce(chadsvasce2OnAnticoagAspAntip,0) > 0 && !removeProgressBar &&(
+                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                             <div 
+                                                style =
+                                                   {{
+                                                      width: `${percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0))}`,
+                                                      
+                                                   }}
+                                                   className="absolute h-full top-0 bg-[#21376A]"
+                                                      // {` absolute h-full top-0 bg-[#21376A]
+                                                      //          ${percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0))  === '100%'? 'rounded-sm' : 'rounded-r-sm'}
+                                                      // `}      
+                                             >
+                                             </div>
+                                    </td>       
+                                       )
+                                    }
+                                      
                                     {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
                                  <tr className=" bg-gray-100">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 issued DOAC (6m)</td>
                                     <td className=" text-center">{ importedData.reduce(chadsvasce2DOAC,0) }</td>
                                     <td className="relative ">
-                                       <div 
-                                          style ={{
-                                                width: `${percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}`,
-                                                
-                                             }}
-                                             className="absolute h-full top-0 progress_fill"
-                                             // rounded-r-sm className={` absolute h-full top-0 progress_fill
-                                             //              ${ percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : 'rounded-l-sm'}
-                                             //    `}
-                                       ></div>
                                        <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}</span>
-                                    </td>   
+                                    </td> 
+                                    {
+                                       importedData.length > 0 && importedData.reduce(chadsvasce2DOAC,0) > 0 && !removeProgressBar &&(
+                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                          <div 
+                                             style =
+                                                {{
+                                                   width: `${percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}`,
+                                                   
+                                                }}
+                                                className="absolute h-full top-0 bg-[#21376A]"
+                                                   
+                                          >
+                                          </div>
+                                    </td>      
+                                       )
+                                    }
+                                     
+                                      
                                     {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
+
+
+
+
                                  <tr className=" border-gray-200 ">
                                     <td className="">*Modified AF006: new CHA₂DS₂-VASc ≥ 2 in last 12m</td>
                                     <td className=" text-center">{ importedData.reduce(newChadsvasce2,0) }</td>
@@ -1011,14 +1066,26 @@ const Filter = () => {
                                                 width: `${percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }`,
                                                 
                                              }}
-                                             
-                                             // rounded-r-sm className={` absolute h-full top-0 progress_fill
-                                             //              ${percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) )  === '100%'? 'rounded-sm' : 'rounded-l-sm'}
-                                             //    `}
                                        ></div>
                                        <span className="progress_data">{percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</span>
-                                    </td>   
-                                    {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</td> */}
+                                    </td>
+                                    {
+                                       importedData.length > 0 && importedData.reduce(newChadsvasce2,0) > 0 && (
+                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                             <div 
+                                                style =
+                                                   {{
+                                                      width: `${percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) )  }`,
+                                                      
+                                                   }}
+                                                   className="absolute h-full top-0 bg-[#21376A]"
+                                                        
+                                             ></div>
+                                          </td>     
+                                       )
+                                    }
+                                    
+                                    
                                  </tr>
                               </tbody>
                            </table>
@@ -1028,27 +1095,7 @@ const Filter = () => {
 
                      </div>
                         
-                        {/* EXTERNAL LINKS */}
-                        
-                                    
-                     {/* <div>
-                        <Popover >
-                           <PopoverTrigger className="flex justify-center pr-4 ml-auto mt-2">
-
-                              <button className=" px-2 rounded-full font-serif font-semibold bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white">i</button>
-                              
-                           </PopoverTrigger>
-                           <PopoverContent>
-                              <div>
-                                 <strong className="text-sm">EXTERNAL LINKS</strong>
-                                 <ul className=" ml-4 text-sm">
-                                    <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">https://www.qmul.ac.uk/ceg/</a></li>
-
-                                 </ul>
-                              </div>
-                           </PopoverContent>
-                        </Popover>
-                     </div> */}
+                       
                   </div>
                </div>
             {/* )
@@ -1204,4 +1251,30 @@ export default Filter
                                           <span>10%</span>
 
                                        </div> */}
-                                       {/* { percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) } */}
+                                       {/* { percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) } */} 
+                                       {/* EXTERNAL LINKS */}
+                        
+                                    
+                     {/* <div>
+                        <Popover >
+                           <PopoverTrigger className="flex justify-center pr-4 ml-auto mt-2">
+
+                              <button className=" px-2 rounded-full font-serif font-semibold bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white">i</button>
+                              
+                           </PopoverTrigger>
+                           <PopoverContent>
+                              <div>
+                                 <strong className="text-sm">EXTERNAL LINKS</strong>
+                                 <ul className=" ml-4 text-sm">
+                                    <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">https://www.qmul.ac.uk/ceg/</a></li>
+
+                                 </ul>
+                              </div>
+                           </PopoverContent>
+                        </Popover>
+                     </div> */}{/* <td className=" relative rounded-r-sm">
+                                      { percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) }
+                                    </td> */}
+                                    // rounded-r-sm className={` absolute h-full top-0 progress_fill
+                                             //              ${percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) )  === '100%'? 'rounded-sm' : 'rounded-l-sm'}
+                                             //    `}{/* <td className=" text-center">{ percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</td> */}

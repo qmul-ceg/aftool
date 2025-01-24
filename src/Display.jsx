@@ -69,16 +69,21 @@ const Display = () => {
             
          {/* </section> */}
          
-         <footer className=" flex gap-2  mx-4 mb-2 justify-center items-center lg:text-xs xl:text-sm 2xl:text-sm sticky mt-auto  ">
-            <p className="font-semibold"> © Clinical Effectiveness Group (CEG), Queen Mary University of London. All rights reserved.</p> 
-            <p className="font-semibold">Attribution-NonCommercial-ShareAlike CC BY-NC-SA.</p>
-            <div className="w-[4em]">
-               <img 
-                  src={nc_sa_logo}
-               />
+         <footer className=" flex gap-2  mx-4 mb-2 justify-between items-center lg:text-xs xl:text-sm 2xl:text-sm sticky mt-auto  ">
+            <div className="flex mx-auto">
+               <p className="font-semibold"> © Clinical Effectiveness Group (CEG), Queen Mary University of London. All rights reserved.</p> 
+               <p className="font-semibold">Attribution-NonCommercial-ShareAlike CC BY-NC-SA.</p>
+               <div className="w-[4em]">
+                  <img 
+                     src={nc_sa_logo}
+                  />
+            </div>
+            </div>
+             <div className="text-xs ">
+               v.0.3.0
             </div>
          </footer>
-         
+        
          {/* max-h-[400px] overflow-y-auto */}
       </div>
    )

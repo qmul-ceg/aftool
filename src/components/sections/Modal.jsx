@@ -68,13 +68,13 @@ const Modal = ({open, }) => {
          dateOfIssue: selectedPatientData[AFibColumns.DOAC_Date] 
       },
       {
-         medication: "Third Party Prescribing (12m)", 
+         medication: "Third party prescribing (12m)", 
          colorCode: "", 
          medicationName: "", 
          dateOfIssue: "",
       },
       {
-         medication: "Other Oral Anticoagulants (12m)", 
+         medication: "Other oral anticoagulants (12m)", 
          colorCode: "", 
          medicationName: selectedPatientData[AFibColumns.OtherAnticoagulantsMed], 
          dateOfIssue: selectedPatientData[AFibColumns.OtherAnticoagulantsDate] 
@@ -86,7 +86,7 @@ const Modal = ({open, }) => {
          dateOfIssue: selectedPatientData[AFibColumns.AspirinDate] 
       },
       {
-         medication: "Other Antiplatelets (12m)", 
+         medication: "Other antiplatelets (12m)", 
          colorCode: "", 
          medicationName: selectedPatientData[AFibColumns.AntiplateletMed], 
          dateOfIssue: selectedPatientData[AFibColumns.AntiplateletDate] 
@@ -197,7 +197,7 @@ const Modal = ({open, }) => {
          dateRecorded: selectedPatientData[AFibColumns.AlcoholDate] 
       },
       {
-         process: "Audit Scores * (latest ever)", 
+         process: "Audit scores (latest ever)", 
          colorCode: "", 
          value: selectedPatientData[AFibColumns.AuditScoresValue], 
          dateRecorded: selectedPatientData[AFibColumns.AuditScoresDate] 
@@ -376,22 +376,22 @@ const Modal = ({open, }) => {
                                        <div className=" w-14 h-5 "
                                           style={{backgroundColor: cegColors.red}}
                                        ></div>
-                                       <span>High Risk</span>
+                                       <span>High risk</span>
                                     </div>
                                     <div className="flex  gap-2">
                                        <div className=" w-14 h-5"
                                        style={{backgroundColor: cegColors.orange}}></div>
-                                       <span>Moderate Risk</span>
+                                       <span>Moderate risk</span>
                                     </div>
                                     <div className="flex  gap-2">
                                        <div className=" w-14 h-5"
                                        style={{backgroundColor: cegColors.yellow}}></div>
-                                       <span>Mild Risk</span>
+                                       <span>Mild risk</span>
                                     </div>
                                     <div className="flex  gap-2">
                                        <div className=" w-14 h-5 "
                                        style={{backgroundColor: cegColors.green}}></div>
-                                       <span>Optimal Treatment</span>
+                                       <span>Optimal treatment</span>
                                     </div>
                                     
                                  </div>
@@ -426,12 +426,12 @@ const Modal = ({open, }) => {
                                     className="text-center text-white font-semibold"
                                     style = {{
                                        backgroundColor : (item.medication ==="Warfarin (6m)" ||
-                                          item.medication ==="DOAC (6m)" ||
-                                          item.medication === "Third Party Prescribing (12m)" ||
-                                          item.medication === "Other Oral Anticoagulants (12m)" ||
+                                          item.medication === "DOAC (6m)" ||
+                                          item.medication === "Third party prescribing (12m)" ||
+                                          item.medication === "Other oral anticoagulants (12m)" ||
                                           item.medication === "PPI medication (6m)" ||
                                           item.medication === "Statins (6m)")&& item.medicationName ? cegColors.green
-                                          : (item.medication ==="Aspirin (12m)"|| item.medication ==="Other Antiplatelets (12m)") && item.medicationName ? cegColors.orange
+                                          : (item.medication ==="Aspirin (12m)"|| item.medication ==="Other antiplatelets (12m)") && item.medicationName ? cegColors.orange
                                           : item.medication ==="NSAID (excluding Aspirin)(6m)" && item.medicationName ? cegColors.orange 
                                           : null
                                     }}
@@ -893,7 +893,7 @@ const Modal = ({open, }) => {
                               >
                                  
                                  <td className="py-1 pl-4 font-semibold">{item.process}
-                                    {item.process === "Audit Scores * (latest ever)" && (
+                                    {item.process === "Audit scores (latest ever)" && (
                                        
                                        <span>
                                           
@@ -909,7 +909,7 @@ const Modal = ({open, }) => {
                                                 <table className="border w-full ">
                                                    <thead className="border bg-gray-100">
                                                       <tr className="py-2">
-                                                         <th className="py-1">AUDIT SCORES *</th>
+                                                         <th className="py-1">AUDIT scores</th>
                                                       </tr>
                                                    </thead>
                                                    <tbody >

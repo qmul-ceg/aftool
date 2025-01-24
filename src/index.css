@@ -266,19 +266,14 @@
 
 ::-webkit-scrollbar-track{
    background: 	#f5f5f5;
- 
-   /* visibility:0; */
+
    border-left: none;
    border-bottom: none;
-   /* border-right: 1px solid #21376A; */
-
-   border-top-right-radius: 150vw;
    
    border-bottom-left-radius: 100vw; 
    border-bottom-right-radius: 100vw;
-   /* margin-block-start: 62px;
-   border-top: 0.4em solid #21376A; */
-   
+   margin-block-start: var(--header-height);
+   border-top: 0.4em solid #21376A; 
 }
 
 ::-webkit-scrollbar-thumb{
@@ -288,7 +283,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover{
- /* opacity: 1; */
+
    
 }
 
@@ -299,6 +294,8 @@
    border-bottom: none;
    border-right: none;
 
+   border-top:none;
+   margin-block: 0em;
    border-top-right-radius: 100vw;
    margin-block-end: 1.9em;
 }
@@ -318,7 +315,7 @@
       border-left: none;
       border-bottom: none;
       /* border-right: 1px solid #21376A; */
-      border-top-right-radius: 200em;
+      /* border-top-right-radius: 200em; */
       border-bottom-left-radius: 100vw;
       border-bottom-right-radius: 100vw;
    }
@@ -326,8 +323,6 @@
    ::-webkit-scrollbar-thumb{
       background: #21376A;
       
-      /* border-radius: em; */
-   
    }
 }
 
@@ -339,7 +334,7 @@
 }
 
 .progress_fill{
-   /* background: linear-gradient(to right, #7B0E72 70%, #E6007E); */
+   background: linear-gradient(to right, #7B0E72 70%, #E6007E);
    background: #21376A ;
    opacity:0.4;
 }
