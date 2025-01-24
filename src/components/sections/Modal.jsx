@@ -24,19 +24,7 @@ const Modal = ({open, }) => {
       position: "fixed",
       marginLeft: "2em"
    }
-   // STOPS BACKGROUND FROM SCROLLING
-//    useEffect(() => {
-//       if (open) {
-//           document.body.classList.add('no-scroll');
-//       } else {
-//           document.body.classList.remove('no-scroll');
-//       }
   
-//       // Clean up effect
-//       return () => {
-//           document.body.classList.remove('no-scroll');
-//       };
-//   }, [open]);
    const cegColors = {
       navy: "#21376A",
       green: "#0C746A",
@@ -104,7 +92,7 @@ const Modal = ({open, }) => {
          dateOfIssue: selectedPatientData[AFibColumns.NSAID_Date] 
       },
       {
-         medication: "Statins (6m)", 
+         medication: "Statin (6m)", 
          colorCode: "", 
          medicationName: selectedPatientData[AFibColumns.StatinsMed], 
          dateOfIssue: selectedPatientData[AFibColumns.StatinsDate] 
@@ -140,13 +128,13 @@ const Modal = ({open, }) => {
          dateRecorded: ""
       },
       {
-         comorbidity: "Liver Failure", 
+         comorbidity: "Liver failure", 
          colorCode: "", 
          description: selectedPatientData[AFibColumns.LiverFailureConcept], 
          dateRecorded: ""
       },
       {
-         comorbidity: "Heart Valve", 
+         comorbidity: "Heart valve", 
          colorCode: "", 
          description: selectedPatientData[AFibColumns.HeartValveConcept], 
          dateRecorded: ""
@@ -170,7 +158,7 @@ const Modal = ({open, }) => {
          dateRecorded: ""
       },
       {
-         comorbidity: "Palliative Care", 
+         comorbidity: "Palliative care", 
          colorCode: "", 
          description: selectedPatientData[AFibColumns.PalliativeCareConcept], 
          dateRecorded: ""
@@ -430,7 +418,7 @@ const Modal = ({open, }) => {
                                           item.medication === "Third party prescribing (12m)" ||
                                           item.medication === "Other oral anticoagulants (12m)" ||
                                           item.medication === "PPI medication (6m)" ||
-                                          item.medication === "Statins (6m)")&& item.medicationName ? cegColors.green
+                                          item.medication === "Statin (6m)")&& item.medicationName ? cegColors.green
                                           : (item.medication ==="Aspirin (12m)"|| item.medication ==="Other antiplatelets (12m)") && item.medicationName ? cegColors.orange
                                           : item.medication ==="NSAID (excluding Aspirin)(6m)" && item.medicationName ? cegColors.orange 
                                           : null
@@ -590,13 +578,7 @@ const Modal = ({open, }) => {
                                                                <td className="w-[22em] pl-2">Treatment with antiplatelet agents</td>
                                                                <td className="py-1 pl-2 text-center">1</td>
                                                             </tr>
-
-
-                                                   
-                                                         </tbody>
-
-
-                                                         
+                                                         </tbody>   
                                                    </table>
                                                             <table className="w-full  "> 
                                                             <thead className="">
@@ -636,11 +618,10 @@ const Modal = ({open, }) => {
 
                                  </td>
                                  <td className={`
-                                    ${
-                                       !item.score && 
-                                       item.risk === "CHA₂DS₂-VASc (latest ever)" ? "bg-red-500" : null
-                                    }
-                                    
+                                       ${
+                                          !item.score && 
+                                          item.risk === "CHA₂DS₂-VASc (latest ever)" ? "bg-red-500" : null
+                                       }
                                     `}>
                                       
 
@@ -688,10 +669,10 @@ const Modal = ({open, }) => {
                                           (selectedPatientData[AFibColumns.Hypertension]) ||
                                           (selectedPatientData[AFibColumns.DiabetesConcept]))
                                           ? cegColors.orange
-                                          : item.comorbidity ==="Liver Failure" && selectedPatientData[AFibColumns.LiverFailureConcept] ? cegColors.orange
-                                          : item.comorbidity ==="Heart Valve" && selectedPatientData[AFibColumns.HeartValveConcept] ? cegColors.orange
+                                          : item.comorbidity ==="Liver failure" && selectedPatientData[AFibColumns.LiverFailureConcept] ? cegColors.orange
+                                          : item.comorbidity ==="Heart valve" && selectedPatientData[AFibColumns.HeartValveConcept] ? cegColors.orange
                                           : item.comorbidity ==="Bleeding history" && selectedPatientData[AFibColumns.BleedConcept] ? cegColors.red
-                                          : item.comorbidity ==="Palliative Care" && selectedPatientData[AFibColumns.PalliativeCareConcept] ? cegColors.red
+                                          : item.comorbidity ==="Palliative care" && selectedPatientData[AFibColumns.PalliativeCareConcept] ? cegColors.red
                                           : item.comorbidity ==="Dementia" && selectedPatientData[AFibColumns.DementiaConcept] ? cegColors.orange
                                           : item.comorbidity ==="SMI/Learning Disability/Housebound" &&
                                           (selectedPatientData[AFibColumns.SMI_Concept] ||
@@ -700,58 +681,7 @@ const Modal = ({open, }) => {
                                           :null 
                                     }}
                                           
-                                    // className={`text-center text-white font-semibold
-                                    //    ${
-                                    //       item.comorbidity ==="HF, CKD 3-5, IHD, Stroke/TIA, PAD, HTN, Diab (T1/T2)" 
-                                    //       && 
-                                    //       (
-                                    //          (selectedPatientData[AFibColumns.HF_Concept]) ||
-                                    //          (selectedPatientData[AFibColumns.CKD3_5_Concept]) ||
-                                    //          (selectedPatientData[AFibColumns.IHD_Concept])||
-                                    //          (selectedPatientData[AFibColumns.StrokeTIA_Concept]) ||
-                                    //          (selectedPatientData[AFibColumns.NonHaemStrokeConcept]) ||
-                                    //          (selectedPatientData[AFibColumns.PAD_Concept]) ||
-                                    //          (selectedPatientData[AFibColumns.Hypertension]) ||
-                                    //          (selectedPatientData[AFibColumns.DiabetesConcept])
-                                    //       )
-                                    //       ? " bg-orange-400" 
-                                    //       : null
-                                    //    }
-                                    //    ${
-                                    //       item.comorbidity ==="Liver Failure" &&
-                                    //       selectedPatientData[AFibColumns.LiverFailureConcept] ? " bg-orange-400" : null
-                                          
-                                    //    }
-                                    //    ${
-                                    //       item.comorbidity ==="Heart Valve" &&
-                                    //       selectedPatientData[AFibColumns.HeartValveConcept] ? " bg-orange-400" : null
-                                          
-                                    //    }
-                                    //    ${
-                                    //       item.comorbidity ==="Bleeding history" &&
-                                    //       selectedPatientData[AFibColumns.BleedConcept] ? " bg-red-600" : null
-                                          
-                                    //    }
-                                    //    ${
-                                    //       item.comorbidity ==="Palliative Care" &&
-                                    //       selectedPatientData[AFibColumns.PalliativeCareConcept] ? " bg-red-600" : null
-                                          
-                                    //    }
-                                    //    ${
-                                    //       item.comorbidity ==="Dementia" &&
-                                    //       selectedPatientData[AFibColumns.DementiaConcept] ? " bg-orange-400" : null
-                                          
-                                    //    }
-                                    //    ${
-                                    //       item.comorbidity ==="SMI/Learning Disability/Housebound" &&
-                                    //       (selectedPatientData[AFibColumns.SMI_Concept] ||
-                                    //       selectedPatientData[AFibColumns.LD_Concept] ||
-                                    //       selectedPatientData[AFibColumns.HouseboundConcept]) ?  "bg-orange-400" : null
-                                          
-                                          
-                                    //    }            
-                                    //               `
-                                    // }
+                                    
                                  >
                                     {
                                        item.comorbidity ==="HF, CKD 3-5, IHD, Stroke/TIA, PAD, HTN, Diab (T1/T2)"
@@ -768,10 +698,10 @@ const Modal = ({open, }) => {
 
                                     }
                                     {
-                                       item.comorbidity ==="Liver Failure" && selectedPatientData[AFibColumns.LiverFailureConcept]  ? "YES" : null
+                                       item.comorbidity ==="Liver failure" && selectedPatientData[AFibColumns.LiverFailureConcept]  ? "YES" : null
                                     }
                                     {
-                                       item.comorbidity ==="Heart Valve" && selectedPatientData[AFibColumns.HeartValveConcept] ? "YES" : null
+                                       item.comorbidity ==="Heart valve" && selectedPatientData[AFibColumns.HeartValveConcept] ? "YES" : null
                                     }
                                     {
                                        item.comorbidity ==="Bleeding history" && selectedPatientData[AFibColumns.BleedConcept]  ? "YES" : null
@@ -792,7 +722,7 @@ const Modal = ({open, }) => {
                                        (item.comorbidity ==="Dementia" && selectedPatientData[AFibColumns.DementiaConcept]  ? "YES" : null )
                                     }
                                     {
-                                       (item.comorbidity ==="Palliative Care" && selectedPatientData[AFibColumns.PalliativeCareConcept]  ? "YES" : null )
+                                       (item.comorbidity ==="Palliative care" && selectedPatientData[AFibColumns.PalliativeCareConcept]  ? "YES" : null )
                                     }
                                     
                                    
@@ -1055,3 +985,68 @@ const Modal = ({open, }) => {
 export default Modal
 
 
+ // STOPS BACKGROUND FROM SCROLLING
+//    useEffect(() => {
+//       if (open) {
+//           document.body.classList.add('no-scroll');
+//       } else {
+//           document.body.classList.remove('no-scroll');
+//       }
+  
+//       // Clean up effect
+//       return () => {
+//           document.body.classList.remove('no-scroll');
+//       };
+//   }, [open]);
+// // className={`text-center text-white font-semibold
+   //    ${
+   //       item.comorbidity ==="HF, CKD 3-5, IHD, Stroke/TIA, PAD, HTN, Diab (T1/T2)" 
+   //       && 
+   //       (
+   //          (selectedPatientData[AFibColumns.HF_Concept]) ||
+   //          (selectedPatientData[AFibColumns.CKD3_5_Concept]) ||
+   //          (selectedPatientData[AFibColumns.IHD_Concept])||
+   //          (selectedPatientData[AFibColumns.StrokeTIA_Concept]) ||
+   //          (selectedPatientData[AFibColumns.NonHaemStrokeConcept]) ||
+   //          (selectedPatientData[AFibColumns.PAD_Concept]) ||
+   //          (selectedPatientData[AFibColumns.Hypertension]) ||
+   //          (selectedPatientData[AFibColumns.DiabetesConcept])
+   //       )
+   //       ? " bg-orange-400" 
+   //       : null
+   //    }
+   //    ${
+   //       item.comorbidity ==="Liver Failure" &&
+   //       selectedPatientData[AFibColumns.LiverFailureConcept] ? " bg-orange-400" : null
+         
+   //    }
+   //    ${
+   //       item.comorbidity ==="Heart Valve" &&
+   //       selectedPatientData[AFibColumns.HeartValveConcept] ? " bg-orange-400" : null
+         
+   //    }
+   //    ${
+   //       item.comorbidity ==="Bleeding history" &&
+   //       selectedPatientData[AFibColumns.BleedConcept] ? " bg-red-600" : null
+         
+   //    }
+   //    ${
+   //       item.comorbidity ==="Palliative Care" &&
+   //       selectedPatientData[AFibColumns.PalliativeCareConcept] ? " bg-red-600" : null
+         
+   //    }
+   //    ${
+   //       item.comorbidity ==="Dementia" &&
+   //       selectedPatientData[AFibColumns.DementiaConcept] ? " bg-orange-400" : null
+         
+   //    }
+   //    ${
+   //       item.comorbidity ==="SMI/Learning Disability/Housebound" &&
+   //       (selectedPatientData[AFibColumns.SMI_Concept] ||
+   //       selectedPatientData[AFibColumns.LD_Concept] ||
+   //       selectedPatientData[AFibColumns.HouseboundConcept]) ?  "bg-orange-400" : null
+         
+         
+   //    }            
+   //               `
+   // }
