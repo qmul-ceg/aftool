@@ -253,7 +253,7 @@ const Filter = () => {
                   {/* MEDICATION REVIEW DISPLAY */}
                   {(importedData.length > 0 && displayMedReview[0].value !== "") && (
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                         <strong className ="mr-2">Med Review:</strong> {displayMedReview[0].value } 
+                         <strong className ="mr-2">Medication review:</strong> {displayMedReview[0].value } 
                         {<button className=" ml-2 font-bold text-red-500 text-xs hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
                      </button>
                   )}
@@ -285,7 +285,7 @@ const Filter = () => {
                      <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication:</strong> NSAID - {nsaid} 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
-                        <span className="ml-2">STATIN - {statin}</span>
+                        <span className="ml-2">Statin - {statin}</span>
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeStatinFilter}> &#10005;</button>}
                      </button>
                   )}
@@ -854,8 +854,8 @@ const Filter = () => {
                                  {[
                                     { value: "lt130-80", label: "< 130/80"},
                                     { value: "lt140-90", label: "< 140/90"},
-                                    { value: "140/90-159/90", label: "140/90 - 159/90"},
-                                    { value: "gte160-100", label: "≥ 160/100"}
+                                    { value: "140/90-149/90", label: "140/90 - 149/90"},
+                                    { value: "gte150-90", label: "≥ 150/90"}
                                  ].map((item) => {
                                     return (
                                        <label

@@ -243,10 +243,10 @@ const MainProvider = ({ children }) => {
          if(object.value === "lt140-90" && systolic < 140 && diastolic < 90 ){
             return true
          }
-         if(object.value === "140/90-159/90" && (systolic >= 140 && systolic <= 159 || diastolic >= 90)){
+         if(object.value === "140/90-149/90" && (systolic >= 140 && systolic <= 149 || diastolic >= 90)){
             return true
          }
-         if(object.value ==="gte160-100" && (systolic >= 160 || diastolic >= 100)){
+         if(object.value ==="gte150-90" && (systolic >= 150 || diastolic >= 90)){
             return true
          }
       }
@@ -467,7 +467,7 @@ const MainProvider = ({ children }) => {
       }
       else if(value && value === "option_three"){
          
-         handleOrbit('gte4', "≥ 4")
+         handleOrbitValueSelection('gte4')
          handleChdDate('<12m')
          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
       }
@@ -632,17 +632,12 @@ const MainProvider = ({ children }) => {
             const orbitFilter = 
                //Neither Value or date is selected 
                (!selectedOrbitValue && !selectedOrbitDateRecorded) ||
-
                //Value is selected and date is not selected
                (selectedOrbitValue && isOrbitValueSelected && !selectedOrbitDateRecorded ) ||
-
                //Value is not selected but date is selected 
                (!selectedOrbitValue && (overTwelveMonths || withinTwelveMonths || notRecorded)) ||
-
                (selectedOrbitValue && isOrbitValueSelected && (overTwelveMonths || withinTwelveMonths || notRecorded))
-
             return orbitFilter
-
          }
 
          

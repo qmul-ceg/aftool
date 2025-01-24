@@ -73,7 +73,7 @@ const Display = () => {
             <div className="flex mx-auto">
                <p className="font-semibold"> © Clinical Effectiveness Group (CEG), Queen Mary University of London. All rights reserved.</p> 
                <p className="font-semibold">Attribution-NonCommercial-ShareAlike CC BY-NC-SA.</p>
-               <div className="w-[4em]">
+               <div className="w-[4em] ml-2">
                   <img 
                      src={nc_sa_logo}
                   />
