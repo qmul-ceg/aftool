@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage" : "https://qmul-ceg.github.io/af_tool_test/",
+  "homepage": "https://qmul-ceg.github.io/af_tool_test/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -31,7 +31,8 @@
     "react-icons": "^5.3.0",
     "react-router-dom": "^6.28.0",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

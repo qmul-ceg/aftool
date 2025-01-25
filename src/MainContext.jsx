@@ -1,4 +1,4 @@
-import React, { useState, createContext, useMemo, } from 'react'
+import React, { useState, createContext, useMemo, useEffect, } from 'react'
 import patientsData from '/src/data/patient_data.json'
 import { GpSystems } from './enums/GPsystems'
 import { AFibColumns } from './enums/AFibColumns'
@@ -8,6 +8,8 @@ import { AFibColumns } from './enums/AFibColumns'
 export const MainContext = createContext()
 
 const MainProvider = ({ children }) => {
+
+   //STATE MANAGEMENT
    const [patients] = useState(patientsData) //Static because we are not setting our patient data
    const [importedData, setImportedData] = useState([])
    const [relativeRunDate, setRelativeRunDate] = useState("")
@@ -15,9 +17,49 @@ const MainProvider = ({ children }) => {
    const [selectedPatientData, setSelectedPatientData] =useState()
    const [selectedPatientIndex, setSelectedPatientIndex] =useState()
    const [exportCount, setExportCount] = useState(0)
-    const [selectedForExport, setSelectedForExport] = useState({})
+   const [selectedForExport, setSelectedForExport] = useState({})
+   const [masterCheckbox, setMasterCheckbox] = useState(null)
 
-//MODAL PATIENT CLICK
+
+
+   //FILTER STATES
+   const defaultFilters ={
+      selectedAnti: null,
+      selectedAges: [],
+      nsaid:"",
+      statin: "",
+      cvd: null,
+      selectedBP: [],
+      selectedChdValue: [],
+      selectedChdDate: "",
+      selectedOrbitValue: "",
+      selectedOrbitDateRecorded: "",
+      selectedOrbit: [],
+      medReview:"",
+      selectedVulnerabilities: [],
+      quickFilter: ""
+   }
+
+   const [selectedAnti, setSelectedAnti] = useState(defaultFilters.selectedAnti);
+   const [medReview, setMedReview] = useState (defaultFilters.medReview);
+   const [selectedVulnerabilities, setSelectedVulnerabilities] = useState (defaultFilters.selectedVulnerabilities);  //Vulnerabilities
+   
+   const [selectedChdValue, setSelectedChdValue] = useState(defaultFilters.selectedChdValue); //CHA₂DS₂-VASc
+   const [selectedChdDate, setSelectedChdDate] = useState(defaultFilters.selectedChdDate);
+   const [selectedOrbit, setSelectedOrbit] = useState (defaultFilters.selectedOrbit);
+   const [selectedOrbitValue, setSelectedOrbitValue] = useState (defaultFilters.selectedOrbitValue);
+   const [selectedOrbitDateRecorded, setSelectedOrbitDateRecorded] = useState (defaultFilters.selectedOrbitDateRecorded);
+   const [selectedAges, setSelectedAges] = useState(defaultFilters.selectedAges);
+   
+   const [nsaid, setNsaid] = useState (defaultFilters.nsaid);
+   const [statin, setStatin] = useState(defaultFilters.statin);
+   const [cvd, setCvd] = useState (defaultFilters.cvd);
+   const [selectedBP, setSelectedBP] = useState(defaultFilters.selectedBP);
+
+   const [quickFilter, setQuickFilter] = useState(defaultFilters.quickFilter);
+   
+
+   //MODAL PATIENT CLICK
    const handlePatientClick = (index) =>{
       console.log("Clicked row index:", index)
 
@@ -49,49 +91,10 @@ const MainProvider = ({ children }) => {
       return updatedIndex;
       });
    };
-
-   //FILTER STATES
-   const defaultFilters ={
-      selectedAnti: null,
-      selectedAges: [],
-      nsaid:"",
-      statin: "",
-      cvd: null,
-      selectedBP: [],
-      selectedChdValue: [],
-      selectedChdDate: "",
-      selectedOrbitValue: "",
-      selectedOrbitDateRecorded: "",
-      selectedOrbit: [],
-      medReview:"",
-      selectedVulnerabilities: [],
-      quickFilter: ""
-   }
-
-   const [selectedAnti, setSelectedAnti] = useState(defaultFilters.selectedAnti);
-   const [medReview, setMedReview] = useState (defaultFilters.medReview);
-   const [selectedVulnerabilities, setSelectedVulnerabilities] = useState (defaultFilters.selectedVulnerabilities);  //Vulnerabilities
-   
-   const [selectedChdValue, setSelectedChdValue] = useState(defaultFilters.selectedChdValue); //CHA₂DS₂-VASc
-   const [selectedChdDate, setSelectedChdDate] = useState(defaultFilters.selectedChdDate);
-   const [selectedOrbit, setSelectedOrbit] = useState (defaultFilters.selectedOrbit);
-   const [selectedOrbitValue, setSelectedOrbitValue] = useState (defaultFilters.selectedOrbitValue);
-   const [selectedOrbitDateRecorded, setSelectedOrbitDateRecorded] = useState (defaultFilters.selectedOrbitDateRecorded);
-   const [selectedAges, setSelectedAges] = useState(defaultFilters.selectedAges);
-   
-
-   const [nsaid, setNsaid] = useState (defaultFilters.nsaid);
-   const [statin, setStatin] = useState(defaultFilters.statin);
-   const [cvd, setCvd] = useState (defaultFilters.cvd);
-   const [selectedBP, setSelectedBP] = useState(defaultFilters.selectedBP);
-
-   const [quickFilter, setQuickFilter] = useState(defaultFilters.quickFilter);
-   
-   
    
 
    //FILTER BREADCRUMBS
-   //RESETTING FILTERS 
+   //Resetting filters
    //Resets Filters except quick Filters
    const resetFilters = ()=>{
       setSelectedAnti(defaultFilters.selectedAnti);
@@ -137,8 +140,7 @@ const MainProvider = ({ children }) => {
 
 
    /////FILTER SELECTIONS
-   //QUICKFILTER
-   
+   //quickfilter
    //AntiFilter
    const handleAntiFilter =(value, label) => {
       // setQuickFilter(defaultFilters.quickFilter)
@@ -284,7 +286,7 @@ const MainProvider = ({ children }) => {
      
    
    }
-    console.log(selectedOrbitValue)
+   //  console.log(selectedOrbitValue)
 
    const handleOrbitDateRecordedSelection = (value) => {
       if(selectedOrbitDateRecorded === value){
@@ -429,10 +431,6 @@ const MainProvider = ({ children }) => {
       setQuickFilter("")
    }
 
-
-
-
-
    // QUICK FILTERS FUNCTIONALITY
    const handleQuickFilter = (value)=> {
       resetAllFilters();
@@ -488,8 +486,13 @@ const MainProvider = ({ children }) => {
 
     
    }
+
+   //EXPORTING FUNCTIONALITY
+   //Export to excel 
+
+
    
-   
+
 
    //FILTER LOGIC
    const getFilteredPatients = () =>{
@@ -675,6 +678,8 @@ const MainProvider = ({ children }) => {
          });   
    }
 
+  
+
    
 
    //TABLE DATA AND SORTING
@@ -713,6 +718,38 @@ const MainProvider = ({ children }) => {
       setData(sortedData);
       setDataCount(sortedData.length)
    }, [ filteredPatients, sortChdValue ]);
+
+
+
+   //FUNCTIONALITY FOR SELECTING PATIENT DATA FOR EXPORT
+   // useEffect(()=>{
+   //    //put all patients in an array 
+   //    // setSelectedForExport({})
+   // const patientsSelectedForExport = {}
+
+   // const updateSelectedForExport = () => {
+   //    data.forEach((patient) => {
+   //       patientsSelectedForExport[patient[0]] = true;
+   //    })
+   //    setSelectedForExport(patientsSelectedForExport) 
+   // }
+      
+      
+   //    updateSelectedForExport()
+   // }, [ data])
+   
+
+
+
+
+
+
+
+
+
+
+
+
 
 //MAINCONTEXT VALUES
    //Values will be passed down to children of MainContext
@@ -756,10 +793,13 @@ const MainProvider = ({ children }) => {
       //EXPORT COUNT
       exportCount, setExportCount,
 
-      selectedForExport, setSelectedForExport, handleStatin, statin
+      selectedForExport, setSelectedForExport, handleStatin, statin,
 
-      //
+   
       // removeAgeDisplay
+      // MASTER CHECKBOX CONTROL ON DATA TABLE 
+      setMasterCheckbox, masterCheckbox
+
    }
 
 

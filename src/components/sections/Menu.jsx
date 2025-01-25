@@ -4,14 +4,44 @@ import { Link } from 'react-router-dom'
 import { MainContext } from '@/MainContext'
 import { exportAccuRxList, exportNHS_list } from '@/helper/ExportData';
 import { GpSystems } from '@/enums/GPsystems';
-
+import * as XLSX from 'xlsx'
 
 
 const Menu = () => {
 
 
-   const { getFilteredPatients, resetFilters } = useContext(MainContext);
+   const { getFilteredPatients, resetFilters,
+      selectedForExport, data
+    } = useContext(MainContext);
    const filteredPatients = getFilteredPatients();
+
+
+   const exportToExcel = (patientsToExport, data) => {
+
+      const exportData = Object.keys(patientsToExport).map((patient)=>{
+         const patientInfo = data.find((patientName) => patientName[0] === patient);
+
+         // console.log(patientInfo)
+         return{
+            name : patientInfo[0],
+            Patient_reference : patientInfo[1],
+            Age: patientInfo[2],
+            Gender: patientInfo[3],
+            NHS_number: patientInfo[4],
+         }
+      })
+      console.log(exportData)
+      //Convert to worksheet
+      const worksheet = XLSX.utils.json_to_sheet(exportData)
+
+      //Create a workbook and add the worksheet
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Patients")
+
+      XLSX.writeFile(workbook, "Patients.xlsx")
+   };
+
+   
 
    const handleExportNHS = () => {
       exportNHS_list(filteredPatients);
@@ -61,17 +91,17 @@ const Menu = () => {
                         <div className="">
                            <strong className="text-sm">EXPORT SELECTED PATIENTS</strong>
                            <ul className=" ml-4 text-sm">
-                              <li>EXCEL LIST</li>
+                              <li>
+                                 <a 
+                                 href="#" onClick={(e)=> {
+                                    e.preventDefault();
+                                    exportToExcel(selectedForExport, data)
+                                 }}>EXCEL LIST</a> </li>
                               <li><a href='#' onClick={handleExporAccuRxList}>ACCURX LIST</a></li>
                               <li><a href='#' onClick={handleExportNHS}>NHS NO. LIST</a></li>
                            </ul>
                         </div>
-                        {/* <div>
-                           <strong className="text-sm">EXPORT ALL PATIENTS WITH NOTE</strong>
-                           <ul className=" ml-4 text-sm">
-                              <li>EXCEL LIST</li>
-                           </ul>
-                        </div> */}
+                        
                      </PopoverContent>
                   </Popover>
                </div>
@@ -81,7 +111,6 @@ const Menu = () => {
 
                   </div>
                </div>
-
 
                <div className="ml-1 w-[70%]">
                   <Link to="/">

@@ -16,17 +16,10 @@ const Data = () => {
       data, sortChdValue,
       setImportedData, setExportCount,
       selectedForExport, setSelectedForExport, 
+      masterCheckbox, setMasterCheckbox,
       } = useContext(MainContext)
 
-   // console.log(data)
-   // const [selectAll, setSelectAll] = useState(true)
-   const [selectedRows, setSelectedRows] = useState([])
-   
 
-   // const [selectedForExport, setSelectedForExport] = useState({})
-   const [masterCheckbox, setMasterCheckbox] = useState(null)
-
-   // console.log("Current data: " + currentData)
    useEffect(()=>{
       //put all patients in an array 
       // setSelectedForExport({})
@@ -66,7 +59,7 @@ const Data = () => {
 
 
             data.forEach((patient) => {
-            patientsSelectedForExport[patient[0]] = true;
+               patientsSelectedForExport[patient[0]] = true;
             })
             setSelectedForExport(patientsSelectedForExport)
          }
@@ -99,10 +92,10 @@ const Data = () => {
       } 
    )}
    
-   const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
-   console.log(Object.keys(selectedForExportCount).length)
+   // const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
+   // console.log(Object.keys(selectedForExportCount).length)
    // console.log(selectedForExport.length + data.length)
-   console.log(data.length)
+   // console.log(data.length)
    
    
   
@@ -147,7 +140,7 @@ const Data = () => {
 
    }, [])
 
-   console.log("header height: " + headerHeight)
+   // console.log("header height: " + headerHeight)
 
   return (
 
