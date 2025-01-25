@@ -25,14 +25,10 @@ const Data = () => {
 
    // const [selectedForExport, setSelectedForExport] = useState({})
    const [masterCheckbox, setMasterCheckbox] = useState(null)
-   const [currentData, setCurrentData] = useState({})
-
-
-   
-   
 
    // console.log("Current data: " + currentData)
    useEffect(()=>{
+      //put all patients in an array 
       // setSelectedForExport({})
       const patientsSelectedForExport = {}
 
@@ -40,11 +36,7 @@ const Data = () => {
          data.forEach((patient) => {
             patientsSelectedForExport[patient[0]] = true;
          })
-         setSelectedForExport(patientsSelectedForExport)
-         // const dataArray = []
-         // dataArray.push(data)
-
-        
+         setSelectedForExport(patientsSelectedForExport) 
       }
       
       
@@ -53,6 +45,7 @@ const Data = () => {
 
 
    useEffect(()=>{
+      //Sets master checkbox to true if all the patients are selected
       if(data.length !== Object.keys(selectedForExport).length ){
          setMasterCheckbox(false)
       }
@@ -64,6 +57,7 @@ const Data = () => {
 
 
    const handleMasterCheckBox = () => {
+      //Sets master checkbox when we click it 
       setMasterCheckbox((prevMasterCheckBoxState) => {
          const newMasterCheckBoxState = !prevMasterCheckBoxState;
 
@@ -81,23 +75,9 @@ const Data = () => {
          }
             return newMasterCheckBoxState
       })
-     
-      // if(masterCheckbox){
-
-      //    const patientsSelectedForExport = {}
-
-
-      //    data.forEach((patient) => {
-      //       patientsSelectedForExport[patient[0]] = true;
-      //    })
-      //       setSelectedForExport(patientsSelectedForExport)
-         
-      //if the length of my selected forExports is not equal to the length of my data
-      //master checkbox can not be checked
-      }
+   }
       
-   // const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
-   // console.log(Object.keys(selectedForExportCount).length)
+   
   
    const toggleSelectedPatient = (patient) => {
       
@@ -118,6 +98,7 @@ const Data = () => {
          }
       } 
    )}
+   
    const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
    console.log(Object.keys(selectedForExportCount).length)
    // console.log(selectedForExport.length + data.length)
@@ -233,7 +214,7 @@ const Data = () => {
                      <td className=" ">
                         <input
                            type="checkbox"
-                           checked={selectedForExport[patient[0]]}
+                           checked={!!selectedForExport[patient[0]]}
                            className="patient_checkbox "
                            onChange={()=>toggleSelectedPatient(patient[0])}
                         />
@@ -583,4 +564,16 @@ export default Data
       //    else{
       //       setMasterCheckbox(true)
       //    }
-      // }
+      // }// const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
+   // console.log(Object.keys(selectedForExportCount).length)// if(masterCheckbox){
+
+      //    const patientsSelectedForExport = {}
+
+
+      //    data.forEach((patient) => {
+      //       patientsSelectedForExport[patient[0]] = true;
+      //    })
+      //       setSelectedForExport(patientsSelectedForExport)
+         
+      //if the length of my selected forExports is not equal to the length of my data
+      //master checkbox can not be checked

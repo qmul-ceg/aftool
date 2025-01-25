@@ -41,7 +41,6 @@ const MainProvider = ({ children }) => {
       })
    }
    
-
    const handlePreviousPatient = () => {
       setSelectedPatientIndex((prevIndex) => {
       const prevIndexValue = prevIndex - 1;
@@ -50,7 +49,6 @@ const MainProvider = ({ children }) => {
       return updatedIndex;
       });
    };
-
 
    //FILTER STATES
    const defaultFilters ={
