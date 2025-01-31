@@ -929,7 +929,7 @@ const Filter = () => {
                                     </td>
                                     {
                                        importedData.length > 0 && importedData.reduce(chadsvasce2Anticoag,0) > 0 && !removeProgressBar && (
-                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                          <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
                                              <div 
                                                 style =
                                                    {{
@@ -955,7 +955,7 @@ const Filter = () => {
                                     </td> 
                                     {
                                        importedData.length > 0 && importedData.reduce(chadsvasce2NotOnAnticoag,0) > 0 && !removeProgressBar && (
-                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                          <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
                                           <div 
                                              style =
                                                 {{
@@ -981,7 +981,7 @@ const Filter = () => {
                                     {
                                        importedData.length > 0 && importedData.reduce(chadsvasce2OnAspAntipOnly,0) > 0 && !removeProgressBar &&(
 
-                                       <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                       <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
                                        <div 
                                              style =
                                                 {{
@@ -1008,7 +1008,7 @@ const Filter = () => {
                                     </td> 
                                     {
                                        importedData.length > 0 && importedData.reduce(chadsvasce2OnAnticoagAspAntip,0) > 0 && !removeProgressBar &&(
-                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                          <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
                                              <div 
                                                 style =
                                                    {{
@@ -1035,7 +1035,7 @@ const Filter = () => {
                                     </td> 
                                     {
                                        importedData.length > 0 && importedData.reduce(chadsvasce2DOAC,0) > 0 && !removeProgressBar &&(
-                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                          <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
                                           <div 
                                              style =
                                                 {{
@@ -1071,7 +1071,7 @@ const Filter = () => {
                                     </td>
                                     {
                                        importedData.length > 0 && importedData.reduce(newChadsvasce2,0) > 0 && (
-                                          <td className="ml-4 border  border-[#21376A] w-[4em] relative rounded-md p-0">
+                                          <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
                                              <div 
                                                 style =
                                                    {{

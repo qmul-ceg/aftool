@@ -14,11 +14,16 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 const Import = () => {
    
-   const navigate = useNavigate()//Inititalised the navigate function
+   const navigate = useNavigate()//Hook for programmatic navigation
+
+   //State to track the selected GP system, initialised to 'Not Selected'
    const [gpSystemSelected, setGpSystemSelected] = useState(GpSystems.NotSelected)
  
-   //Imports from our main context
-   const { setImportedData, setRelativeRunDate } = useContext(MainContext)
+   //Extract functions from MainContext to update data and run date
+   const { 
+      setImportedData, 
+      setRelativeRunDate 
+   } = useContext(MainContext)
 
    //Sets an error message if no clinical system was selected
    const[selectCSError, setSelectCSError] =useState(false) 

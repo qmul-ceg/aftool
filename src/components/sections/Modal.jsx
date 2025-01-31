@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import { MainContext } from '@/MainContext'
-import {Table, TableBody,TableCaption,TableCell,TableHead,TableHeader,TableRow,} from "@/components/ui/table"
 import { AFibColumns } from '@/enums/AFibColumns'
-import { Description } from '@radix-ui/react-dialog'
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 
 const Modal = ({open, }) => {
@@ -14,7 +12,8 @@ const Modal = ({open, }) => {
       handleNextPatient, 
       handlePreviousPatient, 
       isModalOpen,
-      relativeRunDate
+      relativeRunDate,
+      selectedForExport, setSelectedForExport, toggleSelectedPatient
       } = useContext(MainContext)
 
 
@@ -263,11 +262,7 @@ const Modal = ({open, }) => {
       <>
       <div className="fixed "  style={OVERLAY} />
          
-         
-         
          <div className="fixed inset-0 max-h-[80vh] w-[60%] max-w-[900px] m-auto z-50  ">
-            
-
 
             {/* HEADER */}
             <div className="flex justify-between items-center  w-full h-12 px-4 rounded-t-lg bg-[#21376A] text-white">
@@ -344,8 +339,22 @@ const Modal = ({open, }) => {
                   </div>
                </div>
                
+               <div className=" mt-2 text-center text-sm ">
+                  <label className=" inline-flex gap-2 items-center cursor-pointer font-bold" for="modalCheckBox">
+                     Select for export
+                     <input
+                        type="checkbox"
+                        id="modalCheckBox"
+                        checked = {!!selectedForExport[selectedPatientData[0]]}
+                        onChange={()=>toggleSelectedPatient(selectedPatientData[0])}
+                        className="ml-2 modal_checkbox"
+                        //onclick toggle the select for export;
+                     />
+                     <div className = "custom_modal_checkbox "></div>
+                  </label>
+               </div>
                {/* NOTE AND COLOURS LEGEND */}
-               <div className=" text-center mt-6  flex justify-between items-center pl-2 pr-4">
+               <div className=" text-center mt-2  flex justify-between items-center pl-2 pr-4">
                   <strong>*NOTE: This list of medications is not exhaustive and the patient may be on additional medications not shown below</strong>
                   
                   <div className=" flex " >

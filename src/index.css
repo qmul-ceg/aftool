@@ -191,10 +191,35 @@
 }
 
 .patient_checkbox:checked + .custom_patient_checkbox{
-   background-color: #21376A
+   background-color: #21376A;
 } 
 
+/* MODAL CHECKBOX */
+.modal_checkbox{
+   display: none;
+}
+.custom_modal_checkbox{
+   width:1.2em;
+   height: 1.2em;
+   border: 0.1em solid #21376A;
+   border-radius: 0.2em;
+   margin:auto;
+   display:flex;
+   align-items:center;
+   justify-content: center;
+   flex-shrink: 0;
+}
 
+.modal_checkbox:checked + .custom_modal_checkbox::after{
+   content: '\2713';
+   font-size: 0.8em;
+   font-weight:bold;
+   color: white;
+}
+
+.modal_checkbox:checked + .custom_modal_checkbox{
+   background-color: #21376A;
+}
 /* FILTER CHECKBOX */
 
 .checkbox_input{
@@ -280,11 +305,6 @@
    background: #21376A;
    border-radius: 100vw;
 
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-   
 }
 
 .modal_scrollbar::-webkit-scrollbar-track{

@@ -16,7 +16,7 @@ const Data = () => {
       data, sortChdValue,
       setImportedData, setExportCount,
       selectedForExport, setSelectedForExport, 
-      masterCheckbox, setMasterCheckbox,
+      masterCheckbox, setMasterCheckbox, toggleSelectedPatient
       } = useContext(MainContext)
 
 
@@ -72,25 +72,25 @@ const Data = () => {
       
    
   
-   const toggleSelectedPatient = (patient) => {
+   // const toggleSelectedPatient = (patient) => {
       
-      setSelectedForExport((prev) => { 
-         const exists = patient in prev;
+   //    setSelectedForExport((prev) => { 
+   //       const exists = patient in prev;
 
-         if(exists){
-            const updated = {...prev};
-            delete updated[patient]
-            return updated;
+   //       if(exists){
+   //          const updated = {...prev};
+   //          delete updated[patient]
+   //          return updated;
             
-         }
-         else {
-            return {
-               ...prev,
-               [patient]: true
-            }
-         }
-      } 
-   )}
+   //       }
+   //       else {
+   //          return {
+   //             ...prev,
+   //             [patient]: true
+   //          }
+   //       }
+   //    } 
+   // )}
    
    // const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
    // console.log(Object.keys(selectedForExportCount).length)
@@ -104,10 +104,6 @@ const Data = () => {
          Object.entries(selectedForExport).filter(([key, value]) => value == true )
       )
       setExportCount(Object.keys(patientExportCount).length)
-
-      // if (selectedForExport.length != data.length){
-      //    setMasterCheckbox(false)
-      // }
      
    },[toggleSelectedPatient])
    
@@ -140,7 +136,6 @@ const Data = () => {
 
    }, [])
 
-   // console.log("header height: " + headerHeight)
 
   return (
 
@@ -208,7 +203,7 @@ const Data = () => {
                         <input
                            type="checkbox"
                            checked={!!selectedForExport[patient[0]]}
-                           className="patient_checkbox "
+                           className="patient_checkbox"
                            onChange={()=>toggleSelectedPatient(patient[0])}
                         />
                            {/* below div is for customised check box, styling can be found in index.css */}

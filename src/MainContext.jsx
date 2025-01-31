@@ -74,6 +74,7 @@ const MainProvider = ({ children }) => {
    
    }
 
+   console.log(selectedPatientData)
    const handleNextPatient = () =>{
       setSelectedPatientIndex((prevIndex) =>{
          const nextIndex = prevIndex + 1 
@@ -678,9 +679,6 @@ const MainProvider = ({ children }) => {
          });   
    }
 
-  
-
-   
 
    //TABLE DATA AND SORTING
    const [sortChdValue, setSortChdValue] = useState("desc")
@@ -719,36 +717,28 @@ const MainProvider = ({ children }) => {
       setDataCount(sortedData.length)
    }, [ filteredPatients, sortChdValue ]);
 
-
-
-   //FUNCTIONALITY FOR SELECTING PATIENT DATA FOR EXPORT
-   // useEffect(()=>{
-   //    //put all patients in an array 
-   //    // setSelectedForExport({})
-   // const patientsSelectedForExport = {}
-
-   // const updateSelectedForExport = () => {
-   //    data.forEach((patient) => {
-   //       patientsSelectedForExport[patient[0]] = true;
-   //    })
-   //    setSelectedForExport(patientsSelectedForExport) 
-   // }
-      
-      
-   //    updateSelectedForExport()
-   // }, [ data])
    
 
 
+   const toggleSelectedPatient = (patient) => {
+      
+      setSelectedForExport((prev) => { 
+         const exists = patient in prev;
 
-
-
-
-
-
-
-
-
+         if(exists){
+            const updated = {...prev};
+            delete updated[patient]
+            return updated;
+            
+         }
+         else {
+            return {
+               ...prev,
+               [patient]: true
+            }
+         }
+      } 
+   )}
 
 
 //MAINCONTEXT VALUES
@@ -798,7 +788,10 @@ const MainProvider = ({ children }) => {
    
       // removeAgeDisplay
       // MASTER CHECKBOX CONTROL ON DATA TABLE 
-      setMasterCheckbox, masterCheckbox
+      setMasterCheckbox, masterCheckbox,
+
+      //TOGGLE PATIENT EXPORT
+      toggleSelectedPatient
 
    }
 
