@@ -52,7 +52,7 @@ const Display = () => {
         
          <div className="mt-2 mx-4 px-2  flex justify-between  lg:text-sm xl:text-[1em]">
             <p>Patient count: <strong className='text-[#E6007E]'>{dataCount} </strong>(Selected for export: {exportCount})</p>
-            <p>Relative run date: <strong className='text-[#E6007E]'>{relativeRunDate}</strong></p>
+            <p>Date of last run: <strong className='text-[#E6007E]'>{relativeRunDate}</strong></p>
             
          </div>
          
