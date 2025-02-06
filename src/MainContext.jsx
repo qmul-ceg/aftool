@@ -74,7 +74,7 @@ const MainProvider = ({ children }) => {
    
    }
 
-   console.log(selectedPatientData)
+   // console.log(selectedPatientData)
    const handleNextPatient = () =>{
       setSelectedPatientIndex((prevIndex) =>{
          const nextIndex = prevIndex + 1 
@@ -519,7 +519,9 @@ const MainProvider = ({ children }) => {
                (patient[AFibColumns.OnAnticoagulant].includes("YES - WARF"))) ||
             (antiplatelets && 
                (patient[AFibColumns.OnAspirinAntiplatelet] === "YES") &&
-               (patient[AFibColumns.OnAnticoagulant] === "NO"))  ||
+               !patient[AFibColumns.OnAnticoagulant].includes("YES"))
+// (patient[AFibColumns.OnAnticoagulant] != "YES"))  
+               ||
             (dualTherapy && 
                   (patient[AFibColumns.OnAspirinAntiplatelet] === "YES") && 
                    (patient[AFibColumns.OnAnticoagulant].includes("YES - DOAC") ||

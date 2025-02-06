@@ -428,12 +428,12 @@ const Filter = () => {
                               <PopoverContent className="w-88 ml-8 pl-0">
                                  <div className=" text-sm font-semibold">
                                     {[
-                                       { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (12m), no anticoagulation "},
-                                       { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation"},
-                                       { value: "option_three", label: "ORBIT ≥ 4 (12m), on anticoagulation"},
-                                       { value: "option_four", label: "Med review > 12m, on anticoagulation"},
-                                       { value: "option_five", label: "On NSAIDs, on anticoagulant"},
-                                       { value: "option_six", label: "On dual therapy, no med review (12m)"}
+                                       { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (12m), no anticoagulation (6m)"},
+                                       { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation (6m)"},
+                                       { value: "option_three", label: "ORBIT ≥ 4 (12m), on anticoagulation (6m)"},
+                                       { value: "option_four", label: "Med review > 12m, on anticoagulation (6m)"},
+                                       { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
+                                       { value: "option_six", label: "On dual therapy (6m), no med review (12m)"}
                                     ].map((item) => {
                                        return (
                                           <label
@@ -462,7 +462,7 @@ const Filter = () => {
                   {
                      resizeQuickFilter && (
 
-                        <div className =" flex-1 w-full flex flex-col justify-between max-w-[360px] mr-2">
+                        <div className =" flex-1 w-full flex flex-col justify-between max-w-[390px] mr-2">
                            <div className =" flex flex-col">
                               <header className="flex justify-between px-2 py-2 rounded-t-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
                                  <p className ="font-semibold text-xs text-left xl:text-sm 2xl:text-sm pr-2">Quick filters</p>
@@ -475,12 +475,12 @@ const Filter = () => {
                            showQuickFilter && (
                               <div className="border-[0.1em] border-[#21376A] h-36 border-t-0 text-sm pt-2 font-semibold ">
                                  {[
-                                    { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (12m), no anticoagulation "},
-                                    { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation"},
-                                    { value: "option_three", label: "ORBIT ≥ 4 (12m), on anticoagulation"},
-                                    { value: "option_four", label: "Med review > 12m, on anticoagulation"},
-                                    { value: "option_five", label: "On NSAIDs, on anticoagulant"},
-                                    { value: "option_six", label: "On dual therapy, no med review (12m)"}
+                                    { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (12m), no anticoagulation (6m)"},
+                                    { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation (6m)"},
+                                    { value: "option_three", label: "ORBIT ≥ 4 (12m), on anticoagulation (6m)"},
+                                    { value: "option_four", label: "Med review > 12m, on anticoagulation (6m)"},
+                                    { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
+                                    { value: "option_six", label: "On dual therapy (6m), no med review (12m)"}
                                  ].map((item) => {
                                     return (
                                        <label
@@ -885,7 +885,7 @@ const Filter = () => {
                   </div>
                   
                   
-                  {/* SUMMARY min-w-[470px] */} 
+                  {/* SUMMARY  */} 
                   {/* 
                      <div className=" min-w-[660px] lg:max-w-[650px]lg:max-w-[620px] xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2">
                   */}
@@ -895,7 +895,7 @@ const Filter = () => {
                            <p className ="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Summary</p>
                         </header>
 
-                        <div className=" border-t-0 border-[0.1em] border-[#21376A] flex flex-col pt-2 px-2" >
+                        <div className=" border-t-0 border-[0.1em] border-[#21376A] flex flex-col py-2 px-2" >
                            <table className=" lg:text-xs xl:text-[0.85em] 2xl:text-sm summary_table">
                               <tbody className=" ">
                                  <tr className="">

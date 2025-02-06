@@ -21,12 +21,17 @@ const Menu = () => {
       const exportData = Object.keys(patientsToExport).map((patient)=>{
          const patientInfo = data.find((patientName) => patientName[0] === patient);
 
-         // console.log(patientInfo)
+         console.log(patientInfo)
          return{
-            name : patientInfo[0],
-            Patient_reference : patientInfo[1],
+            Name : patientInfo[0],
             Age: patientInfo[2],
             Gender: patientInfo[3],
+            Patient_reference : patientInfo[1],
+            "CHA₂DS₂-VASc" :{
+               Value : patientInfo[27],
+               LatestDate: patientInfo[26]
+            },	
+            
             NHS_number: patientInfo[4],
          }
       })

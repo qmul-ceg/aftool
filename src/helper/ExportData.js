@@ -3,19 +3,19 @@ import { GpSystems } from "@/enums/GPsystems";
 
 export function exportNHS_list(patientList) {
 
-    console.log("Count: " + patientList.length);
+   console.log("Count: " + patientList.length);
 
-    if (patientList.length == 0) {
-        alert("No patient statisfied current filter selection, or patient count is '0'");
-        return;
-    }
+   if (patientList.length == 0) {
+      alert("No patient statisfied current filter selection, or patient count is '0'");
+      return;
+   }
 
-    alert("You are about to export a file containing NHS numbers.  Please make sure the file is saved to an appropriately secure drive.");
+   alert("You are about to export a file containing NHS numbers. Please make sure the file is saved to an appropriately secure drive.");
 
-    let NHSnumbers = "";
+   let NHSnumbers = "";
 
-    patientList.forEach(patient => {
-        NHSnumbers += patient[AFibColumns.NHS_Number] + "\n";
+   patientList.forEach(patient => {
+      NHSnumbers += patient[AFibColumns.NHS_Number] + "\n";
     });
 
     const link = document.createElement("a");    

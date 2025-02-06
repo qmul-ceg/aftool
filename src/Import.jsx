@@ -35,7 +35,8 @@ const Import = () => {
    }
 
    // Report columns
-   const EMIS_ReportColumnsCount = 91;
+   // const EMIS_ReportColumnsCount = 91;
+   const EMIS_ReportColumnsCount = 92;
    const S1ReportColumnsCount = 85;
    
    // FILE INPUT FUNCTIONALITY
@@ -73,7 +74,7 @@ const Import = () => {
             handleEMISWebReport(file);
          } 
          else if (gpSystemSelected === GpSystems.SystmOne) {
-               handleSystmOneReport(file);
+            handleSystmOneReport(file);
          }
       }catch{
          resetFileInput(event.target);
@@ -98,11 +99,12 @@ const Import = () => {
       reader.onload = function (){
          
          const lines = reader.result.split('\n');
+         console.log(lines)
          let runDateTime;
 
          for (let i = 0; i < lines.length; i++){
             const line = lines[i].split(',');
-
+            
             if (line[0].includes("Last Run") || line[0].includes("Last run")) {
                runDateTime = line[3];
             }
@@ -111,7 +113,10 @@ const Import = () => {
                skipRows++;
 
                if (line.length !== EMIS_ReportColumnsCount) {
-                  throw new Error("EMIS Web report is not valid. Please import the correct report version.");
+                 throw new Error("EMIS Web report is not valid. Please import the correct report version.");
+                  // break;
+                  
+                   // console.warn("Skipping row wit enexpected column count:", line)
                }
             break;
          }
@@ -133,6 +138,7 @@ const Import = () => {
       };
    };
 
+
    const handleSystmOneReport = (file) => {
       setS1ImportError(false)
 
@@ -151,9 +157,8 @@ const Import = () => {
             setGpSystemSelected(GpSystems.NotSelected)
             return;
            
-
          }
-   
+         skipRows = 1
          parseData(file, skipRows);
       };
    };
@@ -163,16 +168,19 @@ const Import = () => {
 
    function parseData(file, skipLines) {
       Papa.parse(file, {
-          header: true,
-          skipEmptyLines: true,
-          skipFirstNLines: skipLines,
-          complete: function (result) {
+         //  header: true,
+         header : false,
+         skipEmptyLines: true,
+         skipFirstNLines: skipLines,
+         complete: function (result) {
 
               let dataArray = [];
 
               if (gpSystemSelected === GpSystems.EMIS_Web) {
 
                   result.data.forEach((data, index) => {
+                     // console.log(data)
+
                         if (index >= skipLines) {
                            dataArray.push(Object.values(data));
                            dataArray[dataArray.length - 1][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataArray[dataArray.length - 1]);
@@ -185,6 +193,7 @@ const Import = () => {
                            // dataArray[dataArray.length - 1][AFibColumns.Selected] = true;
                         }
                   });
+                  dataArray.splice(-1)
               }
               else if (gpSystemSelected === GpSystems.SystmOne) {
 
@@ -202,19 +211,15 @@ const Import = () => {
                         dataArray[index][AFibColumns.BP] = getBloodPressure(dataRow);               
                   });
               }
-              
-              //console.log("Processed Data:", dataArray);
+      
               setImportedData(dataArray)
               navigate("/display",);
-              
-              
-         },
+            },
           error: function (error) {
               console.error("Error parsing the CSV file:", error);
               alert("Error parsing the CSV file.");
           }
       });
-
   }
 
   
@@ -224,7 +229,6 @@ const Import = () => {
    <>
 
       <div className = "flex justify-center  items-start h-screen bg-[#21376A]">
-      
          <div  className = " w-[40%] max-w-[500px] mt-[20vh] border text-center py-12 rounded-t-lg bg-white">
             <div className="text-center w-full sm:w-auto  flex-row flex-1">
                <h1 className="text-sm md:text-md 
