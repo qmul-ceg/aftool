@@ -1,36 +1,65 @@
 import { AFibColumns } from "@/enums/AFibColumns";
 import { GpSystems } from "@/enums/GPsystems";
 
-export function exportNHS_list(patientList) {
+const exportNHS_list = (selectedForExportList, data) =>{
 
-   console.log("Count: " + patientList.length);
-
-   if (patientList.length == 0) {
+   if (selectedForExportList.length == 0){
       alert("No patient statisfied current filter selection, or patient count is '0'");
       return;
    }
-
+   
    alert("You are about to export a file containing NHS numbers. Please make sure the file is saved to an appropriately secure drive.");
+   data.forEach(patient => {
+      console.log(patient[0])
+   })
 
-   let NHSnumbers = "";
-
-   patientList.forEach(patient => {
-      NHSnumbers += patient[AFibColumns.NHS_Number] + "\n";
-    });
-
-    const link = document.createElement("a");    
-    const file = new Blob([NHSnumbers], { type: 'text/plain' });
-
-    link.href = URL.createObjectURL(file);
-    link.download = "AFib_patients_NHS_number_" + getRandomNumbers() + ".txt";
-    link.click();
-    URL.revokeObjectURL(link.href);    
+   const patientsList = Object.keys(selectedForExportList).map(patiendId => {
+      const patientsToExport = data.find(patients => patients[0] === key)
+      
+      console.log(patientsToExport)
+   })
+   
+   
+   
+   
+   // .map(patient => {
+   //    data.find(patients => patients[0] === patient)
+   // })
+   
+   // console.log(patientsList)
+   
 }
+
+// export function exportNHS_list(patientList) {
+
+//    console.log("Count: " + patientList.length);
+
+//    if (patientList.length == 0) {
+//       alert("No patient statisfied current filter selection, or patient count is '0'");
+//       return;
+//    }
+
+//    alert("You are about to export a file containing NHS numbers. Please make sure the file is saved to an appropriately secure drive.");
+
+//    let NHSnumbers = "";
+
+//    patientList.forEach(patient => {
+//       NHSnumbers += patient[AFibColumns.NHS_Number] + "\n";
+//     });
+
+//     const link = document.createElement("a");    
+//     const file = new Blob([NHSnumbers], { type: 'text/plain' });
+
+//     link.href = URL.createObjectURL(file);
+//     link.download = "AFib_patients_NHS_number_" + getRandomNumbers() + ".txt";
+//     link.click();
+//     URL.revokeObjectURL(link.href);    
+// }
 
 
 export function exportAccuRxList(patientList, selGpSystem) {
 
-    console.log("Count: " + patientList.length);
+    console.log("Count: " + typeof(patientList.length));
 
     if (patientList.length == 0) {
         alert("No patient statisfied current filter selection, or patient count is '0'");
@@ -51,7 +80,7 @@ export function exportAccuRxList(patientList, selGpSystem) {
     }
     else if (selGpSystem == GpSystems.SystmOne) {
 
-        outputContent = "NHS Number, Date of Birth, Mobile telephone"
+        outputContent = "NHS Number, Date of Birth, Mobile telephone";
 
         patientList.forEach(patient => {
             outputContent += "\n" + patient[AFibColumns.NHS_Number] + "," + patient[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
@@ -73,3 +102,5 @@ function getRandomNumbers() {
 
 	return dateTime + '' + Math.floor((Math.random().toFixed(2)*100));
 }
+
+export {exportNHS_list}

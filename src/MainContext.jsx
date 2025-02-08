@@ -19,6 +19,8 @@ const MainProvider = ({ children }) => {
    const [exportCount, setExportCount] = useState(0)
    const [selectedForExport, setSelectedForExport] = useState({})
    const [masterCheckbox, setMasterCheckbox] = useState(null)
+   const [gpSystemSelected, setGpSystemSelected] = useState(GpSystems.NotSelected)
+   
 
 
 
@@ -55,7 +57,6 @@ const MainProvider = ({ children }) => {
    const [statin, setStatin] = useState(defaultFilters.statin);
    const [cvd, setCvd] = useState (defaultFilters.cvd);
    const [selectedBP, setSelectedBP] = useState(defaultFilters.selectedBP);
-
    const [quickFilter, setQuickFilter] = useState(defaultFilters.quickFilter);
    
 
@@ -793,7 +794,10 @@ const MainProvider = ({ children }) => {
       setMasterCheckbox, masterCheckbox,
 
       //TOGGLE PATIENT EXPORT
-      toggleSelectedPatient
+      toggleSelectedPatient,
+
+      //GPSYSTEM
+      gpSystemSelected, setGpSystemSelected
 
    }
 

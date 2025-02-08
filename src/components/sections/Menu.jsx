@@ -2,23 +2,37 @@ import React, { useContext } from 'react'
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { Link } from 'react-router-dom'
 import { MainContext } from '@/MainContext'
-import { exportAccuRxList, exportNHS_list } from '@/helper/ExportData';
+// import { exportAccuRxList, exportNHS_list } from '@/helper/ExportData';
 import { GpSystems } from '@/enums/GPsystems';
 import * as XLSX from 'xlsx'
+import { AFibColumns } from '@/enums/AFibColumns';
 
 
 const Menu = () => {
 
 
    const { getFilteredPatients, resetFilters,
-      selectedForExport, data
+      selectedForExport, data, gpSystemSelected
     } = useContext(MainContext);
    const filteredPatients = getFilteredPatients();
 
+   
+   function getRandomNumbers() {
+      let dateObj = new Date()
+      let dateTime = dateObj.getHours() + '' + dateObj.getMinutes() + '' + dateObj.getSeconds();
+   
+      return dateTime + '' + Math.floor((Math.random().toFixed(2)*100));
+   }
 
-   const exportToExcel = (patientsToExport, data) => {
 
-      const exportData = Object.keys(patientsToExport).map((patient)=>{
+   const exportToExcel = (selectedForExportList, data) => {
+      
+      if (selectedForExportList.length == 0){
+         alert("No patient statisfied current filter selection, or patient count is '0'");
+         return;
+      }
+
+      const exportData = Object.keys(selectedForExportList).map((patient)=>{
          const patientInfo = data.find((patientName) => patientName[0] === patient);
 
          console.log(patientInfo)
@@ -26,19 +40,30 @@ const Menu = () => {
             Name : patientInfo[0],
             Age: patientInfo[2],
             Gender: patientInfo[3],
-            Patient_reference : patientInfo[1],
-            "CHA₂DS₂-VASc" :{
-               Value : patientInfo[27],
-               LatestDate: patientInfo[26]
-            },	
+            "Patient reference" : patientInfo[1],
+            "CHA₂DS₂-VASc - Value" : patientInfo[27],     
+            "CHA₂DS₂-VASc - Date)": patientInfo[26],
+            "ORBIT - Value": patientInfo[30],
+            "ORBIT - Date": patientInfo[31],
+            "Anticoagulant issued (6m)" : patientInfo[91],
+            "Aspirin / antiplatelet issued (6m)" : patientInfo[92],
+            NSAID: patientInfo[93],
+            "Statin issued": patientInfo[94],
+            CVD: patientInfo[95],
+            BP: patientInfo[97],
+            "Medication Review Date": patientInfo[90]
             
-            NHS_number: patientInfo[4],
+            // NHS_number: patientInfo[4],
          }
       })
       console.log(exportData)
       //Convert to worksheet
-      const worksheet = XLSX.utils.json_to_sheet(exportData)
+      let worksheet = XLSX.utils.json_to_sheet(exportData, {origin: "A3"})
 
+      XLSX.utils.sheet_add_aoa(worksheet,
+         ["Patient Data Export"],
+         {origin: "A1"}
+      );
       //Create a workbook and add the worksheet
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Patients")
@@ -47,16 +72,85 @@ const Menu = () => {
    };
 
    
+   const exportNHS_list = (selectedForExportList, data) =>{
 
-   const handleExportNHS = () => {
-      exportNHS_list(filteredPatients);
-      this.preventDefault();
-   }      
+      if (selectedForExportList.length == 0){
+         alert("No patient statisfied current filter selection, or patient count is '0'");
+         return;
+      }
+      
+      const patientsList = Object.keys(selectedForExportList).map(key => {
+         const patientsToExport = data.find(patients => patients[0] === key) 
+         return patientsToExport[AFibColumns.NHS_Number]   
+      })
 
-   const handleExporAccuRxList = () => {
-      exportAccuRxList(filteredPatients, GpSystems.EMIS_Web);
-      this.preventDefault();
-   }    
+      if(patientsList.length == 0){
+         alert("No patient statisfied current filter selection, or patient count is '0'")
+         return;
+      }
+      alert("You are about to export a file containing NHS numbers. Please make sure the file is saved to an appropriately secure drive.");
+
+      const listToExport = patientsList.join("\n");
+      const file = new Blob([listToExport], { type : "text/plain"});
+      const url = URL.createObjectURL(file)
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "AFib_patients_NHS_number_" + getRandomNumbers() + ".txt";
+
+      document.body.appendChild(link)
+      link.click();
+      document.body.removeChild(link)
+      setTimeout(()=>URL.revokeObjectURL(url), 1000)
+   }  
+
+   const exportAccuRxList = (selectedForExport, data, selGpSystem) => {
+      // console.log(selGpSystem)
+      if (selectedForExport.length == 0){
+         alert("No patient statisfied current filter selection, or patient count is '0'");
+         return;
+      }
+
+      alert("You are about to export a file containing patient-identifiable data. Please make sure the file is saved to an appropriately secure drive.");
+      
+      let outputContent = "";
+      if(selGpSystem == GpSystems.EMIS_Web){
+         outputContent += "EMIS Web, NHS Number"
+
+         const patientsList = Object.keys(selectedForExport).map(key => {
+            const patientsToExport = data.find(patients => patients[0] === key) 
+            outputContent += "\n" + patientsToExport[AFibColumns.PatientReference] + "," + patientsToExport[AFibColumns.NHS_Number];
+         })
+      }
+      else if(selGpSystem == GpSystems.SystmOne){
+         outputContent = "NHS Number, Date of Birth, Mobile telephone";
+
+         const patientsList = Object.keys(selectedForExport).map(key => {
+            const patientsToExport = data.find(patients => patients[0] === key) 
+            outputContent += "\n" + patient[AFibColumns.NHS_Number] + "," + patient[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
+         })
+
+      }
+      // console.log(outputContent)
+     
+      const file = new Blob([outputContent], { type : "text/plain"});
+      const url = URL.createObjectURL(file)
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "AccuRx_AF_patients_list_" + getRandomNumbers() + ".csv ";
+
+      document.body.appendChild(link)
+      link.click();
+      document.body.removeChild(link)
+      setTimeout(()=>URL.revokeObjectURL(url), 1000)
+
+   }
+
+   // const handleExporAccuRxList = () => {
+   //    exportAccuRxList(filteredPatients, GpSystems.EMIS_Web);
+   //    this.preventDefault();
+   // }    
 
    return (
       <>
@@ -66,10 +160,10 @@ const Menu = () => {
                <Popover>
                   <PopoverTrigger 
                      className="flex justify-center items-center
-                     font-serif text-xs px-[0.51em]  rounded-full font-semibold
+                      text-xs px-2 py-[0.3em]  rounded-lg font-semibold
                      bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
                   >
-                     i
+                     User guide & <br></br>resources
                   </PopoverTrigger>
                   <PopoverContent>
                      <div className="">
@@ -102,8 +196,9 @@ const Menu = () => {
                                     e.preventDefault();
                                     exportToExcel(selectedForExport, data)
                                  }}>EXCEL LIST</a> </li>
-                              <li><a href='#' onClick={handleExporAccuRxList}>ACCURX LIST</a></li>
-                              <li><a href='#' onClick={handleExportNHS}>NHS NO. LIST</a></li>
+                              {/* <li><a href='#' onClick={handleExporAccuRxList}>ACCURX LIST</a></li> */}
+                              <li><a href='#' onClick={()=>exportAccuRxList(selectedForExport, data, gpSystemSelected)}>ACCURX LIST</a></li>
+                              <li><a href='#' onClick={()=>exportNHS_list(selectedForExport, data)}>NHS NO. LIST</a></li>
                            </ul>
                         </div>
                         
@@ -120,8 +215,11 @@ const Menu = () => {
                <div className="ml-1 w-[70%]">
                   <Link to="/">
                      <button className="  flex flex-col  items-center px-4  py-1 hover:text-black group"  onClick={resetFilters} >
-                        <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new</p>
-                        <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">patient data</p>
+                     <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new <br></br>patient data</p>
+                     
+                        
+                        {/* <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new</p>
+                        <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">patient data</p> */}
 
                      </button>
                   </Link>
@@ -146,4 +244,4 @@ export default Menu
                         // bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white"
                      >
                         i
-                     </button> */}
+                     </button> */}{/* <li><a href='#' onClick={handleExportNHS}>NHS NO. LIST</a></li> */}

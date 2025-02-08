@@ -57,12 +57,7 @@ const Display = () => {
          </div>
          
          {/* DISPLAY DATA */}
-         {/* <section 
-            className= "flex justify-center  mt-2 mb-2  border grow " 
-            id="display_data"
-         > */}
-            {/* <div className=" w-[98vw] "> */}
-            {/* <div className ="w-[98vw border-[1px] border-[#21376A]] border"> */}
+        
          <section className =" mx-4 mb-2 overflow-y-auto border border-[#21376A] rounded-t-lg ">
             <Data />
          </section>
@@ -104,4 +99,9 @@ export default Display
    //    <div 
    //    className="flex flex-col h-full justify-center align-center "
         
-   // >
+   // > {/* <section 
+            // className= "flex justify-center  mt-2 mb-2  border grow " 
+            // id="display_data"
+         // > */}
+            {/* <div className=" w-[98vw] "> */}
+            {/* <div className ="w-[98vw border-[1px] border-[#21376A]] border"> */}

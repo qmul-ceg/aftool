@@ -36,26 +36,38 @@ function App() {
    console.log("Current path:", window.location.pathname);
    
 
-   if(!isDesktop){
-      return (
-         <>
-            <Alert className= "w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+   // if(!isDesktop){
+   //    return (
+   //       <>
+   //          <Alert className= "w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
                
-               <AlertTitle>Incompatible screen size!</AlertTitle>
-               <AlertDescription className="pt-4">
-                  This application is not available on smaller screen resolutions, please use a desktop or laptop to access this application.
-               </AlertDescription>
-            </Alert>
-         </>
+   //             <AlertTitle>Incompatible screen size!</AlertTitle>
+   //             <AlertDescription className="pt-4">
+   //                This application is not available on smaller screen resolutions, please use a desktop or laptop to access this application.
+   //             </AlertDescription>
+   //          </Alert>
+   //       </>
             
-      )
-   }
+   //    )
+   // }
    return (
       // <div>
       //    <h1>App Component</h1>
       //    <Import />
       // </div>
       <MainProvider>
+         {
+            !isDesktop && (
+               <div className="app_overlay">
+                   <Alert className= "w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                     <AlertTitle>Incompatible screen size!</AlertTitle>
+                     <AlertDescription className="pt-4">
+                        This application is not available on smaller screen resolutions, please use a desktop or laptop to access this application.
+                     </AlertDescription>
+                  </Alert>
+               </div>
+            )
+         }
          <div>
             <Router basename="/af_tool_test/">
                <Routes>

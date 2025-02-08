@@ -13,17 +13,18 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 
 const Import = () => {
-   
-   const navigate = useNavigate()//Hook for programmatic navigation
-
-   //State to track the selected GP system, initialised to 'Not Selected'
-   const [gpSystemSelected, setGpSystemSelected] = useState(GpSystems.NotSelected)
- 
    //Extract functions from MainContext to update data and run date
    const { 
       setImportedData, 
-      setRelativeRunDate 
+      setRelativeRunDate, gpSystemSelected, setGpSystemSelected
    } = useContext(MainContext)
+   
+   const navigate = useNavigate()//Hook for programmatic navigation
+
+   // //State to track the selected GP system, initialised to 'Not Selected'
+   // const [gpSystemSelected, setGpSystemSelected] = useState(GpSystems.NotSelected)
+ 
+   
 
    //Sets an error message if no clinical system was selected
    const[selectCSError, setSelectCSError] =useState(false) 
@@ -99,7 +100,7 @@ const Import = () => {
       reader.onload = function (){
          
          const lines = reader.result.split('\n');
-         console.log(lines)
+         // console.log(lines)
          let runDateTime;
 
          for (let i = 0; i < lines.length; i++){
@@ -107,6 +108,7 @@ const Import = () => {
             
             if (line[0].includes("Last Run") || line[0].includes("Last run")) {
                runDateTime = line[3];
+               
             }
 
             if (line[0].includes("Patient Details") || line[0].toLowerCase().includes("patient details")) {
@@ -126,9 +128,12 @@ const Import = () => {
 
          if (runDateTime) {
             const relativeRunDate = runDateTime.split(' ')[0];
-            setRelativeRunDate(relativeRunDate);
+            let cleanedRelativeRunDate = relativeRunDate.replace(/"/g, '')
+            setRelativeRunDate(cleanedRelativeRunDate);
             parseData(file, skipRows);
+
          } 
+         
          else {
          
             throw new Error("EMIS Web report is not valid. Please import the correct report version.");
