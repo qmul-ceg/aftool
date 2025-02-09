@@ -32,7 +32,7 @@ const Modal = ({open, }) => {
       yellow: "#CDA70A"
    }
 
-   const OVERLAY ={
+   const overlay ={
       position : 'fixed',
       top:0,
       left: 0,
@@ -260,7 +260,7 @@ const Modal = ({open, }) => {
 
    return (
       <>
-      <div className="fixed "  style={OVERLAY} />
+      <div className="fixed "  style={overlay} />
          
          <div className="fixed inset-0 max-h-[80vh] w-[60%] max-w-[900px] m-auto z-50  ">
 

@@ -34,7 +34,15 @@ function App() {
    }, [])
 
    console.log("Current path:", window.location.pathname);
-   
+   const overlay ={
+      position : 'fixed',
+      top:0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: '#21376A',
+      zIndex:50
+   }
 
    // if(!isDesktop){
    //    return (
@@ -58,8 +66,8 @@ function App() {
       <MainProvider>
          {
             !isDesktop && (
-               <div className="app_overlay">
-                   <Alert className= "w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+               <div style={overlay}>
+                   <Alert className= " border-0 w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
                      <AlertTitle>Incompatible screen size!</AlertTitle>
                      <AlertDescription className="pt-4">
                         This application is not available on smaller screen resolutions, please use a desktop or laptop to access this application.

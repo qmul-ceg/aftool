@@ -1024,8 +1024,6 @@ const Filter = () => {
                                     </td>       
                                        )
                                     }
-                                      
-                                    {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
                                  <tr className=" bg-gray-100">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 issued DOAC (6m)</td>
@@ -1049,9 +1047,6 @@ const Filter = () => {
                                     </td>      
                                        )
                                     }
-                                     
-                                      
-                                    {/* <td className=" text-center">{ percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0)) }</td> */}
                                  </tr>
 
 
@@ -1070,7 +1065,7 @@ const Filter = () => {
                                        <span className="progress_data">{percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</span>
                                     </td>
                                     {
-                                       importedData.length > 0 && importedData.reduce(newChadsvasce2,0) > 0 && (
+                                       importedData.length > 0 && importedData.reduce(newChadsvasce2,0) > 0 && !removeProgressBar && (
                                           <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
                                              <div 
                                                 style =
