@@ -27,11 +27,13 @@ const Import = () => {
    
 
    //Sets an error message if no clinical system was selected
-   const[selectCSError, setSelectCSError] =useState(false) 
-   const [s1ImportError, setS1ImportError] = useState(false);
+   const[selectGpSystemError, setSelectGpSystemError] = useState(false) 
+   const [systmOneImportError, setSystmOneImportError] = useState(false);
+   const [emisWebImportError, setEmisWebImportError] = useState(false)
 
    //Sets GPsystem 
    const handleGpSystemSelect = (event) =>{
+      setGpSystemSelected(GpSystems.NotSelected)
       setGpSystemSelected(event.target.value)
    }
 
@@ -49,12 +51,12 @@ const Import = () => {
       // If no input selected and we click on the Import button an alert will pop up on the screen 
 
       if (gpSystemSelected !== GpSystems.NotSelected){
-         setSelectCSError(false)
+         setSelectGpSystemError(false)
          if(fileInputRef.current) {
             fileInputRef.current.click()
          }
       }else {
-         setSelectCSError(true)
+         setSelectGpSystemError(true)
          // alert("Please select a clinical system before importing");
       }
       
@@ -115,10 +117,8 @@ const Import = () => {
                skipRows++;
 
                if (line.length !== EMIS_ReportColumnsCount) {
+                  setEmisWebImportError(true)
                  throw new Error("EMIS Web report is not valid. Please import the correct report version.");
-                  // break;
-                  
-                   // console.warn("Skipping row wit enexpected column count:", line)
                }
             break;
          }
@@ -133,11 +133,9 @@ const Import = () => {
             parseData(file, skipRows);
 
          } 
-         
          else {
-         
+            setEmisWebImportError(true)
             throw new Error("EMIS Web report is not valid. Please import the correct report version.");
-            
          }
          
       };
@@ -145,7 +143,7 @@ const Import = () => {
 
 
    const handleSystmOneReport = (file) => {
-      setS1ImportError(false)
+      setSystmOneImportError(false)
 
       const relativeRunDate = '1-Apr-2024';  //file.lastModified;
       setRelativeRunDate(relativeRunDate);
@@ -157,8 +155,7 @@ const Import = () => {
          const lines = reader.result.split('\n');
          const line = lines[0].split(',');
          if (line.length !== S1ReportColumnsCount) {
-            setS1ImportError(true);
-            // throw new Error("SystmOne report is not valid. Please import the correct report version."); 
+            setSystmOneImportError(true);
             setGpSystemSelected(GpSystems.NotSelected)
             return;
            
@@ -172,6 +169,7 @@ const Import = () => {
    
 
    function parseData(file, skipLines) {
+      setEmisWebImportError(false)
       Papa.parse(file, {
          //  header: true,
          header : false,
@@ -259,41 +257,53 @@ const Import = () => {
                </div>
                <div className="flex flex-col justify-center items-center mb-6">
                   <h2 className="text-xl font-medium text-[#21376A]">Select clinical system and import CSV file </h2>
-                  {/* <RadioGroup className ="flex justify-center items-center"> */}
-                     <div className="flex items-center mt-4 gap-10 font-bold text-[#21376A]">
-                           <label className="text-xl flex flex-col items-center" htmlFor="option-one">
-                              EMIS Web
-                              <input
-                                 type="radio"
-                                 id="option-one"
-                                 name="gp-system"
-                                 value={GpSystems.EMIS_Web}
-                                 onClick={handleGpSystemSelect}
-                                 className="w-4 h-4 border-2 rounded-full  checked:bg-[#21376A] mr-2 emis_radio_input"
-                              />
-                              <div className="emis_custom_radio"></div>
-                           </label>   
-                     
-                           <label className="text-xl flex flex-col items-center" htmlFor="option-two">
-                              SystmOne
-                              <input
-                                 type="radio"
-                                 id="option-two"
-                                 name="gp-system"
-                                 value={GpSystems.SystmOne}
-                                 onClick={handleGpSystemSelect}
-                                 className="w-4 h-4 border-2 rounded-full  checked:bg-[#648DBC] mr-2 systmone_radio_input"
-                              />
-                              <div className="systmone_custom_radio"></div>
-                           </label>
+                     {/* <RadioGroup className ="flex justify-center items-center"> */}
+                  <div className="flex items-center mt-4 gap-10 font-bold text-[#21376A]">
+                     <label className="text-xl flex flex-col items-center" htmlFor="option-one">
+                        EMIS Web
+                        <input
+                           type="radio"
+                           id="option-one"
+                           name="gp-system"
+                           value={GpSystems.EMIS_Web}
+                           onClick={handleGpSystemSelect}
+                           className="w-4 h-4 border-2 rounded-full  checked:bg-[#21376A] mr-2 emis_radio_input"
+                        />
+                        <div className="emis_custom_radio"></div>
+                     </label>   
+                  
+                     <label className="text-xl flex flex-col items-center" htmlFor="option-two">
+                        SystmOne
+                        <input
+                           type="radio"
+                           id="option-two"
+                           name="gp-system"
+                           value={GpSystems.SystmOne}
+                           onClick={handleGpSystemSelect}
+                           className="w-4 h-4 border-2 rounded-full  checked:bg-[#648DBC] mr-2 systmone_radio_input"
+                        />
+                        <div className="systmone_custom_radio"></div>
+                     </label>
+                  </div>
+                  {
+                     selectGpSystemError && 
+                     (
+                        <div className = " text-sm text-red-600">Please select a clinical system before importing.</div>
+                     )
+                  }
+                  {
+                     systmOneImportError && 
+                     (
+                        <div className = " text-sm text-red-600">SystmOne report is not valid, please import correct report version.</div>
+                     )
+                  }
+                  {
+                     emisWebImportError && 
+                     (
+                        <div className = " text-sm text-red-600">This Emis Web report is not valid, please import correct report version.</div>
+                     )
+                  }
                </div>
-               {
-            selectCSError && 
-               (
-               <div className = " text-sm text-red-600">Please select a clinical system before importing</div>
-               )
-            }
-            </div>
             
             
 
@@ -321,7 +331,7 @@ const Import = () => {
          </div>
 
          {/* ALERT MESSAGES */}
-         {
+         {/* {
             s1ImportError && (
                <Alert className ="border w-100 pt-1">
                   <AlertTitle className="border flex">
@@ -340,7 +350,7 @@ const Import = () => {
                </Alert>
             )
             
-         }
+         } */}
          
       </div>
      

@@ -11,8 +11,9 @@ import { AFibColumns } from '@/enums/AFibColumns';
 const Menu = () => {
 
 
-   const { getFilteredPatients, resetFilters,
-      selectedForExport, data, gpSystemSelected
+   const { getFilteredPatients,
+      selectedForExport, data, gpSystemSelected, setGpSystemSelected,
+      resetAllFilters
     } = useContext(MainContext);
    const filteredPatients = getFilteredPatients();
 
@@ -147,10 +148,11 @@ const Menu = () => {
 
    }
 
-   // const handleExporAccuRxList = () => {
-   //    exportAccuRxList(filteredPatients, GpSystems.EMIS_Web);
-   //    this.preventDefault();
-   // }    
+   const handleLoadNewPatientData = () => {
+      resetAllFilters()
+      setGpSystemSelected(GpSystems.NotSelected)
+
+   } 
 
    return (
       <>
@@ -214,15 +216,11 @@ const Menu = () => {
 
                <div className="ml-1 w-[70%]">
                   <Link to="/">
-                     <button className="  flex flex-col  items-center px-4  py-1 hover:text-black group"  onClick={resetFilters} >
-                     <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new <br></br>patient data</p>
-                     
-                        
-                        {/* <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new</p>
-                        <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">patient data</p> */}
-
+                     <button className="  flex flex-col  items-center px-4  py-1 hover:text-black group"  onClick ={handleLoadNewPatientData} >
+                        <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new <br></br>patient data</p>
                      </button>
                   </Link>
+                  {/* onClick={resetFilters} */}
                   
                </div>
             </div>  
