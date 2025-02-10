@@ -686,11 +686,11 @@ const MainProvider = ({ children }) => {
             selectedAnti === null ||
             (doacWarf && 
                (patient[AFibColumns.OnAnticoagulant].includes("YES - DOAC") || 
-                (patient[AFibColumns.OnAnticoagulant].includes("YES - WARF")))) ||
+                (patient[AFibColumns.OnAnticoagulant].includes("YES - Warf")))) ||
             (doac && 
                (patient[AFibColumns.OnAnticoagulant].includes("YES - DOAC"))) ||
             (warfarin && 
-               (patient[AFibColumns.OnAnticoagulant].includes("YES - WARF"))) ||
+               (patient[AFibColumns.OnAnticoagulant].includes("YES - Warf"))) ||
             (antiplatelets && 
                (patient[AFibColumns.OnAspirinAntiplatelet] === "YES") &&
                !patient[AFibColumns.OnAnticoagulant].includes("YES"))
@@ -699,11 +699,11 @@ const MainProvider = ({ children }) => {
             (dualTherapy && 
                   (patient[AFibColumns.OnAspirinAntiplatelet] === "YES") && 
                    (patient[AFibColumns.OnAnticoagulant].includes("YES - DOAC") ||
-                   (patient[AFibColumns.OnAnticoagulant].includes("YES - WARF")))) ||
+                   (patient[AFibColumns.OnAnticoagulant].includes("YES - Warf")))) ||
             (none && 
                (!patient[AFibColumns.OnAnticoagulant].includes("YES - DOAC")) &&
-               (!patient[AFibColumns.OnAnticoagulant].includes("YES - WARF")))
-               // (patient[AFibColumns.OnAnticoagulant] != "YES - WARF"))
+               (!patient[AFibColumns.OnAnticoagulant].includes("YES - Warf")))
+               // (patient[AFibColumns.OnAnticoagulant] != "YES - Warf"))
             
 
 
