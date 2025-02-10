@@ -120,10 +120,10 @@ const Import = () => {
                   setEmisWebImportError(true)
                  throw new Error("EMIS Web report is not valid. Please import the correct report version.");
                }
-            break;
-         }
+               break;
+            }
 
-         skipRows++;
+            skipRows++;
          }
 
          if (runDateTime) {
@@ -163,9 +163,7 @@ const Import = () => {
          skipRows = 1
          parseData(file, skipRows);
       };
-   };
-
-   
+   };   
    
 
    function parseData(file, skipLines) {
@@ -173,7 +171,7 @@ const Import = () => {
       Papa.parse(file, {
          //  header: true,
          header : false,
-         skipEmptyLines: true,
+         skipEmptyLines: false,
          skipFirstNLines: skipLines,
          complete: function (result) {
 
@@ -182,9 +180,8 @@ const Import = () => {
               if (gpSystemSelected === GpSystems.EMIS_Web) {
 
                   result.data.forEach((data, index) => {
-                     // console.log(data)
 
-                        if (index >= skipLines) {
+                     if (index > skipLines && data[AFibColumns.FullName] !== "") {
                            dataArray.push(Object.values(data));
                            dataArray[dataArray.length - 1][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataArray[dataArray.length - 1]);
                            dataArray[dataArray.length - 1][AFibColumns.OnAspirinAntiplatelet] = onAspirinAntiplateletMeds(dataArray[dataArray.length - 1]);
@@ -196,7 +193,7 @@ const Import = () => {
                            // dataArray[dataArray.length - 1][AFibColumns.Selected] = true;
                         }
                   });
-                  dataArray.splice(-1)
+                  //dataArray.splice(-1);                  
               }
               else if (gpSystemSelected === GpSystems.SystmOne) {
 
