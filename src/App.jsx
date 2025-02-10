@@ -41,7 +41,7 @@ function App() {
       right: 0,
       bottom: 0,
       backgroundColor: '#21376A',
-      zIndex:50
+      zIndex:100
    }
 
    // if(!isDesktop){

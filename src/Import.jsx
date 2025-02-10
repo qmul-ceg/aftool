@@ -16,7 +16,8 @@ const Import = () => {
    //Extract functions from MainContext to update data and run date
    const { 
       setImportedData, 
-      setRelativeRunDate, gpSystemSelected, setGpSystemSelected
+      setRelativeRunDate, gpSystemSelected, setGpSystemSelected,
+      setConfirmListExport, confirmListExport
    } = useContext(MainContext)
    
    const navigate = useNavigate()//Hook for programmatic navigation
@@ -134,6 +135,7 @@ const Import = () => {
 
          } 
          else {
+            setEmisWebImportError(true)
             setEmisWebImportError(true)
             throw new Error("EMIS Web report is not valid. Please import the correct report version.");
          }

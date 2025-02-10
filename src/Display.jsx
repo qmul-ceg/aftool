@@ -3,7 +3,7 @@ import Data from './components/sections/Data'
 import Header from './components/sections/Header'
 import Filter from './components/sections/Filter'
 import Modal from './components/sections/Modal'
-// import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { MainContext } from './MainContext'
 import Preloader from './components/sections/Preloader'
 import nc_sa_logo from '/images/nc_sa_logo.png'
@@ -15,7 +15,11 @@ import nc_sa_logo from '/images/nc_sa_logo.png'
 const Display = () => {
   
 
-   const { isModalOpen, dataCount, relativeRunDate, exportCount } = useContext(MainContext)
+   const { isModalOpen, dataCount, relativeRunDate, exportCount,
+      displayExportListAlert, setDisplayExportListAlert,handleContinueListExport, exportListType,
+      emptyExportListAlert, setEmptyExportListAlert
+    } = useContext(MainContext)
+
    const [loading, setLoading] = useState(false)
 
    useEffect(() => {
@@ -25,10 +29,57 @@ const Display = () => {
       }, 500)
    }, [])
 
+   const overlay ={
+      position : 'fixed',
+      top:0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      // backgroundColor: '#21376A',
+      zIndex:200
+   }
+
+   // const handleContinueExport = ()=> {
+   //    setDisplayExportListAlert(false)
+   //    setConfirmListExport(true)
+   // }
    
    return (
       // justify-center align-center 
       <div className="h-screen  display_container pt-1">
+         {
+            displayExportListAlert && (
+               <div style={overlay}>
+                  <Alert className= " border-0 w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                     {/* <AlertTitle>Export Alert!</AlertTitle> */}
+                     <AlertDescription className="pt-4">
+                     You are about to export a file containing patient-identifiable data. Please make sure the file is saved to an appropriately secure drive.
+                     </AlertDescription>
+                     <div className="border">
+                        <button className="border" onClick={()=>handleContinueListExport(exportListType)}>Continue</button>
+                        <button className="border" onClick ={()=>setDisplayExportListAlert(false)}>Cancel</button>
+                     </div>
+                     
+                  </Alert>
+               </div>
+            )
+         }
+         {
+            emptyExportListAlert && (
+               <div style={overlay}>
+                  <Alert className= " border-0 w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                     {/* <AlertTitle>Export Alert!</AlertTitle> */}
+                     <AlertDescription className="pt-4">
+                        No patient satisfied current filter selection, or patient count is '0'
+                     </AlertDescription>
+                     <div className="border">
+                        <button className="border" onClick ={()=>setEmptyExportListAlert(false)}>Close</button>
+                     </div>
+                     
+                  </Alert>
+               </div>
+            )
+         }
            
          {/* HEADER */}
          {/* {loading && <Preloader />} */}
@@ -44,7 +95,7 @@ const Display = () => {
          </Modal>
 
          {/* FILTER DROPDOWN */}
-         {/* <section className="flex flex-col justify-center items-center  mt-4 border" > */}
+         
          <section className=" mt-4 mx-4 ">
             <Filter /> 
          </section>
@@ -78,8 +129,6 @@ const Display = () => {
                v.0.3.0
             </div>
          </footer>
-        
-         {/* max-h-[400px] overflow-y-auto */}
       </div>
    )
 }
@@ -104,4 +153,5 @@ export default Display
             // id="display_data"
          // > */}
             {/* <div className=" w-[98vw] "> */}
-            {/* <div className ="w-[98vw border-[1px] border-[#21376A]] border"> */}
+            {/* <div className ="w-[98vw border-[1px] border-[#21376A]] border"> */}  {/* max-h-[400px] overflow-y-auto */}
+            {/* <section className="flex flex-col justify-center items-center  mt-4 border" > */}
