@@ -2,6 +2,7 @@ import React, { useState, createContext, useMemo, useEffect, } from 'react'
 import patientsData from '/src/data/patient_data.json'
 import { GpSystems } from './enums/GPsystems'
 import { AFibColumns } from './enums/AFibColumns'
+import * as XLSX from 'xlsx'
 
 
 
@@ -20,6 +21,10 @@ const MainProvider = ({ children }) => {
    const [selectedForExport, setSelectedForExport] = useState({})
    const [masterCheckbox, setMasterCheckbox] = useState(null)
    const [gpSystemSelected, setGpSystemSelected] = useState(GpSystems.NotSelected)
+   const [confirmListExport, setConfirmListExport] = useState(false)
+   const [displayExportListAlert, setDisplayExportListAlert] = useState(false)
+   const [exportListType, setExportListType] =useState("")
+   const [emptyExportListAlert, setEmptyExportListAlert] = useState(false)
    
 
 
@@ -69,8 +74,7 @@ const MainProvider = ({ children }) => {
          setSelectedPatientData(selectedPatientRow) 
          setSelectedPatientIndex(index) //Stores index of the selected patient
          setIsModalOpen(true)  //Opens modal
-         // console.log(selectedPatientRow)
-         // console.log(selectedPatientData)
+      
       }
    
    }
@@ -493,9 +497,178 @@ const MainProvider = ({ children }) => {
    //Export to excel 
 
 
+
+
+
+   const handleContinueListExport = (listType)=> {
+      // console.log("hi")
+      // console.log(listType)
+      if (listType == "excel"){
+         exportExcel(selectedForExport, data);
+      }
+      else if (listType == "accurx"){
+         exportAccuRxList(selectedForExport, data, gpSystemSelected)
+      }
+      else if(listType == "nhs_list"){
+         exportNHS_list(selectedForExport, data)
+      }
+   }
+
+   const getRandomNumbers = () => {
+      let dateObj = new Date()
+      let dateTime = dateObj.getHours() + '' + dateObj.getMinutes() + '' + dateObj.getSeconds();
+   
+      return dateTime + '' + Math.floor((Math.random().toFixed(2)*100));
+   }
+
+   const exportExcel = (selectedForExportList, data) => {
+      console.log(selectedForExport.length)
+      // console.log(exportListType)
+      // if (selectedForExportList.length == 0){
+      //    alert("No patient statisfied current filter selection, or patient count is '0'");
+      //    return;
+      // }
+      if (Object.keys(selectedForExportList).length > 0){
+         const exportData = Object.keys(selectedForExportList).map((patient)=>{
+            const patientInfo = data.find((patientName) => patientName[0] === patient);
+   
+            return{
+               Name : patientInfo[0],
+               Age: patientInfo[2],
+               Gender: patientInfo[3],
+               "Patient reference" : patientInfo[1],
+               "CHA₂DS₂-VASc - Value" : patientInfo[27],     
+               "CHA₂DS₂-VASc - Date)": patientInfo[26],
+               "ORBIT - Value": patientInfo[30],
+               "ORBIT - Date": patientInfo[31],
+               "Anticoagulant issued (6m)" : patientInfo[91],
+               "Aspirin / antiplatelet issued (6m)" : patientInfo[92],
+               NSAID: patientInfo[93],
+               "Statin issued": patientInfo[94],
+               CVD: patientInfo[95],
+               BP: patientInfo[97],
+               "Medication Review Date": patientInfo[90]
+               
+            }
+         })
+         setDisplayExportListAlert(false)
+        
+         let worksheet = XLSX.utils.json_to_sheet(exportData, {origin: "A3"})
+   
+         XLSX.utils.sheet_add_aoa(worksheet,
+            [["Patient Data Export"]],
+            {origin: "A1"}
+         );
+         const workbook = XLSX.utils.book_new();
+         XLSX.utils.book_append_sheet(workbook, worksheet, "Patients")
+   
+         XLSX.writeFile(workbook, "Patients.xlsx")
+         setExportListType("")
+      }
+      else {
+         setDisplayExportListAlert(false)
+         setEmptyExportListAlert(true)
+         // alert("No patient statisfied current filter selection, or patient count is '0'");
+         return;
+      }
+      
+      
+   };
+
+   const exportAccuRxList = (selectedForExport, data, selGpSystem) => {
+         // console.log(selGpSystem)
+      // if (selectedForExport.length == 0){
+      //    alert("No patient statisfied current filter selection, or patient count is '0'");
+      //    return;
+      // }
+      // setDisplayExportListAlert(false)
+      if (Object.keys(selectedForExport).length > 0){
+         let outputContent = "";
+         if(selGpSystem == GpSystems.EMIS_Web){
+            outputContent += "EMIS Web, NHS Number"
+
+            const patientsList = Object.keys(selectedForExport).map(key => {
+               const patientsToExport = data.find(patients => patients[0] === key) 
+               outputContent += "\n" + patientsToExport[AFibColumns.PatientReference] + "," + patientsToExport[AFibColumns.NHS_Number];
+            })
+         }
+         else if(selGpSystem == GpSystems.SystmOne){
+            outputContent = "NHS Number, Date of Birth, Mobile telephone";
+
+            const patientsList = Object.keys(selectedForExport).map(key => {
+               const patientsToExport = data.find(patients => patients[0] === key) 
+               outputContent += "\n" + patient[AFibColumns.NHS_Number] + "," + patient[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
+            })
+         }
+         const file = new Blob([outputContent], { type : "text/plain"});
+         const url = URL.createObjectURL(file)
+
+         const link = document.createElement("a");
+         link.href = url;
+         link.download = "AccuRx_AF_patients_list_" + getRandomNumbers() + ".csv ";
+
+         document.body.appendChild(link)
+         link.click();
+         document.body.removeChild(link)
+         setTimeout(()=>URL.revokeObjectURL(url), 1000)
+         setExportListType("")
+      }else {
+         setDisplayExportListAlert(false)
+         setEmptyExportListAlert(true)
+         // alert("No patient statisfied current filter selection, or patient count is '0'");
+         return;
+      }
+      
+      
+   }
+
+   const exportNHS_list = (selectedForExportList, data) =>{
+   
+      if(Object.keys(selectedForExportList).length > 0){
+         const patientsList = Object.keys(selectedForExportList).map(key => {
+            const patientsToExport = data.find(patients => patients[0] === key) 
+            return patientsToExport[AFibColumns.NHS_Number]   
+         })
+         setDisplayExportListAlert(false)
+         if(patientsList.length == 0){
+            alert("No patient statisfied current filter selection, or patient count is '0'")
+            return;
+         }
+         
+   
+         const listToExport = patientsList.join("\n");
+         const file = new Blob([listToExport], { type : "text/plain"});
+         const url = URL.createObjectURL(file)
+   
+         const link = document.createElement("a");
+         link.href = url;
+         link.download = "AFib_patients_NHS_number_" + getRandomNumbers() + ".txt";
+   
+         document.body.appendChild(link)
+         link.click();
+         document.body.removeChild(link)
+         setTimeout(()=>URL.revokeObjectURL(url), 1000)
+         setExportListType("")
+      }else {
+         setDisplayExportListAlert(false)
+         setEmptyExportListAlert(true)
+         // alert("No patient statisfied current filter selection, or patient count is '0'");
+         return;
+      }
+      
+      
+   }  
    
 
 
+
+
+
+
+
+
+
+   
    //FILTER LOGIC
    const getFilteredPatients = () =>{
       return importedData.filter((patient) =>{
@@ -797,7 +970,16 @@ const MainProvider = ({ children }) => {
       toggleSelectedPatient,
 
       //GPSYSTEM
-      gpSystemSelected, setGpSystemSelected
+      gpSystemSelected, setGpSystemSelected,
+
+      //List Export
+      confirmListExport, setConfirmListExport,
+
+      displayExportListAlert, setDisplayExportListAlert,
+      exportListType, setExportListType,
+      handleContinueListExport, exportExcel,
+
+      emptyExportListAlert, setEmptyExportListAlert
 
    }
 
