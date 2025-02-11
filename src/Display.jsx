@@ -36,7 +36,7 @@ const Display = () => {
       right: 0,
       bottom: 0,
       // backgroundColor: '#21376A',
-      zIndex:200
+      zIndex:99
    }
 
    // const handleContinueExport = ()=> {
@@ -50,14 +50,14 @@ const Display = () => {
          {
             displayExportListAlert && (
                <div style={overlay}>
-                  <Alert className= " border-0 w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                     {/* <AlertTitle>Export Alert!</AlertTitle> */}
-                     <AlertDescription className="pt-4">
-                     You are about to export a file containing patient-identifiable data. Please make sure the file is saved to an appropriately secure drive.
-                     </AlertDescription>
-                     <div className="border">
-                        <button className="border" onClick={()=>handleContinueListExport(exportListType)}>Continue</button>
-                        <button className="border" onClick ={()=>setDisplayExportListAlert(false)}>Cancel</button>
+                  <Alert className= " m-auto fixed top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
+                     {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
+                     <p>You are about to export a file containing patient-identifiable data. Please make sure the file is saved to an appropriately secure drive.</p>
+                     
+                     
+                     <div className="flex gap-4 mt-2">
+                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick={()=>handleContinueListExport(exportListType)}>Continue</button>
+                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick ={()=>setDisplayExportListAlert(false)}>Cancel</button>
                      </div>
                      
                   </Alert>
@@ -67,14 +67,16 @@ const Display = () => {
          {
             emptyExportListAlert && (
                <div style={overlay}>
-                  <Alert className= " border-0 w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                  <Alert className= " m-auto fixed top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[32em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2"
+                  >
                      {/* <AlertTitle>Export Alert!</AlertTitle> */}
-                     <AlertDescription className="pt-4">
-                        No patient satisfied current filter selection, or patient count is '0'
-                     </AlertDescription>
-                     <div className="border">
-                        <button className="border" onClick ={()=>setEmptyExportListAlert(false)}>Close</button>
-                     </div>
+                     {/* <AlertDescription className="text-sm  xl:text-sm 2xl:text-sm"> */}  {/* </AlertDescription> */}
+                        <p>No patient satisfied current filter selection, or patient count is '0'</p>
+                        <button 
+                           className=" w-[4em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md mt-2"      onClick ={()=>setEmptyExportListAlert(false)}>
+                              Close
+                        </button>
+                   
                      
                   </Alert>
                </div>

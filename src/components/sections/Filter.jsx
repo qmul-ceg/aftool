@@ -388,7 +388,7 @@ const Filter = () => {
             {/* Reset Filters button */}
             <div className="ml-auto mr-8  text-center min-w-[140px] ">
                <button
-                  className = " cursor-pointer bg-white text-xs  lg:text-xs xl:text-sm 2xl:text-sm font-semibold text-[#21376A] hover:text-black px-2 py-1 rounded-lg "
+                  className = " cursor-pointer bg-white text-xs  lg:text-xs xl:text-sm 2xl:text-sm font-semibold text-[#21376A] hover:text-black px-2 py-1 rounded-md "
                   onClick={resetAllFilters} 
                >
                   Remove all filters
@@ -873,14 +873,10 @@ const Filter = () => {
                                           <div className="custom_checkbox"></div>
                                           <span>{item.label}</span>       
                                        </label>
-
                                     )
                                  })}
-                              
-
                               </SelectContent>
                         </Select>
-
                      </div>
                   </div>
                   
@@ -915,8 +911,9 @@ const Filter = () => {
                                                 i
                                              </PopoverTrigger>
                                              <PopoverContent 
-                                                className="min-w-[30em] text-xs  
-                                                text-left xl:text-sm 2xl:text-sm pr-2  py-1 pl-1"
+                                                className="min-w-[31em] text-xs text-center  xl:text-sm 2xl:text-sm px-2 py-2
+                                                   bg-[#21376A] text-white
+                                                "
                                              >
                                                 Modified QOF: no exclusions for contraindication or declined
                                              </PopoverContent>
@@ -936,9 +933,6 @@ const Filter = () => {
                                                       width: `${percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }`,
                                                    }}
                                                    className="absolute h-full top-0 bg-[#21376A] "
-                                                      // {` 
-                                                      //          ${ percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) === '100%'? 'rounded-sm' : ""}
-                                                      // `}      
                                              >
                                              </div>
                                           </td> 
@@ -1016,9 +1010,6 @@ const Filter = () => {
                                                       
                                                    }}
                                                    className="absolute h-full top-0 bg-[#21376A]"
-                                                      // {` absolute h-full top-0 bg-[#21376A]
-                                                      //          ${percentageFormatter(importedData.reduce(chadsvasce2OnAnticoagAspAntip,0), importedData.reduce(chadsvasce2,0))  === '100%'? 'rounded-sm' : 'rounded-r-sm'}
-                                                      // `}      
                                              >
                                              </div>
                                     </td>       
@@ -1079,8 +1070,6 @@ const Filter = () => {
                                           </td>     
                                        )
                                     }
-                                    
-                                    
                                  </tr>
                               </tbody>
                            </table>

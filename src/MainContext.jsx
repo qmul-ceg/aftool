@@ -522,12 +522,7 @@ const MainProvider = ({ children }) => {
    }
 
    const exportExcel = (selectedForExportList, data) => {
-      console.log(selectedForExport.length)
-      // console.log(exportListType)
-      // if (selectedForExportList.length == 0){
-      //    alert("No patient statisfied current filter selection, or patient count is '0'");
-      //    return;
-      // }
+      setDisplayExportListAlert(false)
       if (Object.keys(selectedForExportList).length > 0){
          const exportData = Object.keys(selectedForExportList).map((patient)=>{
             const patientInfo = data.find((patientName) => patientName[0] === patient);
@@ -551,7 +546,7 @@ const MainProvider = ({ children }) => {
                
             }
          })
-         setDisplayExportListAlert(false)
+         
         
          let worksheet = XLSX.utils.json_to_sheet(exportData, {origin: "A3"})
    
@@ -565,23 +560,13 @@ const MainProvider = ({ children }) => {
          XLSX.writeFile(workbook, "Patients.xlsx")
          setExportListType("")
       }
-      else {
-         setDisplayExportListAlert(false)
-         setEmptyExportListAlert(true)
-         // alert("No patient statisfied current filter selection, or patient count is '0'");
-         return;
-      }
+      
       
       
    };
 
    const exportAccuRxList = (selectedForExport, data, selGpSystem) => {
-         // console.log(selGpSystem)
-      // if (selectedForExport.length == 0){
-      //    alert("No patient statisfied current filter selection, or patient count is '0'");
-      //    return;
-      // }
-      // setDisplayExportListAlert(false)
+      setDisplayExportListAlert(false)
       if (Object.keys(selectedForExport).length > 0){
          let outputContent = "";
          if(selGpSystem == GpSystems.EMIS_Web){
@@ -612,18 +597,11 @@ const MainProvider = ({ children }) => {
          document.body.removeChild(link)
          setTimeout(()=>URL.revokeObjectURL(url), 1000)
          setExportListType("")
-      }else {
-         setDisplayExportListAlert(false)
-         setEmptyExportListAlert(true)
-         // alert("No patient statisfied current filter selection, or patient count is '0'");
-         return;
       }
-      
-      
    }
 
    const exportNHS_list = (selectedForExportList, data) =>{
-   
+      setDisplayExportListAlert(false)
       if(Object.keys(selectedForExportList).length > 0){
          const patientsList = Object.keys(selectedForExportList).map(key => {
             const patientsToExport = data.find(patients => patients[0] === key) 
@@ -649,14 +627,7 @@ const MainProvider = ({ children }) => {
          document.body.removeChild(link)
          setTimeout(()=>URL.revokeObjectURL(url), 1000)
          setExportListType("")
-      }else {
-         setDisplayExportListAlert(false)
-         setEmptyExportListAlert(true)
-         // alert("No patient statisfied current filter selection, or patient count is '0'");
-         return;
       }
-      
-      
    }  
    
 
@@ -1115,4 +1086,8 @@ export default MainProvider
    //    } else {
    //       setSelectedChdDate({ value, label });
    //    }
-   // }
+   // } // console.log(exportListType)
+      // if (selectedForExportList.length == 0){
+      //    alert("No patient statisfied current filter selection, or patient count is '0'");
+      //    return;
+      // }

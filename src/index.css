@@ -362,6 +362,11 @@
    background: #21376A ;
    opacity:0.4;
 }
+
+.menu_list_items li:hover {
+   cursor:pointer;
+   font-weight: bold;
+}
 /* .progress {
    width: 2em;
    background: white;
