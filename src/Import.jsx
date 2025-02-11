@@ -35,6 +35,8 @@ const Import = () => {
    //Sets GPsystem 
    const handleGpSystemSelect = (event) =>{
       setGpSystemSelected(GpSystems.NotSelected)
+      setEmisWebImportError(false)
+      setSystmOneImportError(false)
       setGpSystemSelected(event.target.value)
    }
 
@@ -119,7 +121,7 @@ const Import = () => {
 
                if (line.length !== EMIS_ReportColumnsCount) {
                   setEmisWebImportError(true)
-                 throw new Error("EMIS Web report is not valid. Please import the correct report version.");
+                  throw new Error("EMIS Web report is not valid. Please import the correct report version.");
                }
                break;
             }
@@ -136,13 +138,13 @@ const Import = () => {
          } 
          else {
             setEmisWebImportError(true)
-            setEmisWebImportError(true)
+   
             throw new Error("EMIS Web report is not valid. Please import the correct report version.");
          }
          
       };
    };
-
+   console.log(emisWebImportError)
 
    const handleSystmOneReport = (file) => {
       setSystmOneImportError(false)

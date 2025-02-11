@@ -843,20 +843,30 @@ const MainProvider = ({ children }) => {
    }
 
    const sortedPatients = () => {
-      if (sortChdValue === 'asc') {
-          return [...filteredPatients].sort((a, b) => {
-              const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
-              const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
-              return valueA - valueB; // Ascending
-          });
-      } else {
-          return [...filteredPatients].sort((a, b) => {
-              const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
-              const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
-              return valueB - valueA; // Descending
-          });
-      }
-  };
+      return [...filteredPatients].sort((a,b) => { 
+         // console.log(typeof(a[AFibColumns.CHADSVAScValue]))
+         let valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) ;
+         let valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) ;
+
+         if(isNaN(valueA)) valueA = -Infinity;
+         if(isNaN(valueB)) valueB = -Infinity;
+         return valueB - valueA;
+        
+      })
+      // if (sortChdValue === 'asc') {
+      //     return [...filteredPatients].sort((a, b) => {
+      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
+      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
+      //         return valueA - valueB; // Ascending
+      //     });
+      // } else {
+      //     return [...filteredPatients].sort((a, b) => {
+      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
+      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
+      //         return valueB - valueA; // Descending
+      //     });
+      // }
+   };
 
    React.useEffect(() => {
       const sortedData = sortedPatients();
