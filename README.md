@@ -1,3 +1,3 @@
-
-Test site for the APL AF Tool.
+AF Tool (NGT)
+QMUL CEG Atrial Fibrilation Tool (Next Generation Tool)
 
