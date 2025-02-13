@@ -162,20 +162,20 @@ const Data = () => {
                      {/* below div is for customised check box, styling can be found in index.css */}
                      <div className="custom_header_checkbox"></div> 
                </th>
-               <th rowSpan={2} className="w-[12%] ">Full name</th>
-               <th rowSpan={2} className="w-[4%]  ">Age</th>
-               <th rowSpan={2} className="w-[5%]">Gender</th>
-               <th rowSpan={2} className="w-[7%] ">Patient reference no.</th>
-               <th colSpan="2 " className="sub_header">CHA₂DS₂-VASc</th>
-               <th colSpan="2" className="sub_header">ORBIT</th>
+               <th rowSpan={2} className="w-[15%] ">Full name</th>
+               <th rowSpan={2} className="w-[3%]  ">Age</th>
+               <th rowSpan={2} className="w-[4%]">Gender</th>
+               <th rowSpan={2} className="w-[6%] ">Patient reference no.</th>
+               <th colSpan="2 " className="sub_header w-[8%]">CHA₂DS₂-VASc</th>
+               <th colSpan="2" className="sub_header w-[8%]">ORBIT</th>
                <th rowSpan={2} className="w-[7%]">Anticoagulant issued (6m)</th>
                <th rowSpan={2} className="w-[9%] ">Aspirin / antiplatelet <br />issued (6m)</th>
-               <th rowSpan={2} className="">NSAID</th>
+               <th rowSpan={2} className="w-[3%]">NSAID</th>
                <th rowSpan={2} className="w-[6%] ">Statin issued (6m)</th>
-               <th rowSpan={2} className="w-[4%] ">CVD</th>
+               <th rowSpan={2} className="w-[3%] ">CVD</th>
                {/* <th rowSpan={2} className="w-[4%]">HTN</th> */}
-               <th rowSpan={2} className="w-[4%] ">BP</th>
-               <th rowSpan={2} className="med_review">Med review date</th>
+               <th rowSpan={2} className="w-[3%] ">BP</th>
+               <th rowSpan={2} className="w-[8%] med_review">Med review date</th>
             </tr>
 
             <tr className="text-[#21376A]">

@@ -366,6 +366,7 @@
 .menu_list_items li:hover {
    cursor:pointer;
    font-weight: bold;
+   
 }
 /* .progress {
    width: 2em;

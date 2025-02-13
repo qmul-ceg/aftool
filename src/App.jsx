@@ -77,7 +77,7 @@ function App() {
             )
          }
          <div>
-            <Router basename="/af_tool_test/">
+            <Router basename="/aftool/">
                <Routes>
                   <Route path="*" element={<Import />} />
                   <Route path = "/" element = {<Import />}/>

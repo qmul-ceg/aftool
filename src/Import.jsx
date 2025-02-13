@@ -28,18 +28,24 @@ const Import = () => {
    
 
    //Sets an error message if no clinical system was selected
+   const [error, setError] = useState("")
+   const[retryCount, setRetryCount] = useState(0);
    const[selectGpSystemError, setSelectGpSystemError] = useState(false) 
    const [systmOneImportError, setSystmOneImportError] = useState(false);
    const [emisWebImportError, setEmisWebImportError] = useState(false)
 
+
    //Sets GPsystem 
    const handleGpSystemSelect = (event) =>{
-      setGpSystemSelected(GpSystems.NotSelected)
-      setEmisWebImportError(false)
-      setSystmOneImportError(false)
+      // setGpSystemSelected(GpSystems.NotSelected)
       setGpSystemSelected(event.target.value)
+      if(error){
+         setError("")
+      }
+      
    }
-
+   // console.log(gpSystemSelected + ": SystmOne: " + systmOneImportError + ", EmisWeb: " + emisWebImportError )
+   console.log(gpSystemSelected)
    // Report columns
    // const EMIS_ReportColumnsCount = 91;
    const EMIS_ReportColumnsCount = 92;
@@ -49,17 +55,14 @@ const Import = () => {
    const fileInputRef = useRef(null)
 
    const handleButtonClick = () =>{
-      // Checks if there a GP System has been selected 
-      // If there is input selected we reference our input button 
-      // If no input selected and we click on the Import button an alert will pop up on the screen 
 
       if (gpSystemSelected !== GpSystems.NotSelected){
-         setSelectGpSystemError(false)
+         // setError("")
          if(fileInputRef.current) {
             fileInputRef.current.click()
          }
       }else {
-         setSelectGpSystemError(true)
+         setError("Please select a clinical system before importing.")
          // alert("Please select a clinical system before importing");
       }
       
@@ -113,19 +116,28 @@ const Import = () => {
             
             if (line[0].includes("Last Run") || line[0].includes("Last run")) {
                runDateTime = line[3];
-               
             }
-
             if (line[0].includes("Patient Details") || line[0].toLowerCase().includes("patient details")) {
                skipRows++;
 
                if (line.length !== EMIS_ReportColumnsCount) {
-                  setEmisWebImportError(true)
+                  setRetryCount(prev => {
+                     const newRetryCount = prev + 1;
+                     setError(`EMIS Web report is not valid. Please import the correct report version. Attempt #${newRetryCount + 1}`)
+                     return newRetryCount;
+                  })
+               
+                  console.log("Emis error 1")
+                  // setEmisWebImportError(false)
+                  // setEmisWebImportError(true)
+                  // setGpSystemSelected(GpSystems.NotSelected)
                   throw new Error("EMIS Web report is not valid. Please import the correct report version.");
+               }
+               else{
+                  setError('')
                }
                break;
             }
-
             skipRows++;
          }
 
@@ -137,17 +149,18 @@ const Import = () => {
 
          } 
          else {
-            setEmisWebImportError(true)
-   
+            // setEmisWebImportError(true)
+            setGpSystemSelected(GpSystems.NotSelected)
+            console.log("Emis error 2")
             throw new Error("EMIS Web report is not valid. Please import the correct report version.");
          }
          
       };
    };
-   console.log(emisWebImportError)
+   // console.log(emisWebImportError)
 
    const handleSystmOneReport = (file) => {
-      setSystmOneImportError(false)
+      // setSystmOneImportError(false)
 
       const relativeRunDate = '1-Apr-2024';  //file.lastModified;
       setRelativeRunDate(relativeRunDate);
@@ -159,8 +172,8 @@ const Import = () => {
          const lines = reader.result.split('\n');
          const line = lines[0].split(',');
          if (line.length !== S1ReportColumnsCount) {
-            setSystmOneImportError(true);
-            setGpSystemSelected(GpSystems.NotSelected)
+            // setSystmOneImportError(false)
+            // setSystmOneImportError(true);
             return;
            
          }
@@ -270,7 +283,7 @@ const Import = () => {
                            onClick={handleGpSystemSelect}
                            className="w-4 h-4 border-2 rounded-full  checked:bg-[#21376A] mr-2 emis_radio_input"
                         />
-                        <div className="emis_custom_radio"></div>
+                        <div className="emis_custom_radio cursor-pointer"></div>
                      </label>   
                   
                      <label className="text-xl flex flex-col items-center" htmlFor="option-two">
@@ -283,13 +296,18 @@ const Import = () => {
                            onClick={handleGpSystemSelect}
                            className="w-4 h-4 border-2 rounded-full  checked:bg-[#648DBC] mr-2 systmone_radio_input"
                         />
-                        <div className="systmone_custom_radio"></div>
+                        <div className="systmone_custom_radio cursor-pointer"></div>
                      </label>
                   </div>
                   {
+                     error && (
+                        <div className = " text-sm text-red-600">{error}</div>
+                     )
+                  }
+                  {/* {
                      selectGpSystemError && 
                      (
-                        <div className = " text-sm text-red-600">Please select a clinical system before importing.</div>
+                        <div className = " text-sm text-red-600">Please select a clinical system.</div>
                      )
                   }
                   {
@@ -301,9 +319,9 @@ const Import = () => {
                   {
                      emisWebImportError && 
                      (
-                        <div className = " text-sm text-red-600">This Emis Web report is not valid, please import correct report version.</div>
+                        <div className = " text-sm text-red-600"> Emis Web report is not valid, please import correct report version.</div>
                      )
-                  }
+                  } */}
                </div>
             
             
@@ -487,4 +505,8 @@ export default Import
    //       //If it has been selected run handleFile Upload
    //    //If not throw an error 
 
-   // }
+   // }      // Checks if there a GP System has been selected 
+      // If there is input selected we reference our input button 
+      // If no input selected and we click on the Import button an alert will pop up on the screen 
+      // setSystmOneImportError(false)
+      // setEmisWebImportError(false)

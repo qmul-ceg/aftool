@@ -398,7 +398,12 @@ const Filter = () => {
            
             {/* TOGGLE COLLAPSE BUTTON */}
             <button onClick={toggleFilter}>
-               {filterMenu ? <FiChevronDown /> : <FiChevronUp/>}
+               {filterMenu ? 
+                  (
+                     <FiChevronDown size={26} style ={{transition: "transform 0.3s ease-in-out"}}/>
+                  ) : (
+                     <FiChevronUp size={26} style ={{transition: "transform 0.3s ease-in-out"}}/>
+                  )}
             </button>
          </div>
          
@@ -526,8 +531,8 @@ const Filter = () => {
                                  {value: "doac_warf", label: "DOAC or Warfarin", name: 'Anti'},
                                  {value: "doac", label: "DOAC", name: 'Anti'},
                                  {value: "warf", label: "Warfarin", name: 'Anti'},
-                                 {value: "antiplatelets", label: "Antiplatelets only" , name: 'Anti'},
                                  {value: "no_anticoagulant", label: "None" , name: 'Anti'},
+                                 {value: "antiplatelets", label: "Antiplatelets only" , name: 'Anti'},
                                  {value: "dual", label: "Dual therapy" , name: 'Anti'},
                               ].map((item) => (
                                  <label 

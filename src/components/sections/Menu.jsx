@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { Link } from 'react-router-dom'
 import { MainContext } from '@/MainContext'
-// import { exportAccuRxList, exportNHS_list } from '@/helper/ExportData';
 import { GpSystems } from '@/enums/GPsystems';
 
 import { AFibColumns } from '@/enums/AFibColumns';
@@ -18,17 +17,128 @@ const Menu = () => {
       setDisplayExportListAlert, 
       setExportListType, setEmptyExportListAlert, emptyExportListAlert
     } = useContext(MainContext);
-   const filteredPatients = getFilteredPatients();
+   
+    const filteredPatients = getFilteredPatients();
 
    
-   function getRandomNumbers() {
-      let dateObj = new Date()
-      let dateTime = dateObj.getHours() + '' + dateObj.getMinutes() + '' + dateObj.getSeconds();
-   
-      return dateTime + '' + Math.floor((Math.random().toFixed(2)*100));
+
+
+
+
+   const handleLoadNewPatientData = () => {
+      resetAllFilters()
+      setGpSystemSelected(GpSystems.NotSelected)
+   } 
+
+   const handleExport = (listType) =>{
+      if(Object.keys(selectedForExport).length > 0){
+         setDisplayExportListAlert(true)
+         setExportListType(listType)
+      }
+      else if (Object.keys(selectedForExport).length == 0 ){
+         setEmptyExportListAlert(true)
+      }
    }
 
+  
 
+   return (
+      <>
+         <div className="flex">
+
+            <div className="mr-2 my-auto">
+               <Popover>
+                  <PopoverTrigger 
+                     className="flex justify-center items-center
+                      text-xs 
+                      px-2 py-[0.3em]  rounded-lg font-semibold
+                     bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
+                  >
+                     User guide & <br></br>resources
+                  </PopoverTrigger>
+                  <PopoverContent className = "px-2 py-2 w-[27em]">
+                     <div className=" text-sm ">
+
+                        <div>
+                           <strong>EXTERNAL LINKS</strong>
+                           <ul className="ml-2 menu_list_items">
+                              <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">- https://www.qmul.ac.uk/ceg/</a></li>
+                              <li><a href="https://cks.nice.org.uk/topics/anticoagulation-oral/" target="_blank" rel="noopener noreferrer">- Anticoagulation - oral | Health topics A to Z | CKS | NICE</a></li>
+                              <li><a href="https://www.mdcalc.com/calc/43/creatinine-clearance-cockcroft-gault-equation" target="_blank" rel="noopener noreferrer">- Creatinine Clearance (Cockcroft-Gault Equation)</a></li>
+                           </ul>
+                        </div>                            
+                        <div className="w-full border mt-1 mb-1"></div>
+                        <div>         
+                           <strong>RESOURCES</strong>
+                           <ul className="ml-2 menu_list_items">
+                              <li>- User guide</li>
+                           </ul>
+
+                        </div>
+
+                     </div>
+                  </PopoverContent>
+               </Popover>
+            </div>
+
+            
+            <div className="flex border border-[#21376A] rounded-lg ">
+               <div className="mr-1">
+                  <Popover>
+                     <PopoverTrigger className ="h-full ">
+                        <div className="text-center  px-6 ">
+                           <p className="text-md hover:text-black font-bold text-[#21376A]">Export</p>
+                        </div>
+                     </PopoverTrigger>
+                     <PopoverContent className="px-2 py-2 w-[17em]">
+                        <div className="text-sm">
+                           <strong className="text-sm">EXPORT SELECTED PATIENTS LIST</strong>
+                           <ul className=" ml-2 menu_list_items">
+                              <li><button onClick= {()=> handleExport("excel")}>- Excel list</button> </li>
+                              <li><button onClick= {()=> handleExport("accurx")}>- Accurx list</button> </li>
+                              <li><button onClick= {()=> handleExport("nhs_list")}>- NHS No. list</button> </li>
+                           </ul>
+                        </div>
+                        
+                     </PopoverContent>
+                  </Popover>
+               </div>
+
+               <div className="">
+                  <div className='border border-[#21376A] h-[80%] my-1'>
+
+                  </div>
+               </div>
+
+               <div className="ml-1 w-[70%]">
+                  <Link to="/">
+                     <button className="  flex flex-col  items-center px-4  py-1 hover:text-black group"  onClick ={handleLoadNewPatientData} >
+                        <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new <br></br>patient data</p>
+                     </button>
+                  </Link>
+
+               </div>
+            </div>  
+         </div>
+    </>
+  )
+}
+
+export default Menu
+
+
+{/* <button 
+   className="font-serif border "
+   // className="
+
+   // text-xs xl:text-sm 2xl:text-sm 
+   // px-2 rounded-full font-serif font-semibold 
+   // bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white"
+>
+   i
+</button> */}{/* <li><a href='#' onClick={handleExportNHS}>NHS NO. LIST</a></li> */}
+{/* onClick={resetFilters} */}
+                  
    // const exportExcel = (selectedForExportList, data) => {
       
    //    if (selectedForExportList.length == 0){
@@ -153,107 +263,9 @@ const Menu = () => {
    //    document.body.removeChild(link)
    //    setTimeout(()=>URL.revokeObjectURL(url), 1000)
 
+   // }   // function getRandomNumbers() {
+   //    let dateObj = new Date()
+   //    let dateTime = dateObj.getHours() + '' + dateObj.getMinutes() + '' + dateObj.getSeconds();
+   
+   //    return dateTime + '' + Math.floor((Math.random().toFixed(2)*100));
    // }
-
-   const handleLoadNewPatientData = () => {
-      resetAllFilters()
-      setGpSystemSelected(GpSystems.NotSelected)
-   } 
-
-   const handleExport = (listType) =>{
-      if(Object.keys(selectedForExport).length > 0){
-         setDisplayExportListAlert(true)
-         setExportListType(listType)
-      }
-      else if (Object.keys(selectedForExport).length == 0 ){
-         setEmptyExportListAlert(true)
-      }
-   }
-
-  
-
-   return (
-      <>
-         <div className="flex">
-
-            <div className="mr-2 my-auto">
-               <Popover>
-                  <PopoverTrigger 
-                     className="flex justify-center items-center
-                      text-xs 
-                      px-2 py-[0.3em]  rounded-lg font-semibold
-                     bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
-                  >
-                     User guide & <br></br>resources
-                  </PopoverTrigger>
-                  <PopoverContent className = "px-2 py-2">
-                     <div className=" text-sm ">
-                                                
-                        <strong>EXTERNAL LINKS</strong>
-                        <ul className="ml-2 menu_list_items">
-                           <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">https://www.qmul.ac.uk/ceg/</a></li>
-
-                        </ul>
-                     </div>
-                  </PopoverContent>
-               </Popover>
-            </div>
-
-            
-            <div className="flex border border-[#21376A] rounded-lg ">
-               <div className="mr-1">
-                  <Popover>
-                     <PopoverTrigger className ="h-full ">
-                        <div className="text-center  px-6 ">
-                           <p className="text-md hover:text-black font-bold text-[#21376A]">Export</p>
-                        </div>
-                     </PopoverTrigger>
-                     <PopoverContent className="px-2 py-2">
-                        <div className="text-sm">
-                           <strong className="text-sm">EXPORT SELECTED PATIENTS</strong>
-                           <ul className=" ml-2 menu_list_items">
-                              <li><button onClick= {()=> handleExport("excel")}>Excel list</button> </li>
-                              <li><button onClick= {()=> handleExport("accurx")}>Accurx list</button> </li>
-                              <li><button onClick= {()=> handleExport("nhs_list")}>NHS No. list</button> </li>
-                           </ul>
-                        </div>
-                        
-                     </PopoverContent>
-                  </Popover>
-               </div>
-
-               <div className="">
-                  <div className='border border-[#21376A] h-[80%] my-1'>
-
-                  </div>
-               </div>
-
-               <div className="ml-1 w-[70%]">
-                  <Link to="/">
-                     <button className="  flex flex-col  items-center px-4  py-1 hover:text-black group"  onClick ={handleLoadNewPatientData} >
-                        <p className="text-xs text-[#21376A]  group-hover:text-black font-bold">Load new <br></br>patient data</p>
-                     </button>
-                  </Link>
-
-               </div>
-            </div>  
-         </div>
-    </>
-  )
-}
-
-export default Menu
-
-
-{/* <button 
-   className="font-serif border "
-   // className="
-
-   // text-xs xl:text-sm 2xl:text-sm 
-   // px-2 rounded-full font-serif font-semibold 
-   // bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white"
->
-   i
-</button> */}{/* <li><a href='#' onClick={handleExportNHS}>NHS NO. LIST</a></li> */}
-{/* onClick={resetFilters} */}
-                  
