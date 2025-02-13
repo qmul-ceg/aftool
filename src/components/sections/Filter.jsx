@@ -400,9 +400,9 @@ const Filter = () => {
             <button onClick={toggleFilter}>
                {filterMenu ? 
                   (
-                     <FiChevronDown size={26} style ={{transition: "transform 0.3s ease-in-out"}}/>
+                     <FiChevronDown size={26} />
                   ) : (
-                     <FiChevronUp size={26} style ={{transition: "transform 0.3s ease-in-out"}}/>
+                     <FiChevronUp size={26} />
                   )}
             </button>
          </div>
@@ -413,7 +413,7 @@ const Filter = () => {
             filterMenu && ( */}
               
                <div className= 
-                  {`flex justify-between border-[0.1em] border-[#21376A] px-4 py-2 transition-all duration-700 ease-in-out ${filterMenu ? "opacity-100 max-h-96": "opacity-0 max-h-0 overflow-hidden"}`}
+                  {`flex justify-between border-[0.1em] border-[#21376A] px-2 py-2 transition-all duration-700 ease-in-out ${filterMenu ? "opacity-100 max-h-96": "opacity-0 max-h-0 overflow-hidden"}`}
                >
 
                   {/* QUICK FILTERS */}
