@@ -44,13 +44,15 @@ const Import = () => {
       }
       
    }
-   // console.log(gpSystemSelected + ": SystmOne: " + systmOneImportError + ", EmisWeb: " + emisWebImportError )
-   console.log(gpSystemSelected)
+
    // Report columns
-   // const EMIS_ReportColumnsCount = 91;
-   const EMIS_ReportColumnsCount = 92;
+   const EMIS_ReportColumnsCount = 92;   //91
    const S1ReportColumnsCount = 85;
    
+   // Variable for run date and relative run date (for emis web)
+   let runDateTime;
+   let relativeRunDate;
+
    // FILE INPUT FUNCTIONALITY
    const fileInputRef = useRef(null)
 
@@ -99,17 +101,13 @@ const Import = () => {
    const handleEMISWebReport= (file)=>{
       
       let skipRows = 0; 
-      
-      let relativeRunDate;
-      
+            
       const reader = new FileReader()
       reader.readAsText(file)
 
       reader.onload = function (){
          
          const lines = reader.result.split('\n');
-         // console.log(lines)
-         let runDateTime;
 
          for (let i = 0; i < lines.length; i++){
             const line = lines[i].split(',');
@@ -142,7 +140,7 @@ const Import = () => {
          }
 
          if (runDateTime) {
-            const relativeRunDate = runDateTime.split(' ')[0];
+            relativeRunDate = runDateTime.split(' ')[0];
             let cleanedRelativeRunDate = relativeRunDate.replace(/"/g, '')
             setRelativeRunDate(cleanedRelativeRunDate);
             parseData(file, skipRows);
@@ -162,7 +160,8 @@ const Import = () => {
    const handleSystmOneReport = (file) => {
       // setSystmOneImportError(false)
 
-      const relativeRunDate = '1-Apr-2024';  //file.lastModified;
+      runDateTime = new Date(file.lastModified);   //'1-Apr-2024';
+      relativeRunDate = runDateTime.getDate() + '-' + runDateTime.toLocaleString('default', { month: 'short' }) + '-' + runDateTime.getFullYear();
       setRelativeRunDate(relativeRunDate);
 
       const reader = new FileReader()
@@ -174,10 +173,9 @@ const Import = () => {
          if (line.length !== S1ReportColumnsCount) {
             // setSystmOneImportError(false)
             // setSystmOneImportError(true);
-            return;
-           
+            throw new Error("S1 report is not valid, please import correct report version.");           
          }
-         skipRows = 1
+         let skipRows = 1;
          parseData(file, skipRows);
       };
    };   
@@ -186,7 +184,6 @@ const Import = () => {
    function parseData(file, skipLines) {
       setEmisWebImportError(false)
       Papa.parse(file, {
-         //  header: true,
          header : false,
          skipEmptyLines: false,
          skipFirstNLines: skipLines,
@@ -212,20 +209,18 @@ const Import = () => {
                   });
                   //dataArray.splice(-1);                  
               }
-              else if (gpSystemSelected === GpSystems.SystmOne) {
+              else if (gpSystemSelected === GpSystems.SystmOne) {                  
 
-                  const rundate = '1-Apr-2024'; //relativeRunDate = '22-Feb-2024';  //file.lastModified;
-
-                  dataArray = transformS1ImportedData(result.data, rundate);
+                  dataArray = transformS1ImportedData(result.data, runDateTime);
 
                   dataArray.forEach((dataRow, index) => {
-                        dataArray[index][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataRow);
-                        dataArray[index][AFibColumns.OnAspirinAntiplatelet] = onAspirinAntiplateletMeds(dataRow);
-                        dataArray[index][AFibColumns.OnNSAID] = onNSAIDMeds(dataRow);
-                        dataArray[index][AFibColumns.OnStatin] = onStatinsMeds(dataRow);
-                        dataArray[index][AFibColumns.CVD] = hasCVD(dataRow);
-                        dataArray[index][AFibColumns.Hypertension] = hasHypertension(dataRow);
-                        dataArray[index][AFibColumns.BP] = getBloodPressure(dataRow);               
+                     dataArray[index][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataRow);
+                     dataArray[index][AFibColumns.OnAspirinAntiplatelet] = onAspirinAntiplateletMeds(dataRow);
+                     dataArray[index][AFibColumns.OnNSAID] = onNSAIDMeds(dataRow);
+                     dataArray[index][AFibColumns.OnStatin] = onStatinsMeds(dataRow);
+                     dataArray[index][AFibColumns.CVD] = hasCVD(dataRow);
+                     dataArray[index][AFibColumns.Hypertension] = hasHypertension(dataRow);
+                     dataArray[index][AFibColumns.BP] = getBloodPressure(dataRow);                                
                   });
               }
       
