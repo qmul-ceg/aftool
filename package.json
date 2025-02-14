@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://qmul-ceg.github.io/aftool",
+  "homepage": "hhttps://aftool.qmul-ceg.net/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
