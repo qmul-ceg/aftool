@@ -46,7 +46,7 @@ const Display = () => {
    
    return (
       // justify-center align-center 
-      <div className="h-screen  display_container pt-1">
+      <div className="h-screen  display_container pt-1 display_screen">
          {
             displayExportListAlert && (
                <div style={overlay}>

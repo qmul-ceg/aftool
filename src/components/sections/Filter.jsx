@@ -890,7 +890,7 @@ const Filter = () => {
                   {/* 
                      <div className=" min-w-[660px] lg:max-w-[650px]lg:max-w-[620px] xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2">
                   */}
-                  <div className=" min-w-[500px]  xl:max-w-[610px] 2xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2">
+                  <div className=" min-w-[500px]  xl:max-w-[610px] 2xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2 summary_box">
                      <div>
                         <header className=" flex  rounded-t-lg px-2 py-2 bg-[#21376A] text-white">
                            <p className ="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Summary</p>

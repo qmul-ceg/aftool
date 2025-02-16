@@ -8,7 +8,7 @@ import { MainContext } from './MainContext'
 import { AFibColumns } from './enums/AFibColumns'
 import { getBloodPressure, hasCVD, hasHypertension, onAnticoagulantMeds, onAspirinAntiplateletMeds, onNSAIDMeds, onStatinsMeds } from './helper/AFibLTCmeds'
 import { transformS1ImportedData } from './helper/S1DataTransform'
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+// import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 
 
@@ -172,7 +172,7 @@ const Import = () => {
          
       };
    };
-   // console.log(emisWebImportError)
+
 
    const handleSystmOneReport = (file) => {
       // setSystmOneImportError(false)

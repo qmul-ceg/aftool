@@ -368,6 +368,24 @@
    font-weight: bold;
    
 }
+
+@media (max-width: 1024px){
+   ::-webkit-scrollbar{
+      width:0;
+      height: 0;
+   }
+   /* body, html{
+      overflow-x: hidden;
+   } */
+
+   /* .summary_box{
+      visibility: hidden;
+      position: absolute;
+   } */
+   /* .display_screen{
+      overflow-x: hidden;
+   } */
+}
 /* .progress {
    width: 2em;
    background: white;
