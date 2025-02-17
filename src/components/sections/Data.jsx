@@ -163,18 +163,18 @@ const Data = () => {
                      <div className="custom_header_checkbox"></div> 
                </th>
                <th rowSpan={2} className="w-[15%] ">Full name</th>
-               <th rowSpan={2} className="w-[3%]  ">Age</th>
+               <th rowSpan={2} className="w-[2%]  ">Age</th>
                <th rowSpan={2} className="w-[4%]">Gender</th>
                <th rowSpan={2} className="w-[6%] ">Patient reference no.</th>
-               <th colSpan="2 " className="sub_header w-[8%]">CHA₂DS₂-VASc</th>
-               <th colSpan="2" className="sub_header w-[8%]">ORBIT</th>
+               <th colSpan="2 " className="sub_header min-w-[11em] w-[8%]">CHA₂DS₂-VASc</th>
+               <th colSpan="2" className="sub_header min-w-[11em] w-[8%]">ORBIT</th>
                <th rowSpan={2} className="w-[7%]">Anticoagulant issued (6m)</th>
-               <th rowSpan={2} className="w-[9%] ">Aspirin / antiplatelet <br />issued (6m)</th>
+               <th rowSpan={2} className="w-[6%] ">Aspirin / antiplatelet <br />issued (6m)</th>
                <th rowSpan={2} className="w-[3%]">NSAID</th>
-               <th rowSpan={2} className="w-[6%] ">Statin issued (6m)</th>
-               <th rowSpan={2} className="w-[3%] ">CVD</th>
+               <th rowSpan={2} className="w-[5%] ">Statin issued (6m)</th>
+               <th rowSpan={2} className="w-[4%] ">CVD</th>
                {/* <th rowSpan={2} className="w-[4%]">HTN</th> */}
-               <th rowSpan={2} className="w-[3%] ">BP</th>
+               <th rowSpan={2} className="w-[2%] ">BP</th>
                <th rowSpan={2} className="w-[8%] med_review">Med review date</th>
             </tr>
 
