@@ -168,8 +168,8 @@ const Data = () => {
                <th rowSpan={2} className="w-[6%] ">Patient reference no.</th>
                <th colSpan="2 " className="sub_header min-w-[11em] w-[8%]">CHA₂DS₂-VASc</th>
                <th colSpan="2" className="sub_header min-w-[11em] w-[8%]">ORBIT</th>
-               <th rowSpan={2} className="w-[7%]">Anticoagulant issued (6m)</th>
-               <th rowSpan={2} className="w-[6%] ">Aspirin / antiplatelet <br />issued (6m)</th>
+               <th rowSpan={2} className="w-[4%]">Anticoagulant issued (6m)</th>
+               <th rowSpan={2} className="w-[8%] ">Aspirin / antiplatelet <br />issued (6m)</th>
                <th rowSpan={2} className="w-[3%]">NSAID</th>
                <th rowSpan={2} className="w-[5%] ">Statin issued (6m)</th>
                <th rowSpan={2} className="w-[4%] ">CVD</th>
