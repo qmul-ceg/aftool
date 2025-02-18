@@ -65,7 +65,7 @@ function App() {
       // </div>
       <MainProvider>
          {
-            !isDesktop && (
+            !isDesktop && ( 
                <div style={overlay}>
                    <Alert className= " border-0 w-[45%] m-auto fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
                      <AlertTitle>Incompatible screen size!</AlertTitle>

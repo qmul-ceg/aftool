@@ -420,14 +420,14 @@ const Filter = () => {
                   {
                      !resizeQuickFilter && (
                         // <div className=" min-w-[10px] ">
-                        <div className=" mr-2  w-[10%]">
+                        <div className=" mr-2  w-[11%]">
                            <Popover className="">
                               <PopoverTrigger className="flex justify-center w-full">
                                  <header className="w-full border flex justify-between px-2 py-2 rounded-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
                                     <span className ="font-semibold text-left text-xs  xl:text-sm 2xl:text-sm pr-2 text-nowrap">Quick filters</span>
-                                    {/* <button onClick={toggleQuickFilter}> 
+                                    <button> 
                                        { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> }
-                                    </button> */}
+                                    </button>
                                  </header>
                               </PopoverTrigger>
                               <PopoverContent className="w-88 ml-8 pl-0">
