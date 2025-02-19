@@ -526,7 +526,7 @@ const Filter = () => {
                                  {value: "doac_warf", label: "DOAC or Warfarin", name: 'Anti'},
                                  {value: "doac", label: "DOAC", name: 'Anti'},
                                  {value: "warf", label: "Warfarin", name: 'Anti'},
-                                 {value: "no_anticoagulant", label: "None" , name: 'Anti'},
+                                 {value: "no_anticoagulant", label: "No anticoagulant" , name: 'Anti'},
                                  {value: "antiplatelets", label: "Antiplatelets only" , name: 'Anti'},
                                  {value: "dual", label: "Dual therapy" , name: 'Anti'},
                               ].map((item) => (
