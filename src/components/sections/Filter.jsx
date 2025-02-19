@@ -528,7 +528,7 @@ const Filter = () => {
                                  {value: "warf", label: "Warfarin", name: 'Anti'},
                                  {value: "no_anticoagulant", label: "No anticoagulant" , name: 'Anti'},
                                  {value: "antiplatelets", label: "Antiplatelets only" , name: 'Anti'},
-                                 {value: "dual", label: "Dual therapy" , name: 'Anti'},
+                                 {value: "dual", label: "Dual therapy" , name: 'Anti'}, 
                               ].map((item) => (
                                  <label 
                                     key={item.value}
