@@ -582,7 +582,7 @@ const MainProvider = ({ children }) => {
 
             const patientsList = Object.keys(selectedForExport).map(key => {
                const patientsToExport = data.find(patients => patients[0] === key) 
-               outputContent += "\n" + patient[AFibColumns.NHS_Number] + "," + patient[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
+               outputContent += "\n" + patients[AFibColumns.NHS_Number] + "," + patients[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
             })
          }
          const file = new Blob([outputContent], { type : "text/plain"});
@@ -590,7 +590,7 @@ const MainProvider = ({ children }) => {
 
          const link = document.createElement("a");
          link.href = url;
-         link.download = "AccuRx_AF_patients_list_" + getRandomNumbers() + ".csv ";
+         link.download = "AccuRx_AF_patients_list_" + getRandomNumbers() + ".csv";
 
          document.body.appendChild(link)
          link.click();
