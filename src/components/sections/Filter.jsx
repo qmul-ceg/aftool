@@ -210,8 +210,6 @@ const Filter = () => {
       }
    }
 
-
-
    const selectedChdValueLabel = {
       'gte2' : '≥ 2',
       '1' : '1',
@@ -224,13 +222,9 @@ const Filter = () => {
       '<12m' : 'Recorded < 12'
    }
 
-  
-
-   // console.log(selectedFilters)
    return (
       <>
          <div className= "flex justify-between items-center  w-full  px-4 py-2 rounded-t-lg bg-[#21376A] text-white flex-shrink-0 ">
-            
             <div className="flex items-center min-h-10 ">
                <p className="text-sm md:text-md 
                   lg:text-lg xl:text-xl 2xl:text-xl 
@@ -400,9 +394,9 @@ const Filter = () => {
             <button onClick={toggleFilter}>
                {filterMenu ? 
                   (
-                     <FiChevronDown size={26} />
+                     <FiChevronDown size={24} />
                   ) : (
-                     <FiChevronUp size={26} />
+                     <FiChevronUp size={24} />
                   )}
             </button>
          </div>
@@ -420,13 +414,14 @@ const Filter = () => {
                   {
                      !resizeQuickFilter && (
                         // <div className=" min-w-[10px] ">
-                        <div className=" mr-2  w-[11%]">
+                        <div className=" mr-2  w-[10%] min-w-[7em]">
                            <Popover className="">
-                              <PopoverTrigger className="flex justify-center w-full">
+                              <PopoverTrigger className="flex justify-center w-full" oncClick= {()=>setShowQuickFilter(!showQuickFilter)}>
                                  <header className="w-full border flex justify-between px-2 py-2 rounded-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
-                                    <span className ="font-semibold text-left text-xs  xl:text-sm 2xl:text-sm pr-2 text-nowrap">Quick filters</span>
+                                    <span className ="font-semibold text-left text-xs  xl:text-sm 2xl:text-sm text-nowrap">Quick filters</span>
                                     <button> 
-                                       { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> }
+                                       <FiChevronDown />
+                                       {/* { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> } */}
                                     </button>
                                  </header>
                               </PopoverTrigger>
@@ -852,7 +847,7 @@ const Filter = () => {
                         {/* BP FILTER*/}
                         <Select>
                               <SelectTrigger className=" bg-[#21376A] text-white">
-                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">BP</h1>
+                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">BP</h1>
                                  {/* <SelectValue placeholder="VULNERABILITIES" /> */}
                               </SelectTrigger>
                               <SelectContent>
