@@ -184,7 +184,7 @@ const Modal = ({open, }) => {
          dateRecorded: selectedPatientData[AFibColumns.AlcoholDate] 
       },
       {
-         process: "Audit scores (latest ever)", 
+         process: "AUDIT scores (latest ever)", 
          colorCode: "", 
          value: selectedPatientData[AFibColumns.AuditScoresValue], 
          dateRecorded: selectedPatientData[AFibColumns.AuditScoresDate] 
@@ -355,7 +355,7 @@ const Modal = ({open, }) => {
                </div>
                {/* NOTE AND COLOURS LEGEND */}
                <div className=" text-center mt-2  flex justify-between items-center pl-2 pr-4">
-                  <strong>*NOTE: This list of medications is not exhaustive and the patient may be on additional medications not shown below</strong>
+                  <strong>*NOTE: This list of medication is not exhaustive and the patient may be on additional medication not shown below</strong>
                   
                   <div className=" flex " >
                      <span>
@@ -405,7 +405,7 @@ const Modal = ({open, }) => {
                   <table className="w-full">
                      <thead className="bg-[#21376A] text-left text-white font-semibold ">
                         <tr>
-                           <th className=" pl-2 py-1 w-[40%] rounded-tl-lg ">Medications</th>
+                           <th className=" pl-2 py-1 w-[40%] rounded-tl-lg ">Medication</th>
                            <th className=" w-[6%] " colSpan="1">&nbsp;</th>
                            <th className=" border-black pl-2">Medication name</th>
                            <th className=" border-black pl-2  w-[15%] rounded-tr-lg">Date of issue</th>
@@ -832,7 +832,7 @@ const Modal = ({open, }) => {
                               >
                                  
                                  <td className="py-1 pl-4 font-semibold">{item.process}
-                                    {item.process === "Audit scores (latest ever)" && (
+                                    {item.process === "AUDIT scores (latest ever)" && (
                                        
                                        <span>
                                           

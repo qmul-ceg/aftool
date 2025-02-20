@@ -56,25 +56,24 @@ const Menu = () => {
                   >
                      User guide & <br></br>resources
                   </PopoverTrigger>
-                  <PopoverContent className = "px-2 py-2 w-[27em]">
+                  <PopoverContent className = "px-2 py-2 w-[14em] mr-28">
                      <div className=" text-sm ">
-
+                        <div>         
+                           <ul className="ml-2 menu_list_items">
+                              <li>User guide</li>
+                           </ul>
+                        </div>
+                        <div className="w-full border mt-1 mb-1"></div>
                         <div>
                            <strong>EXTERNAL LINKS</strong>
                            <ul className="ml-2 menu_list_items">
-                              <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">- https://www.qmul.ac.uk/ceg/</a></li>
-                              <li><a href="https://cks.nice.org.uk/topics/anticoagulation-oral/" target="_blank" rel="noopener noreferrer">- Anticoagulation - oral | Health topics A to Z | CKS | NICE</a></li>
-                              <li><a href="https://www.mdcalc.com/calc/43/creatinine-clearance-cockcroft-gault-equation" target="_blank" rel="noopener noreferrer">- Creatinine Clearance (Cockcroft-Gault Equation)</a></li>
+                              <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">CEG website</a></li>
+                              <li><a href="https://cks.nice.org.uk/topics/anticoagulation-oral/" target="_blank" rel="noopener noreferrer">NICE CKS Anticoagulation</a></li>
+                              <li><a href="https://www.mdcalc.com/calc/43/creatinine-clearance-cockcroft-gault-equation" target="_blank" rel="noopener noreferrer">Creatine clearance MDCALC</a></li>
                            </ul>
                         </div>                            
-                        <div className="w-full border mt-1 mb-1"></div>
-                        <div>         
-                           <strong>RESOURCES</strong>
-                           <ul className="ml-2 menu_list_items">
-                              <li>- User guide</li>
-                           </ul>
-
-                        </div>
+                        
+                        
 
                      </div>
                   </PopoverContent>
@@ -90,13 +89,13 @@ const Menu = () => {
                            <p className="text-md hover:text-black font-bold text-[#21376A]">Export</p>
                         </div>
                      </PopoverTrigger>
-                     <PopoverContent className="px-2 py-2 w-[17em]">
+                     <PopoverContent className="px-2 py-2 w-[17em] ml-18">
                         <div className="text-sm">
                            <strong className="text-sm">EXPORT SELECTED PATIENTS LIST</strong>
                            <ul className=" ml-2 menu_list_items">
-                              <li><button onClick= {()=> handleExport("excel")}>- Excel list</button> </li>
-                              <li><button onClick= {()=> handleExport("accurx")}>- Accurx list</button> </li>
-                              <li><button onClick= {()=> handleExport("nhs_list")}>- NHS No. list</button> </li>
+                              <li><button onClick= {()=> handleExport("excel")}>Excel list</button> </li>
+                              <li><button onClick= {()=> handleExport("accurx")}>Accurx list</button> </li>
+                              <li><button onClick= {()=> handleExport("nhs_list")}>NHS No. list</button> </li>
                            </ul>
                         </div>
                         
