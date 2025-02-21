@@ -1,6 +1,6 @@
 import React, { useState, createContext, useMemo, useEffect, } from 'react'
 import patientsData from '/src/data/patient_data.json'
-import { GpSystems } from './enums/GPsystems'
+import { GpSystems } from './enums/GPsystems.js'
 import { AFibColumns } from './enums/AFibColumns'
 import * as XLSX from 'xlsx'
 

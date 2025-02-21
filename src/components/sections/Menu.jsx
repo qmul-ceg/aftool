@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { Link } from 'react-router-dom'
 import { MainContext } from '@/MainContext'
-import { GpSystems } from '@/enums/GPsystems';
+import { GpSystems } from '@/enums/GPsystems.js';
 
 import { AFibColumns } from '@/enums/AFibColumns';
 import { list } from 'postcss';
