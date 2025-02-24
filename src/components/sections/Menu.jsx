@@ -65,7 +65,7 @@ const Menu = () => {
                         </div>
                         <div className="w-full border mt-1 mb-1"></div>
                         <div>
-                           <strong>EXTERNAL LINKS</strong>
+                           <strong>Resources</strong>
                            <ul className="ml-2 menu_list_items">
                               <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">CEG website</a></li>
                               <li><a href="https://cks.nice.org.uk/topics/anticoagulation-oral/" target="_blank" rel="noopener noreferrer">NICE CKS Anticoagulation</a></li>
