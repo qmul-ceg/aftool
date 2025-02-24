@@ -899,9 +899,11 @@ const Filter = () => {
                                     <td className=" font-semibold text-center">{importedData.length}</td>
                                     <td className="  font-semibold text-center">{ percentageFormatter(importedData.length, importedData.length) }</td>
                                  </tr>
+
                                  <tr className=" bg-gray-100 text-left ">
-                                    <td className="flex flex-nowrap">*Modified AF008: CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m)
-                                       <div className="ml-2 my-auto">
+                                    {/* *Modified AF008: CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m) */}
+                                    <td className="flex flex-nowrap">CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m)
+                                       {/* <div className="ml-2 my-auto">
                                           <Popover>
                                              <PopoverTrigger 
                                                  className="flex justify-center items-center
@@ -918,7 +920,7 @@ const Filter = () => {
                                                 Modified QOF: no exclusions for contraindication or declined
                                              </PopoverContent>
                                           </Popover>
-                                       </div>
+                                       </div> */}
                                     </td>
                                     <td className=" text-center">{ importedData.reduce(chadsvasce2Anticoag,0) }</td>
                                     <td className="relative">
@@ -1044,7 +1046,8 @@ const Filter = () => {
 
 
                                  <tr className=" border-gray-200 ">
-                                    <td className="">*Modified AF006: new CHA₂DS₂-VASc ≥ 2 in last 12m</td>
+                                    {/* *Modified AF006: new CHA₂DS₂-VASc ≥ 2 in last 12m */}
+                                    <td className="">New CHA₂DS₂-VASc ≥ 2 in last 12m</td>
                                     <td className=" text-center">{ importedData.reduce(newChadsvasce2,0) }</td>
                                     <td className="relative ">
                                        <div 
