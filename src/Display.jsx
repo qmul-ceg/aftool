@@ -39,10 +39,7 @@ const Display = () => {
       zIndex:99
    }
 
-   // const handleContinueExport = ()=> {
-   //    setDisplayExportListAlert(false)
-   //    setConfirmListExport(true)
-   // }
+  
    
    return (
       // justify-center align-center 
