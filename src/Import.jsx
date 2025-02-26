@@ -154,7 +154,7 @@ const Import = () => {
             return;
          }
 
-         parseData(file, 1); // skip first row
+         parseData(file, 1, runDateTime); // skip first row
       };
    };   
 
@@ -172,7 +172,7 @@ const Import = () => {
       }
    }
 
-   const parseData = (file, skipLines) => {
+   const parseData = (file, skipLines, runDateTime = null ) => {
       Papa.parse(file, {
          header : false,
          skipEmptyLines: false,
