@@ -1,0 +1,6 @@
+CREATE TABLE import_logs (
+   id INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
+   created_at DATETIME NOT NULL DEFAULT GETDATE(),
+   status VARCHAR(255) NOT NULL
+)
+
