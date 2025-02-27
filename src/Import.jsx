@@ -66,6 +66,7 @@ const Import = () => {
       if(fileInputRef.current){
          fileInputRef.current.click(); // Simulates a click on the file input
       }
+      console.log(gpSystemSelected)
    }
    
    //Handles the file upload process
@@ -74,7 +75,7 @@ const Import = () => {
       if (files.length === 0) return ;// Return if no files are selected;
 
       const file = files[0]; //Get the first file
-      const reader = new FileReader(); //Initialise FileReader for reading the file
+      // const reader = new FileReader(); //Initialise FileReader for reading the file
 
       try{
          // Process the file based on the selected GP system
@@ -87,14 +88,28 @@ const Import = () => {
       }catch{
          resetFileInput(event.target); //Reset file input in case of error
       } 
-      
    } 
+
+    // Handles invalid reports 
+    const handleInvalidReport = (gpSystemSelected) => {
+      setGpSystemSelected(GpSystems.gpSystemSelected);
+      setImportError("");
+
+      setTimeout(()=> {
+         setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
+      }, 10);
+      if(fileInputRef.current){
+         
+         fileInputRef.current.value = ""; //Reset file input
+      }
+   }
 
    const handleEMISWebReport= (file)=>{
       let runDateTime;
       let relativeRunDate;
       let skipRows = 0; 
-            
+      
+      if (!file ) return;
       const reader = new FileReader()
       reader.readAsText(file)
 
@@ -113,8 +128,17 @@ const Import = () => {
                skipRows++;
 
                if (line.length !== REPORT_COLUMNS.EMIS) { 
-                  handleInvalidReport(GpSystems.EMIS_Web)
-                  return;
+                  setGpSystemSelected(GpSystems.EMIS_Web)
+                  setImportError("")
+                  // status = "failure";
+                  setTimeout(() => {
+                     setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+                  }, 10)
+                  if(fileInputRef.current){
+                     fileInputRef.current.value = "";
+                  }
+                  break;
+                 
                }
                else{
                   setImportError("") // Clear any previous errors 
@@ -132,7 +156,19 @@ const Import = () => {
             parseData(file, skipRows);
          } 
          else {
-            handleInvalidReport(GpSystems.EMIS_Web)
+            setGpSystemSelected(GpSystems.EMIS_Web)
+                  setImportError("")
+                  // status = "failure";
+                  setTimeout(() => {
+                     setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+                  }, 10)
+
+                  if(fileInputRef.current){
+                     fileInputRef.current.value = "";
+                  }
+                  // break;
+            // console.log("errorB")
+            // handleInvalidReport(GpSystems.EMIS_Web)
          }
       };
    };
@@ -150,7 +186,18 @@ const Import = () => {
          const firstLine = lines[0].split(',');
 
          if (firstLine.length !== REPORT_COLUMNS.S1) {
-            handleInvalidReport(GpSystems.SystmOne)
+            setGpSystemSelected(GpSystems.SystmOne)
+            setImportError("")
+            // status = "failure";
+            setTimeout(() => {
+               setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+            }, 10)
+            if(fileInputRef.current){
+               fileInputRef.current.value = "";
+            }
+          
+           
+            // handleInvalidReport(GpSystems.SystmOne)
             return;
          }
 
@@ -158,19 +205,19 @@ const Import = () => {
       };
    };   
 
-   // Handles invalid reports 
-   const handleInvalidReport = (gpSystemSelected) => {
-      setGpSystemSelected(GpSystems.gpSystemSelected);
-      setImportError("");
+   // // Handles invalid reports 
+   // const handleInvalidReport = (gpSystemSelected) => {
+   //    setGpSystemSelected(GpSystems.gpSystemSelected);
+   //    setImportError("");
 
-      setTimeout(()=> {
-         setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`)
-      }, 10);
-
-      if(fileInputRef.current){
-         fileInputRef.current.value = ""; //Reset file input
-      }
-   }
+   //    setTimeout(()=> {
+   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
+   //    }, 10);
+   //    if(fileInputRef.current){
+         
+   //       fileInputRef.current.value = ""; //Reset file input
+   //    }
+   // }
 
    const parseData = (file, skipLines, runDateTime = null ) => {
       Papa.parse(file, {
@@ -178,8 +225,8 @@ const Import = () => {
          skipEmptyLines: false,
          skipFirstNLines: skipLines,
          complete: function (result) {
-            console.log(result)
-              let dataArray = [];
+
+            let dataArray = [];
 
               if (gpSystemSelected === GpSystems.EMIS_Web) {
 
@@ -213,15 +260,15 @@ const Import = () => {
                   });
               }
       
-              setImportedData(dataArray)
-              navigate("/display",);
+               setImportedData(dataArray)
+               navigate("/display",);
             },
-          error: function (error) {
-              console.error("Error parsing the CSV file:", error);
-              alert("Error parsing the CSV file.");
-          }
+         error: function (error) {
+            console.error("Error parsing the CSV file:", error);
+            alert("Error parsing the CSV file.");
+         }
       });
-  }
+   }
 
   
 

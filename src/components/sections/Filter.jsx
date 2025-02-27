@@ -903,24 +903,7 @@ const Filter = () => {
                                  <tr className=" bg-gray-100 text-left ">
                                     {/* *Modified AF008: CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m) */}
                                     <td className="flex flex-nowrap">CHA₂DS₂-VASc ≥ 2 issued Anticoagulants (6m)
-                                       {/* <div className="ml-2 my-auto">
-                                          <Popover>
-                                             <PopoverTrigger 
-                                                 className="flex justify-center items-center
-                                                 font-serif text-xs px-[0.51em]  rounded-full font-semibold
-                                                 bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
-                                             >
-                                                i
-                                             </PopoverTrigger>
-                                             <PopoverContent 
-                                                className="min-w-[31em] text-xs text-center  xl:text-sm 2xl:text-sm px-2 py-2
-                                                   bg-[#21376A] text-white
-                                                "
-                                             >
-                                                Modified QOF: no exclusions for contraindication or declined
-                                             </PopoverContent>
-                                          </Popover>
-                                       </div> */}
+                                       
                                     </td>
                                     <td className=" text-center">{ importedData.reduce(chadsvasce2Anticoag,0) }</td>
                                     <td className="relative">
@@ -942,6 +925,30 @@ const Filter = () => {
                                     } 
                                     
                                  </tr> 
+
+                                 <tr className=" bg-gray-100">
+                                    <td className="">CHA₂DS₂-VASc ≥ 2 issued DOAC (6m)</td>
+                                    <td className=" text-center">{ importedData.reduce(chadsvasce2DOAC,0) }</td>
+                                    <td className="relative ">
+                                       <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}</span>
+                                    </td> 
+                                    {
+                                       importedData.length > 0 && importedData.reduce(chadsvasce2DOAC,0) > 0 && !removeProgressBar &&(
+                                          <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
+                                          <div 
+                                             style =
+                                                {{
+                                                   width: `${percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}`,
+                                                   
+                                                }}
+                                                className="absolute h-full top-0 bg-[#21376A]"
+                                                   
+                                          >
+                                          </div>
+                                    </td>      
+                                       )
+                                    }
+                                 </tr>
 
                                  <tr className="">
                                     <td className="">CHA₂DS₂-VASc ≥ 2 and NOT issued Anticoagulants (6m)</td>
@@ -1018,35 +1025,13 @@ const Filter = () => {
                                        )
                                     }
                                  </tr>
-                                 <tr className=" bg-gray-100">
-                                    <td className="">CHA₂DS₂-VASc ≥ 2 issued DOAC (6m)</td>
-                                    <td className=" text-center">{ importedData.reduce(chadsvasce2DOAC,0) }</td>
-                                    <td className="relative ">
-                                       <span className="progress_data">{percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}</span>
-                                    </td> 
-                                    {
-                                       importedData.length > 0 && importedData.reduce(chadsvasce2DOAC,0) > 0 && !removeProgressBar &&(
-                                          <td className="ml-4 border  border-gray-200 w-[4em] relative rounded-md p-0">
-                                          <div 
-                                             style =
-                                                {{
-                                                   width: `${percentageFormatter(importedData.reduce(chadsvasce2DOAC,0), importedData.reduce(chadsvasce2,0))}`,
-                                                   
-                                                }}
-                                                className="absolute h-full top-0 bg-[#21376A]"
-                                                   
-                                          >
-                                          </div>
-                                    </td>      
-                                       )
-                                    }
-                                 </tr>
+                                 
 
 
 
 
-                                 <tr className=" border-gray-200 ">
-                                    {/* *Modified AF006: new CHA₂DS₂-VASc ≥ 2 in last 12m */}
+                                 {/* <tr className=" border-gray-200 ">
+                                    
                                     <td className="">New CHA₂DS₂-VASc ≥ 2 in last 12m</td>
                                     <td className=" text-center">{ importedData.reduce(newChadsvasce2,0) }</td>
                                     <td className="relative ">
@@ -1073,7 +1058,7 @@ const Filter = () => {
                                           </td>     
                                        )
                                     }
-                                 </tr>
+                                 </tr> */}
                               </tbody>
                            </table>
 
