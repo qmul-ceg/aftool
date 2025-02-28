@@ -428,7 +428,7 @@ const Filter = () => {
                               <PopoverContent className="w-88 ml-8 pl-0">
                                  <div className=" text-sm font-semibold">
                                     {[
-                                       { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (12m), no anticoagulation (6m)"},
+                                       { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
                                        { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation (6m)"},
                                        { value: "option_three", label: "ORBIT ≥ 4 (12m), on anticoagulation (6m)"},
                                        { value: "option_four", label: "Med review > 12m, on anticoagulation (6m)"},
@@ -475,7 +475,7 @@ const Filter = () => {
                            showQuickFilter && (
                               <div className="border-[0.1em] border-[#21376A] h-36 border-t-0 text-sm pt-2 font-semibold ">
                                  {[
-                                    { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (12m), no anticoagulation (6m)"},
+                                    { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
                                     { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation (6m)"},
                                     { value: "option_three", label: "ORBIT ≥ 4 (12m), on anticoagulation (6m)"},
                                     { value: "option_four", label: "Med review > 12m, on anticoagulation (6m)"},
