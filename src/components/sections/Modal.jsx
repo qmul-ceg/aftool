@@ -79,7 +79,7 @@ const Modal = ({open, }) => {
          dateOfIssue: selectedPatientData[AFibColumns.AntiplateletDate] 
       },
       {
-         medication: "PPI (6m)", 
+         medication: "PPI medication (6m)", 
          colorCode: "", 
          medicationName: selectedPatientData[AFibColumns.PPI_Med], 
          dateOfIssue: selectedPatientData[AFibColumns.PPI_Date] 
@@ -427,7 +427,7 @@ const Modal = ({open, }) => {
                                           item.medication === "Third party prescribing (12m)" ||
                                           item.medication === "Other oral anticoagulants (12m)" ||
                                           item.medication === "PPI medication (6m)" ||
-                                          item.medication === "Statin (6m)")&& item.medicationName ? cegColors.green
+                                          item.medication === "Statin (6m)") && item.medicationName ? cegColors.green
                                           : (item.medication ==="Aspirin (12m)"|| item.medication ==="Other antiplatelets (12m)") && item.medicationName ? cegColors.orange
                                           : item.medication ==="NSAID (excluding Aspirin)(6m)" && item.medicationName ? cegColors.orange 
                                           : null
