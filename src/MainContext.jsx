@@ -1093,14 +1093,4 @@ export default MainProvider
             
          //    return chdFilter 
          // }  
-          // const handleChdDate = (value, label) => {
-   //    if (selectedChdDate && selectedChdDate.value === value) {
-   //       setSelectedChdDate(null);
-   //    } else {
-   //       setSelectedChdDate({ value, label });
-   //    }
-   // } // console.log(exportListType)
-      // if (selectedForExportList.length == 0){
-      //    alert("No patient statisfied current filter selection, or patient count is '0'");
-      //    return;
-      // }
+  

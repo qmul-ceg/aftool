@@ -723,8 +723,6 @@ const Modal = ({open, }) => {
                                              selectedPatientData[AFibColumns.HouseboundConcept]
 
                                           ) ? "YES" : null
-
-
                                        ) 
                                     }
                                     {
@@ -733,8 +731,6 @@ const Modal = ({open, }) => {
                                     {
                                        (item.comorbidity ==="Palliative care" && selectedPatientData[AFibColumns.PalliativeCareConcept]  ? "YES" : null )
                                     }
-                                    
-                                   
                                  </td>
                               
                                  <td className="py-1 pl-4">
