@@ -217,7 +217,7 @@ const Filter = () => {
    }
 
    const selectedRecordedDateLabel = {
-      '>12m' : 'Recorded > 12',
+      '≥12m' : 'Recorded ≥ 12m',
       'not_recorded' : 'Not recorded',
       '<12m' : 'Recorded < 12'
    }
@@ -429,11 +429,11 @@ const Filter = () => {
                                  <div className=" text-sm font-semibold">
                                     {[
                                        { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
-                                       { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation (6m)"},
+                                       { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
                                        { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
-                                       { value: "option_four", label: "Med review > 12m, on anticoagulation (6m)"},
+                                       { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
                                        { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
-                                       { value: "option_six", label: "On dual therapy (6m), no med review (12m)"}
+                                       { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
                                     ].map((item) => {
                                        return (
                                           <label
@@ -475,12 +475,12 @@ const Filter = () => {
                            showQuickFilter && (
                               <div className="border-[0.1em] border-[#21376A] h-36 border-t-0 text-sm pt-2 font-semibold ">
                                  {[
-                                     { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
-                                     { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (>12m), no anticoagulation (6m)"},
-                                     { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
-                                     { value: "option_four", label: "Med review > 12m, on anticoagulation (6m)"},
-                                     { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
-                                     { value: "option_six", label: "On dual therapy (6m), no med review (12m)"}
+                                    { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
+                                    { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
+                                    { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
+                                    { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
+                                    { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
+                                    { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
                                  ].map((item) => {
                                     return (
                                        <label
@@ -554,7 +554,7 @@ const Filter = () => {
                         {/* MED REVIEW FILTER*/}
                         <Select>
                            <SelectTrigger className=" bg-[#21376A]  text-white">
-                              <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Medication review {">"} 12m</h1>
+                              <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Medication review ≥ 12m </h1>
                              
                            </SelectTrigger>
                            <SelectContent>
@@ -654,7 +654,7 @@ const Filter = () => {
                               
                               <div className="w-full border mt-1 mb-1"></div>
                               
-                              {[ '>12m', 'not_recorded', '<12m'].map((item, index) => 
+                              {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
                                  (
                                     <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
                                        <input
@@ -697,7 +697,7 @@ const Filter = () => {
 
                               <div className="w-full border mt-1 mb-1"></div>
                               {/* ORBIT DATE RECORDED */}
-                              {[ '>12m', 'not_recorded', '<12m'].map((item, index) => 
+                              {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
                                  (
                                     <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
                                        <input
@@ -1061,17 +1061,10 @@ const Filter = () => {
                                  </tr> */}
                               </tbody>
                            </table>
-
-                           {/*  */}
                         </div>
-
                      </div>
-                        
-                       
                   </div>
                </div>
-            {/* )
-         } */}
       </>
   )
 }

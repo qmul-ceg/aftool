@@ -352,7 +352,7 @@ const MainProvider = ({ children }) => {
       const recorded = new Date(recordedDate); // Convert to Date object
       const cutoffDate = new Date(relativeRunDate); // Reference date
       cutoffDate.setFullYear(cutoffDate.getFullYear() - 1); // Subtract 12 months
-      return recorded < cutoffDate; // Check if recorded is over 12 months ago
+      return recorded <= cutoffDate; // Check if recorded is over 12 months ago
    }
 
    //CONVERT RELATIVE RUN DATE 
@@ -464,7 +464,7 @@ const MainProvider = ({ children }) => {
          console.log("Applying filters for option_two...");
       
          handleChdValue('gte2')
-         handleChdDate('>12m')
+         handleChdDate('≥12m')
          handleAntiFilter('no_anticoagulant', 'None')
       }
       else if(value && value === "option_three"){
@@ -720,7 +720,7 @@ const MainProvider = ({ children }) => {
          }
 
          const getChdDateSelection = ( ) => {
-            const overTwelveMonths = (selectedChdDate && selectedChdDate === ">12m" && recordedOverTwelveMonths(patient[AFibColumns.CHADSVAScDate], convertRelativeRunDate(relativeRunDate)));
+            const overTwelveMonths = (selectedChdDate && selectedChdDate === "≥12m" && recordedOverTwelveMonths(patient[AFibColumns.CHADSVAScDate], convertRelativeRunDate(relativeRunDate)));
             const notRecorded = (selectedChdDate && selectedChdDate === "not_recorded" 
                && (!convertDate(patient[AFibColumns.CHADSVAScDate]) || convertDate(patient[AFibColumns.CHADSVAScDate]).trim() === ""));
             const lessThanTwelveMonths = (selectedChdDate && selectedChdDate === "<12m" && 
@@ -766,7 +766,7 @@ const MainProvider = ({ children }) => {
          const getOrbitRecordedDateSelection = () =>{
             //This function checks and gets the Orbit Recorded date value selected by the user. 
             //The function checks whatever value is selected by the user and maps them to our data 
-            const overTwelveMonths = selectedOrbitDateRecorded === ">12m" && 
+            const overTwelveMonths = selectedOrbitDateRecorded === "≥12m" && 
                recordedOverTwelveMonths(patient[AFibColumns.ORBIT_Date], convertRelativeRunDate(relativeRunDate))
             const withinTwelveMonths = (selectedOrbitDateRecorded === "<12m" && 
                !recordedOverTwelveMonths(patient[AFibColumns.ORBIT_Date], convertRelativeRunDate(relativeRunDate)) &&
@@ -796,7 +796,7 @@ const MainProvider = ({ children }) => {
          const orbitFilter = 
             selectedOrbit.length === 0 ||
             selectedOrbit.some(object => object.value === "gte4") && patient[AFibColumns.ORBIT_Value] >=4 ||
-            selectedOrbit.some(object => object.value === ">12m") && 
+            selectedOrbit.some(object => object.value === "≥12m") && 
                recordedOverTwelveMonths(patient[AFibColumns.ORBIT_Date], convertRelativeRunDate(relativeRunDate)) ||
             selectedOrbit.some(object => object.value === "not_recorded") && (!convertDate(patient[AFibColumns.ORBIT_Date]) || convertDate(patient[AFibColumns.ORBIT_Date]).trim() === "")
             
