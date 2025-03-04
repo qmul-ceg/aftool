@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom'
 import { MainContext } from '@/MainContext'
 import { GpSystems } from '@/enums/GPsystems.js';
 
-import { AFibColumns } from '@/enums/AFibColumns';
-import { list } from 'postcss';
-
 
 const Menu = () => {
 

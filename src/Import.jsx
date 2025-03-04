@@ -91,18 +91,18 @@ const Import = () => {
    } 
 
     // Handles invalid reports 
-    const handleInvalidReport = (gpSystemSelected) => {
-      setGpSystemSelected(GpSystems.gpSystemSelected);
-      setImportError("");
+   //  const handleInvalidReport = (gpSystemSelected) => {
+   //    setGpSystemSelected(GpSystems.gpSystemSelected);
+   //    setImportError("");
 
-      setTimeout(()=> {
-         setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
-      }, 10);
-      if(fileInputRef.current){
+   //    setTimeout(()=> {
+   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
+   //    }, 10);
+   //    if(fileInputRef.current){
          
-         fileInputRef.current.value = ""; //Reset file input
-      }
-   }
+   //       fileInputRef.current.value = ""; //Reset file input
+   //    }
+   // }
 
    const handleEMISWebReport= (file)=>{
       let runDateTime;

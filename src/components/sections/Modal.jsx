@@ -6,7 +6,6 @@ import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popove
 
 const Modal = ({open, }) => {
 
-   // const { setOpenModal, modalOpen } = useContext(MainContext)
    const { setIsModalOpen, 
       selectedPatientData, 
       handleNextPatient, 
