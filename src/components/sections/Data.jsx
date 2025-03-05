@@ -69,33 +69,6 @@ const Data = () => {
             return newMasterCheckBoxState
       })
    }
-      
-   
-  
-   // const toggleSelectedPatient = (patient) => {
-      
-   //    setSelectedForExport((prev) => { 
-   //       const exists = patient in prev;
-
-   //       if(exists){
-   //          const updated = {...prev};
-   //          delete updated[patient]
-   //          return updated;
-            
-   //       }
-   //       else {
-   //          return {
-   //             ...prev,
-   //             [patient]: true
-   //          }
-   //       }
-   //    } 
-   // )}
-   
-   // const selectedForExportCount = Object.values(selectedForExport).filter(value => value == true)
-   // console.log(Object.keys(selectedForExportCount).length)
-   // console.log(selectedForExport.length + data.length)
-   // console.log(data.length)
    
    
   
@@ -107,12 +80,6 @@ const Data = () => {
      
    },[toggleSelectedPatient])
    
-
-
-
-
-
-
    const theadRef= useRef(null);
    const [headerHeight, setHeaderHeight] = useState(0)
 
