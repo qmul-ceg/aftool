@@ -354,7 +354,7 @@ const Modal = ({open, }) => {
                </div>
                {/* NOTE AND COLOURS LEGEND */}
                <div className=" text-center mt-2  flex justify-between items-center pl-2 pr-4">
-                  <strong>*NOTE: This list of medication is not exhaustive and the patient may be on additional medication not shown below</strong>
+                  <strong>*NOTE: This list of medication is not exhaustive and the patient may be on additional medication not shown below.</strong>
                   
                   <div className=" flex " >
                      <span>

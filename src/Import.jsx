@@ -7,6 +7,7 @@ import { Button } from './components/ui/button.jsx'
 import { GpSystems } from './enums/GPsystems.js'
 import { MainContext } from './MainContext'
 import { AFibColumns } from './enums/AFibColumns'
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { 
    getBloodPressure,
@@ -35,8 +36,17 @@ const Import = () => {
    const navigate = useNavigate();
 
    const [importError, setImportError] = useState("");
+   const [displayLatestReportAlert, setDisplayLatestReportAlert] = useState(false);
+   const [currentDate, setCurrentDate] = useState(null);
+   const [compareDate, setCompareDate] = useState(null)
+ 
    
-
+   //Parse the dates in correct format
+   // then turn dates to millisconds
+   //Use Maths.abs to parse them 
+  
+   // const today = new Date();
+   // console.log(today)
    // Consts for report column counts
    const REPORT_COLUMNS = {
       EMIS: 92,
@@ -90,19 +100,11 @@ const Import = () => {
       } 
    } 
 
-    // Handles invalid reports 
-   //  const handleInvalidReport = (gpSystemSelected) => {
-   //    setGpSystemSelected(GpSystems.gpSystemSelected);
-   //    setImportError("");
+   const parseDate = (dateString) => {
+      const [day, month, year] = dateString.split('/');
+      return new Date(`${year}-${month}-${day}`);
 
-   //    setTimeout(()=> {
-   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
-   //    }, 10);
-   //    if(fileInputRef.current){
-         
-   //       fileInputRef.current.value = ""; //Reset file input
-   //    }
-   // }
+   }
 
    const handleEMISWebReport= (file)=>{
       let runDateTime;
@@ -150,10 +152,15 @@ const Import = () => {
 
          // If a valid run date is found, process the report
          if (runDateTime) {
+            
             relativeRunDate = runDateTime.split(' ')[0];
+            
             let cleanedRelativeRunDate = relativeRunDate.replace(/"/g, '')
             setRelativeRunDate(cleanedRelativeRunDate);
             parseData(file, skipRows);
+            setCompareDate(parseDate(cleanedRelativeRunDate))
+              
+            
          } 
          else {
             setGpSystemSelected(GpSystems.EMIS_Web)
@@ -161,6 +168,7 @@ const Import = () => {
                   // status = "failure";
                   setTimeout(() => {
                      setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+                    
                   }, 10)
 
                   if(fileInputRef.current){
@@ -172,6 +180,9 @@ const Import = () => {
          }
       };
    };
+
+   console.log(compareDate)
+
 
    const handleSystmOneReport = (file) => {
       const runDateTime = new Date(file.lastModified);
@@ -205,19 +216,7 @@ const Import = () => {
       };
    };   
 
-   // // Handles invalid reports 
-   // const handleInvalidReport = (gpSystemSelected) => {
-   //    setGpSystemSelected(GpSystems.gpSystemSelected);
-   //    setImportError("");
-
-   //    setTimeout(()=> {
-   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
-   //    }, 10);
-   //    if(fileInputRef.current){
-         
-   //       fileInputRef.current.value = ""; //Reset file input
-   //    }
-   // }
+  
 
    const parseData = (file, skipLines, runDateTime = null ) => {
       Papa.parse(file, {
@@ -228,10 +227,8 @@ const Import = () => {
 
             let dataArray = [];
 
-              if (gpSystemSelected === GpSystems.EMIS_Web) {
-
+               if (gpSystemSelected === GpSystems.EMIS_Web) {
                   result.data.forEach((data, index) => {
-
                      if (index > skipLines && data[AFibColumns.FullName] !== "") {
                            dataArray.push(Object.values(data));
                            dataArray[dataArray.length - 1][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataArray[dataArray.length - 1]);
@@ -241,14 +238,12 @@ const Import = () => {
                            dataArray[dataArray.length - 1][AFibColumns.CVD] = hasCVD(dataArray[dataArray.length - 1]);
                            dataArray[dataArray.length - 1][AFibColumns.Hypertension] = hasHypertension(dataArray[dataArray.length - 1]);
                            dataArray[dataArray.length - 1][AFibColumns.BP] = getBloodPressure(dataArray[dataArray.length - 1]);
-
                         }
                   });
-              }
+               }
+
               else if (gpSystemSelected === GpSystems.SystmOne) {                  
-
                   dataArray = transformS1ImportedData(result.data, runDateTime);
-
                   dataArray.forEach((dataRow, index) => {
                      dataArray[index][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataRow);
                      dataArray[index][AFibColumns.OnAspirinAntiplatelet] = onAspirinAntiplateletMeds(dataRow);
@@ -259,9 +254,19 @@ const Import = () => {
                      dataArray[index][AFibColumns.BP] = getBloodPressure(dataRow);                                
                   });
               }
-      
-               setImportedData(dataArray)
+              
+               // const currentDate = new Date();
+               
+               // if (Math.abs(currentDate - compareDate) / (1000 * 60 * 60 * 24) > 14){
+               //    setDisplayLatestReportAlert(true)
+               // }
+               // else {
+                  
+               // navigate("/display",);
+               // }
                navigate("/display",);
+               setImportedData(dataArray)
+               
             },
          error: function (error) {
             console.error("Error parsing the CSV file:", error);
@@ -270,12 +275,41 @@ const Import = () => {
       });
    }
 
-  
+
+
+
+   const overlay ={
+      position : 'fixed',
+      top:0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      // backgroundColor: '#21376A',
+      zIndex:99
+   }
 
 
   return (
    <>
+
       <div className = "flex justify-center  items-start h-screen bg-[#21376A]">
+
+         {
+            displayLatestReportAlert && (
+               <div style={overlay}>
+                  <Alert className= " m-auto fixed top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
+                     {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
+                     <p>The report data is over 2 weeks old, please import a latest report.</p>
+                     <div className="flex gap-4 mt-2">
+                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " >Continue</button>
+                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {()=>setDisplayLatestReportAlert(false)}>Cancel</button>
+                     </div>
+                     
+                  </Alert>
+               </div>
+            )
+         }
+
          <div  className = " w-[40%] max-w-[500px] mt-[20vh] border text-center py-12 rounded-t-lg bg-white">
             <div className="text-center w-full sm:w-auto  flex-row flex-1">
                <h1 className="text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-sourceSans font-bold text-[#21376A]">
@@ -345,4 +379,28 @@ const Import = () => {
 }
 
 export default Import
-    
+     // Handles invalid reports 
+   //  const handleInvalidReport = (gpSystemSelected) => {
+   //    setGpSystemSelected(GpSystems.gpSystemSelected);
+   //    setImportError("");
+
+   //    setTimeout(()=> {
+   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
+   //    }, 10);
+   //    if(fileInputRef.current){
+         
+   //       fileInputRef.current.value = ""; //Reset file input
+   //    }
+   // } // // Handles invalid reports 
+   // const handleInvalidReport = (gpSystemSelected) => {
+   //    setGpSystemSelected(GpSystems.gpSystemSelected);
+   //    setImportError("");
+
+   //    setTimeout(()=> {
+   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
+   //    }, 10);
+   //    if(fileInputRef.current){
+         
+   //       fileInputRef.current.value = ""; //Reset file input
+   //    }
+   // }

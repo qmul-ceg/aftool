@@ -243,18 +243,42 @@ const MainProvider = ({ children }) => {
 
    const checkPatientBloodPressure = (systolic, diastolic) => {
       for (let object of selectedBP){
-         if(object.value === "lt130-80" && systolic < 130 && diastolic < 80) {
-            return true
+         if(object.value === "lt140-90" && systolic < 140 && diastolic < 90){
+            return true;
          }
-         if(object.value === "lt140-90" && systolic < 140 && diastolic < 90 ){
-            return true
+         if(object.value === "gte140-90" && systolic >= 140 || diastolic >= 90){
+            return true;
          }
-         if(object.value === "140/90-149/90" && (systolic >= 140 && systolic <= 149 || diastolic >= 90)){
-            return true
+         if(object.value === "gte150-90" && systolic >= 150 && diastolic ){
+            return true;
          }
-         if(object.value ==="gte150-90" && (systolic >= 150 || diastolic >= 90)){
-            return true
-         }
+         
+         //Second example
+         // if(object.value === "lt140-90" && systolic < 140 && diastolic < 90){
+         //    return true;
+         // }
+         // if(object.value === "gte140-90" && systolic >= 140 && diastolic >= 90){
+         //    return true;
+         // }
+         // if(object.value === "gte150-90" && systolic >= 150 && diastolic >= 90){
+         //    return true;
+         // }
+         
+         
+         
+         
+         // if(object.value === "lt130-80" && systolic < 130 && diastolic < 80) {
+         //    return true
+         // }
+         // if(object.value === "lt140-90" && systolic < 140 && diastolic < 90 ){
+         //    return true
+         // }
+         // if(object.value === "140/90-149/90" && (systolic >= 140 && systolic <= 149 || diastolic >= 90)){
+         //    return true
+         // }
+         // if(object.value ==="gte150-90" && (systolic >= 150 || diastolic >= 90)){
+         //    return true
+         // }
       }
       return false
    }

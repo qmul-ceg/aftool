@@ -852,9 +852,8 @@ const Filter = () => {
                               </SelectTrigger>
                               <SelectContent>
                                  {[
-                                    { value: "lt130-80", label: "< 130/80"},
                                     { value: "lt140-90", label: "< 140/90"},
-                                    { value: "140/90-149/90", label: "140/90 - 149/90"},
+                                    { value: "gte140-90", label: "≥ 140/90"},
                                     { value: "gte150-90", label: "≥ 150/90"}
                                  ].map((item) => {
                                     return (
@@ -1218,7 +1217,7 @@ export default Filter
                                        </div> */}
                                        {/* { percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) } */} 
                                        {/* EXTERNAL LINKS */}
-                        
+                        // { value: "gte150-90", label: "140/90 - 149/90"},
                                     
                      {/* <div>
                         <Popover >
