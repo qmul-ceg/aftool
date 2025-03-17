@@ -356,7 +356,7 @@ const Import = () => {
                <div style={overlay}>
                   <Alert className= " m-auto fixed top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
                      {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
-                     <p>The report data is over 2 weeks old, would you like to continue with import?</p>
+                     <p>The report data is over 2 weeks old, would you like to continue with the import?</p>
                      <div className="flex gap-4 mt-2">
                         <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {confirmImport}>Continue</button>
                         <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {()=>setDisplayLatestReportAlert(false)}>Cancel</button>
