@@ -1,5 +1,5 @@
 
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate} from'react-router-dom'
 import Papa from 'papaparse'
 
@@ -38,7 +38,9 @@ const Import = () => {
    const [importError, setImportError] = useState("");
    const [displayLatestReportAlert, setDisplayLatestReportAlert] = useState(false);
    const [currentDate, setCurrentDate] = useState(null);
-   const [compareDate, setCompareDate] = useState(null)
+   const [compareDate, setCompareDate] = useState(null);
+   const [continueImport, setContinueImport] = useState(false);
+   const [differenceInReportDate, setDifferenceInReportDate] = useState(null)
  
    
    //Parse the dates in correct format
@@ -49,7 +51,8 @@ const Import = () => {
    // console.log(today)
    // Consts for report column counts
    const REPORT_COLUMNS = {
-      EMIS: 92,
+      // EMIS: 92,
+      EMIS: 91,
       S1:85
    }
    
@@ -115,7 +118,7 @@ const Import = () => {
       const reader = new FileReader()
       reader.readAsText(file)
 
-      reader.onload = function (){
+      reader.onload = function(){
          const lines = reader.result.split('\n');
 
          for (let i = 0; i < lines.length; i++){
@@ -135,11 +138,13 @@ const Import = () => {
                   // status = "failure";
                   setTimeout(() => {
                      setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+                     console.log("hi" + line.length)
                   }, 10)
                   if(fileInputRef.current){
                      fileInputRef.current.value = "";
                   }
-                  break;
+                  // break;
+                  return;
                  
                }
                else{
@@ -157,9 +162,19 @@ const Import = () => {
             
             let cleanedRelativeRunDate = relativeRunDate.replace(/"/g, '')
             setRelativeRunDate(cleanedRelativeRunDate);
-            parseData(file, skipRows);
+            
+
+
+            const dateOfReport = parseDate(cleanedRelativeRunDate)
+            const dateToday = new Date();
+            const differenceInDateInMs = Math.abs(dateToday - dateOfReport)
+            const differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
+            setDifferenceInReportDate(differenceInDateInDays)
+            console.log(dateOfReport, differenceInDateInMs, differenceInDateInDays)
             setCompareDate(parseDate(cleanedRelativeRunDate))
-              
+
+
+            parseData(file, skipRows, null, differenceInDateInDays);
             
          } 
          else {
@@ -168,7 +183,7 @@ const Import = () => {
                   // status = "failure";
                   setTimeout(() => {
                      setImportError("EMIS Web report is not valid. Please import the correct report version. ")
-                    
+                     console.log("hi 2")
                   }, 10)
 
                   if(fileInputRef.current){
@@ -180,8 +195,8 @@ const Import = () => {
          }
       };
    };
-
-   console.log(compareDate)
+      
+  
 
 
    const handleSystmOneReport = (file) => {
@@ -216,9 +231,30 @@ const Import = () => {
       };
    };   
 
-  
+   const confirmImport = () => {
+      navigate("/display")
+      setDisplayLatestReportAlert(false)
+   }
 
-   const parseData = (file, skipLines, runDateTime = null ) => {
+
+
+
+   const displayData = (data, reportDate) => {
+      console.log(reportDate)
+      if(reportDate > 14){
+         setDisplayLatestReportAlert(true)
+         setImportedData(data)
+         setContinueImport(prev => true)
+      }
+      else {
+         setImportedData(data)
+         navigate("/display"); 
+      }
+      
+      
+   }
+
+   const parseData = (file, skipLines, runDateTime = null,  reportDate = null) => {
       Papa.parse(file, {
          header : false,
          skipEmptyLines: false,
@@ -256,16 +292,25 @@ const Import = () => {
               }
               
                // const currentDate = new Date();
-               
-               // if (Math.abs(currentDate - compareDate) / (1000 * 60 * 60 * 24) > 14){
+               // console.log(currentDate)
+               // console.log(compareDate)
+               // const date_difference = Math.abs(currentDate - compareDate) / (1000 * 60 * 60 * 24)
+               // // console.log(date_difference)
+               // if (date_difference > 14){
                //    setDisplayLatestReportAlert(true)
+               //    setImportedData(dataArray)
+               //    setContinueImport(prev => true)
                // }
                // else {
-                  
-               // navigate("/display",);
+               //    setImportedData(dataArray)
+               //    navigate("/display"); 
                // }
-               navigate("/display",);
-               setImportedData(dataArray)
+               displayData(dataArray, reportDate)
+               // setImportedData(dataArray)
+               // navigate("/display"); 
+
+               
+               
                
             },
          error: function (error) {
@@ -273,10 +318,23 @@ const Import = () => {
             alert("Error parsing the CSV file.");
          }
       });
+      
    }
+   // console.log(compareDate)
+   // const confirmImport = () => {
+   //    navigate("/display")
+   //    setDisplayLatestReportAlert(false)
+   // }
+      // useEffect(()=>{
+      // if(continueImport){
+      //    navigate("/display"); 
+      // }
+      // }, [continueImport])
 
+   
+   // navigate("/display"); 
 
-
+   // console.log(continueImport)
 
    const overlay ={
       position : 'fixed',
@@ -284,7 +342,6 @@ const Import = () => {
       left: 0,
       right: 0,
       bottom: 0,
-      // backgroundColor: '#21376A',
       zIndex:99
    }
 
@@ -297,11 +354,11 @@ const Import = () => {
          {
             displayLatestReportAlert && (
                <div style={overlay}>
-                  <Alert className= " m-auto fixed top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
+                  <Alert className= " m-auto fixed top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
                      {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
-                     <p>The report data is over 2 weeks old, please import a latest report.</p>
+                     <p>The report data is over 2 weeks old, would you like to continue with import?</p>
                      <div className="flex gap-4 mt-2">
-                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " >Continue</button>
+                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {confirmImport}>Continue</button>
                         <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {()=>setDisplayLatestReportAlert(false)}>Cancel</button>
                      </div>
                      

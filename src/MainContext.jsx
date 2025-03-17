@@ -249,7 +249,7 @@ const MainProvider = ({ children }) => {
          if(object.value === "gte140-90" && systolic >= 140 || diastolic >= 90){
             return true;
          }
-         if(object.value === "gte150-90" && systolic >= 150 && diastolic ){
+         if(object.value === "gte150-90" && systolic >= 150 && diastolic > 0 ){
             return true;
          }
          
@@ -570,6 +570,8 @@ const MainProvider = ({ children }) => {
                
             }
          })
+         
+         let worksheet = XLSX.utils.json_to_sheet(exportData, {origin: "A4"})
          XLSX.utils.sheet_add_aoa(worksheet, 
             [["Ceg Atrial Fibrillation Tool"]], {origin: "A2"}); 
             
@@ -579,7 +581,7 @@ const MainProvider = ({ children }) => {
             {origin: "A1"}
          );
         
-         let worksheet = XLSX.utils.json_to_sheet(exportData, {origin: "A4"})
+         
 
          const workbook = XLSX.utils.book_new();
          XLSX.utils.book_append_sheet(workbook, worksheet, "Patients")
