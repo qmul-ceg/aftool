@@ -74,20 +74,27 @@ const Import = () => {
          setImportError("Please select a clinical system before importing.")
          return;//Exits the function if no system is selected
       }
-
+      // if(fileInputRef.current){
+      //    fileInputRef.current.value = "";
+      // }
       // Triggers the file input if a valid GP system is selected 
       if(fileInputRef.current){
+         fileInputRef.current.value = "";
          fileInputRef.current.click(); // Simulates a click on the file input
       }
-      console.log(gpSystemSelected)
+      // console.log(gpSystemSelected)
    }
    
    //Handles the file upload process
    const handleFileUpload = (event) => {
+      // if(fileInputRef.current){
+      //    fileInputRef.current.value = "";
+      // }
       const files = event.target.files; //Get the files from the input
       if (files.length === 0) return ;// Return if no files are selected;
 
       const file = files[0]; //Get the first file
+      console.log(file)
       // const reader = new FileReader(); //Initialise FileReader for reading the file
 
       try{
@@ -163,17 +170,14 @@ const Import = () => {
             let cleanedRelativeRunDate = relativeRunDate.replace(/"/g, '')
             setRelativeRunDate(cleanedRelativeRunDate);
             
-
-
             const dateOfReport = parseDate(cleanedRelativeRunDate)
             const dateToday = new Date();
+
             const differenceInDateInMs = Math.abs(dateToday - dateOfReport)
             const differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
             setDifferenceInReportDate(differenceInDateInDays)
             console.log(dateOfReport, differenceInDateInMs, differenceInDateInDays)
             setCompareDate(parseDate(cleanedRelativeRunDate))
-
-
             parseData(file, skipRows, null, differenceInDateInDays);
             
          } 
@@ -232,11 +236,19 @@ const Import = () => {
    };   
 
    const confirmImport = () => {
-      navigate("/display")
       setDisplayLatestReportAlert(false)
+      navigate("/display")
+      
    }
 
-
+   const cancelImport = () => {
+      
+      // setGpSystemSelected(gpSystemSelected.NotSelected)
+      setDisplayLatestReportAlert(false)
+      
+   }
+   console.log(gpSystemSelected)
+   console.log(displayLatestReportAlert)
 
 
    const displayData = (data, reportDate) => {
@@ -250,8 +262,6 @@ const Import = () => {
          setImportedData(data)
          navigate("/display"); 
       }
-      
-      
    }
 
    const parseData = (file, skipLines, runDateTime = null,  reportDate = null) => {
@@ -320,21 +330,7 @@ const Import = () => {
       });
       
    }
-   // console.log(compareDate)
-   // const confirmImport = () => {
-   //    navigate("/display")
-   //    setDisplayLatestReportAlert(false)
-   // }
-      // useEffect(()=>{
-      // if(continueImport){
-      //    navigate("/display"); 
-      // }
-      // }, [continueImport])
 
-   
-   // navigate("/display"); 
-
-   // console.log(continueImport)
 
    const overlay ={
       position : 'fixed',
@@ -354,14 +350,13 @@ const Import = () => {
          {
             displayLatestReportAlert && (
                <div style={overlay}>
-                  <Alert className= " m-auto fixed top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
+                  <Alert className= " m-auto fixed top-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
                      {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
                      <p>The report data is over 2 weeks old, would you like to continue with the import?</p>
                      <div className="flex gap-4 mt-2">
                         <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {confirmImport}>Continue</button>
-                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {()=>setDisplayLatestReportAlert(false)}>Cancel</button>
+                        <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {cancelImport}>Cancel</button>
                      </div>
-                     
                   </Alert>
                </div>
             )
@@ -460,4 +455,18 @@ export default Import
          
    //       fileInputRef.current.value = ""; //Reset file input
    //    }
+   // }   // console.log(compareDate)
+   // const confirmImport = () => {
+   //    navigate("/display")
+   //    setDisplayLatestReportAlert(false)
    // }
+      // useEffect(()=>{
+      // if(continueImport){
+      //    navigate("/display"); 
+      // }
+      // }, [continueImport])
+
+   
+   // navigate("/display"); 
+
+   // console.log(continueImport)
