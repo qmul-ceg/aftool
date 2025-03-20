@@ -4,7 +4,7 @@ AF Tool (NGT)
 QMUL CEG Atrial Fibrilation Tool (Next Generation Tool)
 
 ## Introduction
-[Briefly describe the project]
+Brief description....
 
 ## Purpose & Features 
 The prupose of this tool is to move the current excel based tool 
