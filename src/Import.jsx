@@ -20,6 +20,7 @@ import {
 } from './helper/AFibLTCmeds'
 
 import { transformS1ImportedData } from './helper/S1DataTransform'
+import axios from 'axios'
 
 
 
@@ -87,16 +88,11 @@ const Import = () => {
    
    //Handles the file upload process
    const handleFileUpload = (event) => {
-      // if(fileInputRef.current){
-      //    fileInputRef.current.value = "";
-      // }
+
       const files = event.target.files; //Get the files from the input
       if (files.length === 0) return ;// Return if no files are selected;
 
       const file = files[0]; //Get the first file
-      console.log(file)
-      // const reader = new FileReader(); //Initialise FileReader for reading the file
-
       try{
          // Process the file based on the selected GP system
          if (gpSystemSelected === GpSystems.EMIS_Web) {
@@ -120,14 +116,26 @@ const Import = () => {
       let runDateTime;
       let relativeRunDate;
       let skipRows = 0; 
+      let status;
+      let odsCode;
       
       if (!file ) return;
       const reader = new FileReader()
       reader.readAsText(file)
 
-      reader.onload = function(){
-         const lines = reader.result.split('\n');
+      reader.onload = async () => {
 
+
+         const lines = reader.result.split('\n');
+         let ods_array = lines[14].split(',');
+         const odsCodeRegex = /^[A-Z]\d{4,5}$/;
+         if (odsCodeRegex.test(ods_array[8])){
+            odsCode = ods_array[8];
+         } else {
+            odsCode = "UNKNOWN";
+         }
+         
+         // console.log(odsCode)
          for (let i = 0; i < lines.length; i++){
             const line = lines[i].split(',');
             
@@ -142,16 +150,16 @@ const Import = () => {
                if (line.length !== REPORT_COLUMNS.EMIS) { 
                   setGpSystemSelected(GpSystems.EMIS_Web)
                   setImportError("")
-                  // status = "failure";
+                  status = "failure";
                   setTimeout(() => {
                      setImportError("EMIS Web report is not valid. Please import the correct report version. ")
-                     console.log("hi" + line.length)
+                     // console.log("hi" + line.length)
                   }, 10)
                   if(fileInputRef.current){
                      fileInputRef.current.value = "";
                   }
                   // break;
-                  return;
+                  break;
                  
                }
                else{
@@ -179,24 +187,45 @@ const Import = () => {
             console.log(dateOfReport, differenceInDateInMs, differenceInDateInDays)
             setCompareDate(parseDate(cleanedRelativeRunDate))
             parseData(file, skipRows, null, differenceInDateInDays);
+            status = "success"
             
          } 
          else {
+            status = "failure"
             setGpSystemSelected(GpSystems.EMIS_Web)
-                  setImportError("")
-                  // status = "failure";
-                  setTimeout(() => {
-                     setImportError("EMIS Web report is not valid. Please import the correct report version. ")
-                     console.log("hi 2")
-                  }, 10)
+            setImportError("")
+            setTimeout(() => {
+               setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+              
+            }, 10)
 
-                  if(fileInputRef.current){
-                     fileInputRef.current.value = "";
-                  }
-                  // break;
-            // console.log("errorB")
-            // handleInvalidReport(GpSystems.EMIS_Web)
+            if(fileInputRef.current){
+               fileInputRef.current.value = "";
+            }
          }
+
+         try{
+            const response = await axios.post ("http://18.133.219.114:8000/log", {
+               tool: "AF tool",
+               gp_system: "EMIS Web",
+               file_name: file.name,
+               ods_code: odsCode,
+               status: status,
+            },
+            {
+               headers: {
+                  'Content-Type': 'application/json',
+               }
+            });
+            console.log("Response:", response.data);
+         }catch(error){
+            console.error("Error:", error.response?.data)
+         }
+
+
+
+
+
       };
    };
       
@@ -215,6 +244,9 @@ const Import = () => {
          const lines = reader.result.split('\n');
          const firstLine = lines[0].split(',');
 
+
+
+
          if (firstLine.length !== REPORT_COLUMNS.S1) {
             setGpSystemSelected(GpSystems.SystmOne)
             setImportError("")
@@ -225,9 +257,6 @@ const Import = () => {
             if(fileInputRef.current){
                fileInputRef.current.value = "";
             }
-          
-           
-            // handleInvalidReport(GpSystems.SystmOne)
             return;
          }
 
@@ -238,17 +267,13 @@ const Import = () => {
    const confirmImport = () => {
       setDisplayLatestReportAlert(false)
       navigate("/display")
-      
    }
 
    const cancelImport = () => {
-      
-      // setGpSystemSelected(gpSystemSelected.NotSelected)
       setDisplayLatestReportAlert(false)
-      
    }
-   console.log(gpSystemSelected)
-   console.log(displayLatestReportAlert)
+   // console.log(gpSystemSelected)
+   // console.log(displayLatestReportAlert)
 
 
    const displayData = (data, reportDate) => {
@@ -344,13 +369,13 @@ const Import = () => {
 
   return (
    <>
-
       <div className = "flex justify-center  items-start h-screen bg-[#21376A]">
 
          {
             displayLatestReportAlert && (
-               <div style={overlay}>
-                  <Alert className= " m-auto fixed top-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
+               <div style={overlay} className= "">
+                  <Alert className= " m-auto fixed top-[500px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
+                     
                      {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
                      <p>The report data is over 2 weeks old, would you like to continue with the import?</p>
                      <div className="flex gap-4 mt-2">
