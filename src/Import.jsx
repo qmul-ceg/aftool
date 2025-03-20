@@ -221,11 +221,6 @@ const Import = () => {
          }catch(error){
             console.error("Error:", error.response?.data)
          }
-
-
-
-
-
       };
    };
       
@@ -233,6 +228,9 @@ const Import = () => {
 
 
    const handleSystmOneReport = (file) => {
+
+      let status;
+
       const runDateTime = new Date(file.lastModified);
       let relativeRunDate = runDateTime.getDate() + '-' + runDateTime.toLocaleString('default', { month: 'short' }) + '-' + runDateTime.getFullYear();
       setRelativeRunDate(relativeRunDate);
@@ -240,7 +238,7 @@ const Import = () => {
       const reader = new FileReader()
       reader.readAsText(file)
 
-      reader.onload = () => {
+      reader.onload = async () => {
          const lines = reader.result.split('\n');
          const firstLine = lines[0].split(',');
 
@@ -248,6 +246,7 @@ const Import = () => {
 
 
          if (firstLine.length !== REPORT_COLUMNS.S1) {
+            status="failure"
             setGpSystemSelected(GpSystems.SystmOne)
             setImportError("")
             // status = "failure";
@@ -257,10 +256,32 @@ const Import = () => {
             if(fileInputRef.current){
                fileInputRef.current.value = "";
             }
-            return;
+            // return;
+         }else {
+
+            //Skip rows passed a 1 - skips first row.
+            parseData(file, 1, runDateTime); 
+            status = "success"
          }
 
-         parseData(file, 1, runDateTime); // skip first row
+         try{
+            const response = await axios.post ("http://18.133.219.114:8000/log", {
+               tool: "AF tool",
+               gp_system: "SystmOne",
+               file_name: file.name,
+               ods_code: "11111",
+               status: status,
+            },
+            {
+               headers: {
+                  'Content-Type': 'application/json',
+               }
+            });
+            console.log("Response:", response.data);
+            }catch(error){
+            console.error("Error:", error.response?.data)
+            }
+
       };
    };   
 
@@ -277,7 +298,7 @@ const Import = () => {
 
 
    const displayData = (data, reportDate) => {
-      console.log(reportDate)
+      // console.log(reportDate)
       if(reportDate > 14){
          setDisplayLatestReportAlert(true)
          setImportedData(data)

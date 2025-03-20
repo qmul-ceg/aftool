@@ -43,7 +43,7 @@ const Display = () => {
    
    return (
       // justify-center align-center 
-      <div className="h-screen  display_container pt-1 display_screen">
+      <div className="h-screen  display_container pt-1 display_screen max-w-[2800px] m-auto">
          {
             displayExportListAlert && (
                <div style={overlay}>
@@ -94,7 +94,9 @@ const Display = () => {
          </Modal>
 
          {/* FILTER DROPDOWN */}
-         
+         <div>
+            
+         </div>
          <section className=" mt-4 mx-4 ">
             <Filter /> 
          </section>
