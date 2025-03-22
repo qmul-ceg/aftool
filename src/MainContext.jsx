@@ -19,7 +19,7 @@ const MainProvider = ({ children }) => {
    const [selectedPatientIndex, setSelectedPatientIndex] =useState()
    const [exportCount, setExportCount] = useState(0)
    const [selectedForExport, setSelectedForExport] = useState({})
-   const [masterCheckbox, setMasterCheckbox] = useState(null)
+   const [masterCheckbox, setMasterCheckbox] = useState(false)
    const [gpSystemSelected, setGpSystemSelected] = useState(GpSystems.NotSelected)
    const [confirmListExport, setConfirmListExport] = useState(false)
    const [displayExportListAlert, setDisplayExportListAlert] = useState(false)

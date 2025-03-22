@@ -416,13 +416,13 @@ const Filter = () => {
                         // <div className=" min-w-[10px] ">
                         <div className=" mr-2  w-[10%] min-w-[7em]">
                            <Popover className="">
-                              <PopoverTrigger className="flex justify-center w-full" oncClick= {()=>setShowQuickFilter(!showQuickFilter)}>
+                              <PopoverTrigger className="flex justify-center w-full" onClick= {()=>setShowQuickFilter(!showQuickFilter)}>
                                  <header className="w-full border flex justify-between px-2 py-2 rounded-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
                                     <span className ="font-semibold text-left text-xs  xl:text-sm 2xl:text-sm text-nowrap">Quick filters</span>
-                                    <button> 
-                                       <FiChevronDown />
-                                       {/* { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> } */}
-                                    </button>
+                                    <div className=" flex mt-[0.1em]"> 
+                                       {/* <FiChevronDown /> */}
+                                       { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> }
+                                    </div>
                                  </header>
                               </PopoverTrigger>
                               <PopoverContent className="w-88 ml-8 pl-0">
@@ -439,7 +439,7 @@ const Filter = () => {
                                           <label
                                              // value={item.value}
                                              className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
-                                          
+                                             key = {item.value}
                                           >
                                              <input
                                                 type="checkbox"
@@ -484,6 +484,7 @@ const Filter = () => {
                                  ].map((item) => {
                                     return (
                                        <label
+                                          key = {item.value}
                                           value={item.value}
                                           className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
                                        >
@@ -602,6 +603,7 @@ const Filter = () => {
                                  ].map((item, index) =>
                                     (
                                        <label
+                                          key = {item.value}
                                           value={item.value}
                                           className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
                                        >
@@ -858,6 +860,7 @@ const Filter = () => {
                                  ].map((item) => {
                                     return (
                                        <label
+                                          key = {item.value}
                                           value={item.value}
                                           className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
                                        >

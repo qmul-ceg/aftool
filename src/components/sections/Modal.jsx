@@ -339,7 +339,7 @@ const Modal = ({open, }) => {
                </div>
                
                <div className=" mt-2 text-center text-sm ">
-                  <label className=" inline-flex gap-2 items-center cursor-pointer font-bold" for="modalCheckBox">
+                  <label className=" inline-flex gap-2 items-center cursor-pointer font-bold" htmlFor="modalCheckBox">
                      Select for export
                      <input
                         type="checkbox"
