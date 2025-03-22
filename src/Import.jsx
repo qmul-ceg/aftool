@@ -38,19 +38,8 @@ const Import = () => {
 
    const [importError, setImportError] = useState("");
    const [displayLatestReportAlert, setDisplayLatestReportAlert] = useState(false);
-   const [currentDate, setCurrentDate] = useState(null);
-   const [compareDate, setCompareDate] = useState(null);
-   const [continueImport, setContinueImport] = useState(false);
-   const [differenceInReportDate, setDifferenceInReportDate] = useState(null)
- 
-   
-   //Parse the dates in correct format
-   // then turn dates to millisconds
-   //Use Maths.abs to parse them 
-  
-   // const today = new Date();
-   // console.log(today)
-   // Consts for report column counts
+
+
    const REPORT_COLUMNS = {
       // EMIS: 92,
       EMIS: 91,
@@ -59,8 +48,8 @@ const Import = () => {
    
    // Handles selecting a GP system
    const handleGpSystemSelect = (event) =>{
-      setGpSystemSelected(event.target.value) //Sets the selected GP system
-      setImportError("") //Reset error when a system is selected
+      setGpSystemSelected(event.target.value);
+      setImportError("");
    }
 
    // Ref for file input element
@@ -183,9 +172,9 @@ const Import = () => {
 
             const differenceInDateInMs = Math.abs(dateToday - dateOfReport)
             const differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
-            setDifferenceInReportDate(differenceInDateInDays)
+            // setDifferenceInReportDate(differenceInDateInDays)
             console.log(dateOfReport, differenceInDateInMs, differenceInDateInDays)
-            setCompareDate(parseDate(cleanedRelativeRunDate))
+            // setCompareDate(parseDate(cleanedRelativeRunDate))
             parseData(file, skipRows, null, differenceInDateInDays);
             status = "success"
             
@@ -302,7 +291,7 @@ const Import = () => {
       if(reportDate > 14){
          setDisplayLatestReportAlert(true)
          setImportedData(data)
-         setContinueImport(prev => true)
+         // setContinueImport(prev => true)
       }
       else {
          setImportedData(data)
@@ -515,4 +504,7 @@ export default Import
    
    // navigate("/display"); 
 
-   // console.log(continueImport)
+   // console.log(continueImport)   // const [currentDate, setCurrentDate] = useState(null);
+   // const [compareDate, setCompareDate] = useState(null);
+   // const [continueImport, setContinueImport] = useState(false);
+   // const [differenceInReportDate, setDifferenceInReportDate] = useState(null)
