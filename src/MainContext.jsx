@@ -35,7 +35,7 @@ const MainProvider = ({ children }) => {
       selectedAges: [],
       nsaid:"",
       statin: "",
-      cvd: null,
+      cvd: "",
       selectedBP: [],
       selectedChdValue: [],
       selectedChdDate: "",
@@ -67,7 +67,7 @@ const MainProvider = ({ children }) => {
 
    //MODAL PATIENT CLICK
    const handlePatientClick = (index) =>{
-      console.log("Clicked row index:", index)
+      // console.log("Clicked row index:", index)
 
       if(data.length > 0 && data[index]){
          const selectedPatientRow = data[index] //Get the index of the the patient selected in imported Data
@@ -151,7 +151,7 @@ const MainProvider = ({ children }) => {
    const handleAntiFilter =(value, label) => {
       // setQuickFilter(defaultFilters.quickFilter)
       
-      console.log("handleAntiFilter called with ", {value, label});
+      // console.log("handleAntiFilter called with ", {value, label});
       if (quickFilter){
          setSelectedAnti({ value, label });
       }
@@ -287,7 +287,7 @@ const MainProvider = ({ children }) => {
    const handleChdValue = (value) => {
       setSelectedChdValue((prev) => {
          const exists = prev.includes(value)
-         console.log(exists)
+         // console.log(exists)
          if(exists){
             return prev.filter((item) => item !== value)
             
@@ -478,14 +478,14 @@ const MainProvider = ({ children }) => {
       // setSelectedQuickFilter(value)
       if(value && value === "option_one"){
 
-         console.log("Applying filters for option_one...");
+        
          handleChdValue('gte2')
          handleChdDate('<12m')
          handleAntiFilter('no_anticoagulant', 'None')
          // applyOptionOneQuickFilter();
       }
       else if(value && value === "option_two"){
-         console.log("Applying filters for option_two...");
+         
       
          handleChdValue('gte2')
          handleChdDate('≥12m')

@@ -237,142 +237,134 @@ const Filter = () => {
                <div className=" ml-6 items-center flex gap-2 flex-wrap mr-6 ">
                   {/* ANTICOAGULANTS DISPLAY */}
                   {(importedData.length > 0 && selectedAnti) && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md ">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md ">
                         <strong className ="mr-2">AntiCoag/AntiP:</strong> {selectedAnti.label } 
                        
                         {<button className="  ml-2 text-red-500 text-xs hover:text-sm" onClick={()=>removeAntiFilter()}>&#10005;</button>}
-                     </button>
+                     </div>
                   )}
 
                   {/* MEDICATION REVIEW DISPLAY */}
                   {(importedData.length > 0 && displayMedReview[0].value !== "") && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication review:</strong> {displayMedReview[0].value } 
                         {<button className=" ml-2 font-bold text-red-500 text-xs hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
-                     </button>
+                     </div>
                   )}
                   
                   {/* VULNERABILITIES DISPLAY */}
                   {(importedData.length > 0 && selectedVulnerabilities.length > 0) && (
                      selectedVulnerabilities.map((item, id) => 
-                        <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <div key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">Vulnerabilities: </strong> {item.label} 
                            {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeVulnerabilities(item.value)}>&#10005;</button>}
-                        </button>
+                        </div>
                      )
                   )}
 
                   {/* MEDICATION DISPLAY */}
                   {(importedData.length > 0 && nsaid && !statin) && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication:</strong> NSAID - {nsaid} 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
-                     </button>
+                     </div>
                   )}
                   {(importedData.length > 0 && statin && !nsaid) && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication:</strong> Statin - {statin} 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeStatinFilter}> &#10005;</button>}
-                     </button>
+                     </div>
                   )}
                   {(importedData.length > 0 && nsaid && statin) && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication:</strong> NSAID - {nsaid} 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeNsaidFilter}>&#10005;</button>}
                         <span className="ml-2">Statin - {statin}</span>
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeStatinFilter}> &#10005;</button>}
-                     </button>
+                     </div>
                   )}
-                  {/* {(importedData.length > 0 && displayNsaid[0].value !== "") && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                         <strong className ="mr-2">NSAID:</strong> {displayNsaid[0].value } 
-                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={removeNsaidFilter}>x</button>}
-                     </button>
-                  )} */}
+
                   {/* CVD DISPLAY */}
                   {(importedData.length > 0 && cvd)  && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">CVD:</strong> {cvd.value } 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeCvdFilter}> &#10005;</button>}
-                     </button>
+                     </div>
                   )}
                  
                   
                   {/* BP DISPLAY */}
                   {(importedData.length > 0 && selectedBP.length > 0) && (
                      selectedBP.map((item, id) => 
-                        <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <div key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">BP:</strong> {item.label} 
                            {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeBP(item.value)}>&#10005;</button>}
-                        </button>
+                        </div>
                      )
                   )}
                   {/* CHA₂DS₂-VASc DISPLAY */}
                   {(importedData.length > 0 && selectedChdValue.length > 0 && !selectedChdDate) && (
-                     
                      selectedChdValue.map((item, id) => 
-                        <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <div key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedChdValueLabel[item]} 
                            {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeChdValue(item)}>&#10005;</button>}
-                        </button>
+                        </div>
                      )
                   )}
                   
 
                   {(importedData.length > 0 && selectedChdValue.length === 0 && selectedChdDate) && (
-                      
-                     <button key = {selectedChdDate} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div key = {selectedChdDate} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">CHA₂DS₂-VASc: </strong> {selectedRecordedDateLabel[selectedChdDate]} 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
-                     </button>
+                     </div>
                      
                   )}
+
                   {(importedData.length > 0 && selectedChdValue.length > 0 && selectedChdDate) && (
-                      
                      selectedChdValue.map((item, id) => 
-                        <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <div key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">CHA₂DS₂-VASc: </strong>{selectedChdValueLabel[item]}
                            {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeChdValue(item )}>&#10005;</button>}
                            <span className="ml-2">{selectedRecordedDateLabel[selectedChdDate]} </span>
                            {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeChdDate()}>&#10005;</button>}
-                        </button>
+                        </div>
                   ))}
 
                   {/* ORBIT DISPLAY */}
                   {/* Display for when only the orbit value is selected */}
                   {(importedData.length > 0 && selectedOrbitValue && !selectedOrbitDateRecorded) && (
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">ORBIT: </strong> ≥ 4
                         {<button className="ml-2 font-bold text-red-500 text-sm hover:text-lg" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
-                     </button>
+                     </div>
                   )}
                   {/* Display for only when orbit date is selected  */}
                   {(importedData.length > 0 && !selectedOrbitValue && selectedOrbitDateRecorded) && (
                       
-                     <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">ORBIT: </strong> {selectedRecordedDateLabel[selectedOrbitDateRecorded]} 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
-                     </button>
+                     </div>
                      
                   )}
                   {/* display for when both the value and date are selected  */}
                   {(importedData.length > 0 && selectedOrbitValue && selectedOrbitDateRecorded) && (
-                     
-                        <button className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                           <strong className ="mr-2">ORBIT: </strong> ≥ 4
-                           {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
-                           <span className="ml-2">{selectedRecordedDateLabel[selectedOrbitDateRecorded]} </span>
-                           {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
-                        </button>
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <strong className ="mr-2">ORBIT: </strong> ≥ 4
+                        {<button className="ml-2 font-bold text-red-500 hover:text-sm" onClick={()=>removeSelectedOrbitValue()}>&#10005;</button>}
+                        <span className="ml-2">{selectedRecordedDateLabel[selectedOrbitDateRecorded]} </span>
+                        {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeSelectedOrbitDate()}>&#10005;</button>}
+                     </div>
                   )}
                   
                   {/* AGE DISPLAY */}
                   {(importedData.length > 0 && selectedAges.length > 0) && (
                      selectedAges.map((item, id) => 
-                        <button key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
+                        <div key = {id} className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                            <strong className ="mr-2">Age:</strong> {item.label} 
                            {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={()=>removeAgeDisplay(item.value)}>&#10005;</button>}
-                        </button>
+                        </div>
                      )
                   )}
                   
@@ -387,7 +379,6 @@ const Filter = () => {
                >
                   Remove all filters
                </button>
-               
             </div>
            
             {/* TOGGLE COLLAPSE BUTTON */}
@@ -401,486 +392,475 @@ const Filter = () => {
             </button>
          </div>
          
-
-         {/* lg:text-xs xl:text-sm 2xl:text-sm */}
-         {/* {
-            filterMenu && ( */}
               
-               <div className= 
-                  {`flex justify-between border-[0.1em] border-[#21376A] px-2 py-2 transition-all duration-700 ease-in-out ${filterMenu ? "opacity-100 max-h-96": "opacity-0 max-h-0 overflow-hidden"}`}
-               >
+         <div className= 
+            {`flex justify-between border-[0.1em] border-[#21376A] px-2 py-2 transition-all duration-700 ease-in-out ${filterMenu ? "opacity-100 max-h-96": "opacity-0 max-h-0 overflow-hidden"}`}
+         >
 
-                  {/* QUICK FILTERS */}
-                  {
-                     !resizeQuickFilter && (
-                        // <div className=" min-w-[10px] ">
-                        <div className=" mr-2  w-[10%] min-w-[7em]">
-                           <Popover className="">
-                              <PopoverTrigger className="flex justify-center w-full" onClick= {()=>setShowQuickFilter(!showQuickFilter)}>
-                                 <header className="w-full border flex justify-between px-2 py-2 rounded-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
-                                    <span className ="font-semibold text-left text-xs  xl:text-sm 2xl:text-sm text-nowrap">Quick filters</span>
-                                    <div className=" flex mt-[0.1em]"> 
-                                       {/* <FiChevronDown /> */}
-                                       { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> }
-                                    </div>
-                                 </header>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-88 ml-8 pl-0">
-                                 <div className=" text-sm font-semibold">
-                                    {[
-                                       { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
-                                       { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
-                                       { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
-                                       { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
-                                       { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
-                                       { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
-                                    ].map((item) => {
-                                       return (
-                                          <label
-                                             // value={item.value}
-                                             className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
-                                             key = {item.value}
-                                          >
-                                             <input
-                                                type="checkbox"
-                                                checked={quickFilter === item.value}
-                                                onChange={()=>handleQuickFilter(item.value)} 
-                                                className="checkbox_input"
-                                                
-                                             />
-                                             <div className="custom_checkbox"></div>
-                                             <span>{item.label}</span>       
-                                          </label>
-                                       )
-                                    })}
-                                 </div>
-                              </PopoverContent>
-                        </Popover>
+         {/* QUICK FILTERS */}  
+            {
+               !resizeQuickFilter && (
+                  // <div className=" min-w-[10px] ">
+                  <div className=" mr-2  w-[10%] min-w-[7em]">
+                     <Popover className="">
+                        {/* onClick= {()=>setShowQuickFilter(!showQuickFilter)} */}
+                        <PopoverTrigger className="flex justify-center w-full" >
+                           <header className="w-full border flex justify-between px-2 py-2 rounded-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
+                              <span className ="font-semibold text-left text-xs  xl:text-sm 2xl:text-sm text-nowrap">Quick filters</span>
+                              <div className=" flex mt-[0.1em]"> 
+                                 <FiChevronDown />
+                                 {/* { showQuickFilter  ? <FiChevronUp/> : <FiChevronDown/> } */}
+                              </div>
+                           </header>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-88 ml-8 pl-0">
+                           <div className=" text-sm font-semibold">
+                              {[
+                                 { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
+                                 { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
+                                 { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
+                                 { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
+                                 { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
+                                 { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
+                              ].map((item) => {
+                                 return (
+                                    <label
+                                       // value={item.value}
+                                       className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
+                                       key = {item.value}
+                                    >
+                                       <input
+                                          type="checkbox"
+                                          checked={quickFilter === item.value}
+                                          onChange={()=>handleQuickFilter(item.value)} 
+                                          className="checkbox_input"
+                                          
+                                       />
+                                       <div className="custom_checkbox"></div>
+                                       <span>{item.label}</span>       
+                                    </label>
+                                 )
+                              })}
+                           </div>
+                        </PopoverContent>
+                  </Popover>
+                  </div>
+               )
+            }
+            {
+               resizeQuickFilter && (
+
+                  <div className =" flex-1 w-full flex flex-col justify-between max-w-[390px] mr-2">
+                     <div className =" flex flex-col">
+                        <header className="flex justify-between px-2 py-2 rounded-t-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
+                           <p className ="font-semibold text-xs text-left xl:text-sm 2xl:text-sm pr-2">Quick filters</p>
+                           {/* <button onClick={toggleQuickFilter}>
+                              { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> }
+                           </button> */}
+                        </header>
+               
+                        {
+                     showQuickFilter && (
+                        <div className="border-[0.1em] border-[#21376A] h-36 border-t-0 text-sm pt-2 font-semibold ">
+                           {[
+                              { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
+                              { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
+                              { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
+                              { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
+                              { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
+                              { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
+                           ].map((item) => {
+                              return (
+                                 <label
+                                    key = {item.value}
+                                    value={item.value}
+                                    className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
+                                 >
+                                    <input
+                                       type="checkbox"
+                                       checked={quickFilter === item.value}
+                                       onChange={()=>handleQuickFilter(item.value)}
+                                       className="checkbox_input"
+                                    />
+                                    <div className="custom_checkbox"></div>
+                                    <span>{item.label}</span>       
+                                 </label>
+
+                              )
+                           })}
                         </div>
                      )
                   }
-                  {
-                     resizeQuickFilter && (
-
-                        <div className =" flex-1 w-full flex flex-col justify-between max-w-[390px] mr-2">
-                           <div className =" flex flex-col">
-                              <header className="flex justify-between px-2 py-2 rounded-t-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
-                                 <p className ="font-semibold text-xs text-left xl:text-sm 2xl:text-sm pr-2">Quick filters</p>
-                                 {/* <button onClick={toggleQuickFilter}>
-                                    { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> }
-                                 </button> */}
-                              </header>
-                     
-                              {
-                           showQuickFilter && (
-                              <div className="border-[0.1em] border-[#21376A] h-36 border-t-0 text-sm pt-2 font-semibold ">
-                                 {[
-                                    { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
-                                    { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
-                                    { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
-                                    { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
-                                    { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
-                                    { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
-                                 ].map((item) => {
-                                    return (
-                                       <label
-                                          key = {item.value}
-                                          value={item.value}
-                                          className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
-                                       >
-                                          <input
-                                             type="checkbox"
-                                             checked={quickFilter === item.value}
-                                             onChange={()=>handleQuickFilter(item.value)}
-                                             className="checkbox_input"
-                                          />
-                                          <div className="custom_checkbox"></div>
-                                          <span>{item.label}</span>       
-                                       </label>
-
-                                    )
-                                 })}
-                              </div>
-                           )
-                        }
-                           </div>
-                        </div>
-                     ) 
-                  }
+                     </div>
+                  </div>
+               ) 
+            }
                   
-                  {/* w-[70vh] flex justify-between */}
-                  {/* FILTERS */}
-                  <div className="flex gap-2 max-w-[560px]">
+         {/* FILTERS */}
+            <div className="flex gap-2 max-w-[560px]">
+               
+               {/* FILTER COLUMN 1 */}
+               <div className= "flex flex-col gap-6"> 
+                  {/* ANTICOAGULANT FILTER */}
+                  <Select>
+                     <SelectTrigger className=" bg-[#21376A] text-white">
+                        <h1 className="text-xs font-semibold text-left  xl:text-sm 2xl:text-sm pr-2">Anticoagulants / Antiplatelets</h1>
+                        {/* <SelectValue placeholder="" /> */}
+                     </SelectTrigger>
+                     <SelectContent >
+                        {[
+                           // {value: "none", label:"NONE", name: 'Anti'},
+                           {value: "doac_warf", label: "DOAC or Warfarin", name: 'Anti'},
+                           {value: "doac", label: "DOAC", name: 'Anti'},
+                           {value: "warf", label: "Warfarin", name: 'Anti'},
+                           {value: "no_anticoagulant", label: "No anticoagulant" , name: 'Anti'},
+                           {value: "antiplatelets", label: "Antiplatelets only" , name: 'Anti'},
+                           {value: "dual", label: "Dual therapy" , name: 'Anti'}, 
+                        ].map((item) => (
+                           <label 
+                              key={item.value}
+                              className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]"
+                              // for="filter_checkbox"
+                           >
+                              <input
+                                 type="checkbox"
+                                 value={item.value}
+                                 name="antiFilter"
+                                 checked={selectedAnti && selectedAnti.value === item.value || false}
+                                 onChange={() => handleAntiFilter(item.value, item.label)}
+                                 className="checkbox_input"
+                              />
+                              <div className="custom_checkbox"></div>
+                              <span>{item.label}</span>
+                              
+                           </label>
+                        ))}
+                     </SelectContent>
+                  </Select>
 
-                     {/* FILTER COLUMN 1 */}
-                     <div className= "flex flex-col gap-6">
+                  {/* MED REVIEW FILTER*/}
+                  <Select>
+                     <SelectTrigger className=" bg-[#21376A]  text-white">
+                        <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Medication review ≥ 12m </h1>
                         
-                        {/* ANTICOAGULANT FILTER */}
-                        <Select>
-                           <SelectTrigger className=" bg-[#21376A] text-white">
-                              <h1 className="text-xs font-semibold text-left  xl:text-sm 2xl:text-sm pr-2">Anticoagulants / Antiplatelets</h1>
-                              {/* <SelectValue placeholder="" /> */}
-                           </SelectTrigger>
-                           <SelectContent >
-                              {[
-                                 // {value: "none", label:"NONE", name: 'Anti'},
-                                 {value: "doac_warf", label: "DOAC or Warfarin", name: 'Anti'},
-                                 {value: "doac", label: "DOAC", name: 'Anti'},
-                                 {value: "warf", label: "Warfarin", name: 'Anti'},
-                                 {value: "no_anticoagulant", label: "No anticoagulant" , name: 'Anti'},
-                                 {value: "antiplatelets", label: "Antiplatelets only" , name: 'Anti'},
-                                 {value: "dual", label: "Dual therapy" , name: 'Anti'}, 
-                              ].map((item) => (
-                                 <label 
-                                    key={item.value}
-                                    className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]"
-                                    // for="filter_checkbox"
+                     </SelectTrigger>
+                     <SelectContent>
+                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                           <input
+                              type="checkbox"
+                              name="medReview"
+                              value="Yes"
+                              checked = {medReview=== "Yes"}
+                              onChange= {()=>handleMedReview("Yes")}
+                              className="checkbox_input"
+                           />
+                           <div className="custom_checkbox"></div>
+                           <span>Yes</span>
+                        </label>
+
+                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                           <input
+                                 type="checkbox"
+                                 name="medReview"
+                                 value="No"
+                                 checked={medReview === "No"}
+                                 onChange={()=>handleMedReview("No")}
+                                 className="checkbox_input"
+                              />
+                              <div className="custom_checkbox"></div>
+                              <span>No</span>
+                        </label>
+                     </SelectContent>
+                  </Select>
+
+                  {/*VULNERABILITIES FILTER */}
+                  <Select>
+                     <SelectTrigger className=" bg-[#21376A]  text-white">
+                     <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Vulnerabilities</h1>
+                     {/* <SelectValue placeholder="VULNERABILITIES" /> */}
+                     </SelectTrigger>
+                     <SelectContent>
+                        {[
+                           {value: 'smi', label: 'SMI' },
+                           {value: 'learning_disability', label: 'Learning disability' },
+                           {value: 'dementia', label: 'Dementia' },
+                           {value: 'housebound', label: 'Housebound' },
+                        ].map((item, index) =>
+                           (
+                              <label
+                                 key = {item.value}
+                                 value={item.value}
+                                 className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
+                              >
+                                 <input
+                                    type="checkbox"
+                                    value={item.value}
+                                    checked={selectedVulnerabilities.some(object =>object.value === item.value)}
+                                    onChange = {() => handleVulnerabilitesFilter(item.value, item.label)}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{item.label}</span>       
+                              </label>
+                           ))}
+                     </SelectContent>
+                  </Select>
+               </div>
+
+               {/* FILTER COLUMN 2 */}
+               <div className= "flex flex-col gap-6">
+                  
+                  {/* CHA₂DS₂-VASc FILTER */}
+                  <Select>
+                        <SelectTrigger className=" bg-[#21376A] text-white">
+                           <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">CHA₂DS₂-VASc</h1>
+                           {/* <SelectValue placeholder="CHA₂DS₂-VASc" /> */}
+                        </SelectTrigger>
+                        <SelectContent>
+                        {[ 'gte2', '1', '0'].map((item, index) => 
+                           (
+                           
+                              <label key={index} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input
+                                    type="checkbox"
+                                    value={item}
+                                    checked={selectedChdValue.includes(item)}
+                                    onChange={() => handleChdValue(item)}
+                                    className="checkbox_input"
+                                 
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{selectedChdValueLabel[item]}</span>
+                              </label>
+                           ))
+                        }
+                        
+                        <div className="w-full border mt-1 mb-1"></div>
+                        
+                        {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
+                           (
+                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input
+                                    type="checkbox"
+                                    value={item}
+                                    checked= {selectedChdDate === item}
+                                    onChange={() => handleChdDate(item)}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{selectedRecordedDateLabel[item]}</span>
+                              </label>
+                        ))}
+                        
+                        
+                           
+                        </SelectContent>
+                  </Select>
+
+                  {/* ORBIT FILTER*/}
+                  <Select>
+                     <SelectTrigger className=" bg-[#21376A]  text-white">
+                        <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">ORBIT</h1>
+                        
+                     </SelectTrigger>
+                     <SelectContent>
+                        
+                        {/* ORBIT VALUE */}
+                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                           <input 
+                              type="checkbox"
+                              value ="gte4"
+                              checked ={selectedOrbitValue === "gte4"}
+                              onChange = {()=>handleOrbitValueSelection("gte4")}
+                              className="checkbox_input"
+                           />
+                           <div className="custom_checkbox"></div>
+                           <span>≥ 4</span>
+                        </label>
+
+                        <div className="w-full border mt-1 mb-1"></div>
+                        {/* ORBIT DATE RECORDED */}
+                        {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
+                           (
+                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input
+                                    type="checkbox"
+                                    value={item}
+                                    checked= {selectedOrbitDateRecorded === item}
+                                    onChange={() => handleOrbitDateRecordedSelection(item)}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{selectedRecordedDateLabel[item]}</span>
+                              </label>
+                        ))}
+                        
+                     </SelectContent>
+                  </Select>      
+                  
+                  
+                  
+                  {/*MEDICATIONS FILTER*/}
+                  <Select>
+                        <SelectTrigger className=" bg-[#21376A] text-white">
+                           <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Medication</h1>
+                           {/* <SelectValue placeholder="" /> NSAID*/}
+                        </SelectTrigger>
+                        <SelectContent>
+                           <div>
+                              <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Statin</p>
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input
+                                    type="checkbox"
+                                    name="statin"
+                                    value="Yes"
+                                    checked= {statin === "Yes"}
+                                    onChange= {()=>handleStatin("Yes")}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{"Yes"}</span>
+                              </label>
+
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input
+                                    type="checkbox"
+                                    name="statin"
+                                    value="No"
+                                    checked={statin === "No"}
+                                    onChange={()=>handleStatin("No")}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{"No"}</span>
+                              </label>
+                              <div className="w-full border mt-1 mb-1"></div>
+                              <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">NSAID</p>
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input
+                                    type="checkbox"
+                                    name="nsaid"
+                                    value="Yes"
+                                    checked= {nsaid=== "Yes"}
+                                    onChange= {()=>handleNSAID("Yes")}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{"Yes"}</span>
+                              </label>
+
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                                 <input
+                                       type="checkbox"
+                                       name="nsaid"
+                                       value="No"
+                                       checked={nsaid === "No"}
+                                       onChange={()=>handleNSAID("No")}
+                                       className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{"No"}</span>
+                              </label>
+                           </div>
+                        </SelectContent>
+                  </Select>
+               </div>
+               
+               {/* FILTER COLUMN 3 */}
+               <div className= "flex flex-col gap-6 ">
+                     {/* AGE FILTER*/}
+                  
+                     <Select>
+                     <SelectTrigger className=" bg-[#21376A]  text-white">
+                        <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Age</h1>
+                     </SelectTrigger>
+                     <SelectContent >
+                     {[
+                           {value: "<65", label : "< 65"},
+                           {value: "65-79", label : "65 - 79"},
+                           {value: "80+", label : "80+"}
+                        ].map((item, index) =>{
+                           return (
+                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <input
+                                 type="checkbox"
+                                 value={item.value}
+                                 checked={selectedAges.some(object =>object.value === item.value)}
+                                 onChange={() => handleAgeSelection(item.value, item.label)}
+                                 className="checkbox_input"
+                              />
+                              <div className="custom_checkbox"></div>
+                              <span>{item.label}</span>
+                           </label>
+                           )
+                        })}
+
+                     </SelectContent>
+                  </Select>
+
+                  {/*CVD FILTER*/}
+                  <Select>
+                        <SelectTrigger className=" bg-[#21376A]  text-white">
+                           <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">CVD</h1>
+                           {/* <SelectValue placeholder="CHA₂DS₂-VASc" /> */}
+                        </SelectTrigger>
+                        <SelectContent> {[
+                           {value: "Yes", label : "Yes"},
+                           {value: "No", label : "No"},
+                  
+                           ].map((item, index) =>{
+                           return (
+                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <input
+                                 type="checkbox"
+                                 value={item.value ?? ""}
+                                 checked={cvd && cvd.value === item.value}
+                                 onChange={() => handleCVD(item.value, item.label)}
+                                 className="checkbox_input"
+                              />
+                              <div className="custom_checkbox"></div>
+                              <span>{item.label}</span>
+                           </label>
+                           )
+                        })}
+                        </SelectContent>
+                  </Select>
+
+                  {/* BP FILTER*/}
+                  <Select>
+                        <SelectTrigger className=" bg-[#21376A] text-white">
+                           <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">BP</h1>
+                           {/* <SelectValue placeholder="VULNERABILITIES" /> */}
+                        </SelectTrigger>
+                        <SelectContent>
+                           {[
+                              { value: "lt140-90", label: "< 140/90"},
+                              { value: "gte140-90", label: "≥ 140/90"},
+                              { value: "gte150-90", label: "≥ 150/90"}
+                           ].map((item) => {
+                              return (
+                                 <label
+                                    key = {item.value}
+                                    value={item.value}
+                                    className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
                                  >
                                     <input
                                        type="checkbox"
                                        value={item.value}
-                                       name="antiFilter"
-                                       checked={selectedAnti && selectedAnti.value === item.value || false}
-                                       onChange={() => handleAntiFilter(item.value, item.label)}
+                                       checked={selectedBP.some(object =>object.value === item.value)}
+                                       onChange = {() => handleBP(item.value, item.label)}
                                        className="checkbox_input"
-                                    />
-                                    <div className="custom_checkbox"></div>
-                                    <span>{item.label}</span>
-                                    
-                                 </label>
-                              ))}
-                           </SelectContent>
-                        </Select>
-
-                        {/* MED REVIEW FILTER*/}
-                        <Select>
-                           <SelectTrigger className=" bg-[#21376A]  text-white">
-                              <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Medication review ≥ 12m </h1>
-                             
-                           </SelectTrigger>
-                           <SelectContent>
-                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                 <input
-                                    type="checkbox"
-                                    name="medReview"
-                                    value="Yes"
-                                    checked = {medReview=== "Yes"}
-                                    onChange= {()=>handleMedReview("Yes")}
-                                    className="checkbox_input"
-                                 />
-                                 <div className="custom_checkbox"></div>
-                                 <span>Yes</span>
-                              </label>
-
-                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                 <input
-                                       type="checkbox"
-                                       name="medReview"
-                                       value="No"
-                                       checked={medReview === "No"}
-                                       onChange={()=>handleMedReview("No")}
-                                       className="checkbox_input"
-                                    />
-                                    <div className="custom_checkbox"></div>
-                                    <span>No</span>
-                              </label>
-                           </SelectContent>
-                        </Select>
-
-                        {/*VULNERABILITIES FILTER */}
-                        <Select>
-                           <SelectTrigger className=" bg-[#21376A]  text-white">
-                           <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Vulnerabilities</h1>
-                           {/* <SelectValue placeholder="VULNERABILITIES" /> */}
-                           </SelectTrigger>
-                           <SelectContent>
-
-                              {[
-                                    {value: 'smi', label: 'SMI' },
-                                    {value: 'learning_disability', label: 'Learning disability' },
-                                    {value: 'dementia', label: 'Dementia' },
-                                    {value: 'housebound', label: 'Housebound' },
-                                 ].map((item, index) =>
-                                    (
-                                       <label
-                                          key = {item.value}
-                                          value={item.value}
-                                          className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
-                                       >
-                                          <input
-                                             type="checkbox"
-                                             value={item.value}
-                                             checked={selectedVulnerabilities.some(object =>object.value === item.value)}
-                                             onChange = {() => handleVulnerabilitesFilter(item.value, item.label)}
-                                             className="checkbox_input"
-                                          />
-                                          <div className="custom_checkbox"></div>
-                                          <span>{item.label}</span>       
-                                       </label>
-                                    ))}
-                           
-                           </SelectContent>
-                        </Select>
-
-                        
-                     
-                     </div>
-
-                     {/* FILTER COLUMN 2 */}
-                     <div className= "flex flex-col gap-6">
-                        
-                        {/* CHA₂DS₂-VASc FILTER */}
-                        <Select>
-                              <SelectTrigger className=" bg-[#21376A] text-white">
-                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">CHA₂DS₂-VASc</h1>
-                                 {/* <SelectValue placeholder="CHA₂DS₂-VASc" /> */}
-                              </SelectTrigger>
-                              <SelectContent>
-                              {[ 'gte2', '1', '0'].map((item, index) => 
-                                 (
-                                 
-                                    <label key={index} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                       <input
-                                          type="checkbox"
-                                          value={item}
-                                          checked={selectedChdValue.includes(item)}
-                                          onChange={() => handleChdValue(item)}
-                                          className="checkbox_input"
                                        
-                                       />
-                                       <div className="custom_checkbox"></div>
-                                       <span>{selectedChdValueLabel[item]}</span>
-                                    </label>
-                                 ))
-                              }
-                              
-                              <div className="w-full border mt-1 mb-1"></div>
-                              
-                              {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
-                                 (
-                                    <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                       <input
-                                          type="checkbox"
-                                          value={item}
-                                          checked= {selectedChdDate === item}
-                                          onChange={() => handleChdDate(item)}
-                                          className="checkbox_input"
-                                       />
-                                       <div className="custom_checkbox"></div>
-                                       <span>{selectedRecordedDateLabel[item]}</span>
-                                    </label>
-                              ))}
-                              
-                              
-                                
-                              </SelectContent>
-                        </Select>
-
-                        {/* ORBIT FILTER*/}
-                        <Select>
-                           <SelectTrigger className=" bg-[#21376A]  text-white">
-                              <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">ORBIT</h1>
-                             
-                           </SelectTrigger>
-                           <SelectContent>
-                              
-                              {/* ORBIT VALUE */}
-                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                 <input 
-                                    type="checkbox"
-                                    value ="gte4"
-                                    checked ={selectedOrbitValue === "gte4"}
-                                    onChange = {()=>handleOrbitValueSelection("gte4")}
-                                    className="checkbox_input"
-                                 />
-                                 <div className="custom_checkbox"></div>
-                                 <span>≥ 4</span>
-                              </label>
-
-                              <div className="w-full border mt-1 mb-1"></div>
-                              {/* ORBIT DATE RECORDED */}
-                              {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
-                                 (
-                                    <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                       <input
-                                          type="checkbox"
-                                          value={item}
-                                          checked= {selectedOrbitDateRecorded === item}
-                                          onChange={() => handleOrbitDateRecordedSelection(item)}
-                                          className="checkbox_input"
-                                       />
-                                       <div className="custom_checkbox"></div>
-                                       <span>{selectedRecordedDateLabel[item]}</span>
-                                    </label>
-                              ))}
-                              
-                           </SelectContent>
-                        </Select>      
-                        
-                       
-                        
-                        {/*MEDICATIONS FILTER*/}
-                        <Select>
-                              <SelectTrigger className=" bg-[#21376A] text-white">
-                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Medication</h1>
-                                 {/* <SelectValue placeholder="" /> NSAID*/}
-                              </SelectTrigger>
-                              <SelectContent>
-                                 <div>
-                                    <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Statin</p>
-                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                       <input
-                                          type="checkbox"
-                                          name="statin"
-                                          value="Yes"
-                                          checked= {statin === "Yes"}
-                                          onChange= {()=>handleStatin("Yes")}
-                                          className="checkbox_input"
-                                       />
-                                       <div className="custom_checkbox"></div>
-                                       <span>{"Yes"}</span>
-                                    </label>
-
-                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                       <input
-                                          type="checkbox"
-                                          name="statin"
-                                          value="No"
-                                          checked={statin === "No"}
-                                          onChange={()=>handleStatin("No")}
-                                          className="checkbox_input"
-                                       />
-                                       <div className="custom_checkbox"></div>
-                                       <span>{"No"}</span>
-                                    </label>
-                                    <div className="w-full border mt-1 mb-1"></div>
-                                    <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">NSAID</p>
-                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                       <input
-                                          type="checkbox"
-                                          name="nsaid"
-                                          value="Yes"
-                                          checked= {nsaid=== "Yes"}
-                                          onChange= {()=>handleNSAID("Yes")}
-                                          className="checkbox_input"
-                                       />
-                                       <div className="custom_checkbox"></div>
-                                       <span>{"Yes"}</span>
-                                    </label>
-
-                                    <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                       <input
-                                             type="checkbox"
-                                             name="nsaid"
-                                             value="No"
-                                             checked={nsaid === "No"}
-                                             onChange={()=>handleNSAID("No")}
-                                             className="checkbox_input"
-                                       />
-                                       <div className="custom_checkbox"></div>
-                                       <span>{"No"}</span>
-                                    </label>
-                                 </div>
-                              </SelectContent>
-                        </Select>
-                     </div>
-                     
-                     {/* FILTER COLUMN 3 */}
-                     <div className= "flex flex-col gap-6 ">
-                         {/* AGE FILTER*/}
-                        
-                         <Select>
-                           <SelectTrigger className=" bg-[#21376A]  text-white">
-                              <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Age</h1>
-                           </SelectTrigger>
-                           <SelectContent >
-                           {[
-                                 {value: "<65", label : "< 65"},
-                                 {value: "65-79", label : "65 - 79"},
-                                 {value: "80+", label : "80+"}
-                              ].map((item, index) =>{
-                                 return (
-                                    <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                    <input
-                                       type="checkbox"
-                                       value={item.value}
-                                       checked={selectedAges.some(object =>object.value === item.value)}
-                                       onChange={() => handleAgeSelection(item.value, item.label)}
-                                       className="checkbox_input"
                                     />
                                     <div className="custom_checkbox"></div>
-                                    <span>{item.label}</span>
+                                    <span>{item.label}</span>       
                                  </label>
-                                 )
-                              })}
-
-                           </SelectContent>
-                        </Select>
-
-                        {/*CVD FILTER*/}
-                        <Select>
-                              <SelectTrigger className=" bg-[#21376A]  text-white">
-                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm">CVD</h1>
-                                 {/* <SelectValue placeholder="CHA₂DS₂-VASc" /> */}
-                              </SelectTrigger>
-                              <SelectContent> {[
-                                 {value: "Yes", label : "Yes"},
-                                 {value: "No", label : "No"},
-                        
-                                 ].map((item, index) =>{
-                                 return (
-                                    <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                    <input
-                                       type="checkbox"
-                                       value={item.value}
-                                       checked={cvd && cvd.value === item.value}
-                                       onChange={() => handleCVD(item.value, item.label)}
-                                       className="checkbox_input"
-                                    />
-                                    <div className="custom_checkbox"></div>
-                                    <span>{item.label}</span>
-                                 </label>
-                                 )
-                              })}
-                           
-                              </SelectContent>
-                        </Select>
-
-                        {/* BP FILTER*/}
-                        <Select>
-                              <SelectTrigger className=" bg-[#21376A] text-white">
-                                 <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">BP</h1>
-                                 {/* <SelectValue placeholder="VULNERABILITIES" /> */}
-                              </SelectTrigger>
-                              <SelectContent>
-                                 {[
-                                    { value: "lt140-90", label: "< 140/90"},
-                                    { value: "gte140-90", label: "≥ 140/90"},
-                                    { value: "gte150-90", label: "≥ 150/90"}
-                                 ].map((item) => {
-                                    return (
-                                       <label
-                                          key = {item.value}
-                                          value={item.value}
-                                          className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
-                                       >
-                                          <input
-                                             type="checkbox"
-                                             value={item.value}
-                                             checked={selectedBP.some(object =>object.value === item.value)}
-                                             onChange = {() => handleBP(item.value, item.label)}
-                                             className="checkbox_input"
-                                             
-                                          />
-                                          <div className="custom_checkbox"></div>
-                                          <span>{item.label}</span>       
-                                       </label>
-                                    )
-                                 })}
-                              </SelectContent>
-                        </Select>
-                     </div>
-                  </div>
+                              )
+                           })}
+                        </SelectContent>
+                  </Select>
+               </div>
+            </div>
                   
                   
                   {/* SUMMARY  */} 

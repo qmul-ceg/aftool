@@ -56,7 +56,6 @@ const Display = () => {
                         <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick={()=>handleContinueListExport(exportListType)}>Continue</button>
                         <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick ={()=>setDisplayExportListAlert(false)}>Cancel</button>
                      </div>
-                     
                   </Alert>
                </div>
             )
@@ -66,23 +65,17 @@ const Display = () => {
                <div style={overlay}>
                   <Alert className= " m-auto fixed top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[32em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2"
                   >
-                     {/* <AlertTitle>Export Alert!</AlertTitle> */}
-                     {/* <AlertDescription className="text-sm  xl:text-sm 2xl:text-sm"> */}  {/* </AlertDescription> */}
-                        <p>No patient satisfied current filter selection, or patient count is '0'</p>
-                        <button 
-                           className=" w-[4em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md mt-2"      onClick ={()=>setEmptyExportListAlert(false)}>
-                              Close
-                        </button>
-                   
-                     
+                     <p>No patient satisfied current filter selection, or patient count is '0'</p>
+                     <button 
+                        className=" w-[4em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md mt-2"      
+                        onClick ={()=>setEmptyExportListAlert(false)}
+                     >
+                        Close
+                     </button>
                   </Alert>
                </div>
             )
          }
-           
-         {/* HEADER */}
-         {/* {loading && <Preloader />} */}
-         {/* <section id="header" className =" flex justify-center mt-2 border"> */}
         
          <section className="mx-4">
             <Header />
@@ -105,7 +98,6 @@ const Display = () => {
          <div className="mt-2 mx-4 px-2  flex justify-between  lg:text-sm xl:text-[1em]">
             <p>Patient count: <strong className='text-[#E6007E]'>{dataCount} </strong>(Selected for export: {exportCount})</p>
             <p>Date of last run: <strong className='text-[#E6007E]'>{relativeRunDate}</strong></p>
-            
          </div>
          
          {/* DISPLAY DATA */}
@@ -114,12 +106,10 @@ const Display = () => {
             <Data />
          </section>
             
-         {/* </section> */}
          
          <footer className=" flex gap-2  mx-4 mb-2 justify-between items-center lg:text-xs xl:text-sm 2xl:text-sm sticky mt-auto  ">
             <div className="flex mx-auto">
                <p className="font-semibold"> © Clinical Effectiveness Group (CEG), Queen Mary University of London. All rights reserved. Attribution-NonCommercial-ShareAlike CC BY-NC-SA.</p> 
-               {/* <p className="font-semibold">Attribution-NonCommercial-ShareAlike CC BY-NC-SA.</p> */}
                <div className="w-[4em] ml-2">
                   <img 
                      src={nc_sa_logo}
@@ -136,23 +126,3 @@ const Display = () => {
 
 export default Display
 
-
-
-// If modal is open, display background is frozen
-      // <div 
-      //    className={`flex flex-col  h-screen items-center ml-4 fixed
-      //       ${isModalOpen ? "overflow-hidden ml-3" : null}`}
-      // >
-
-
-      // h-screen
-   //    <div 
-   //    className="flex flex-col h-full justify-center align-center "
-        
-   // > {/* <section 
-            // className= "flex justify-center  mt-2 mb-2  border grow " 
-            // id="display_data"
-         // > */}
-            {/* <div className=" w-[98vw] "> */}
-            {/* <div className ="w-[98vw border-[1px] border-[#21376A]] border"> */}  {/* max-h-[400px] overflow-y-auto */}
-            {/* <section className="flex flex-col justify-center items-center  mt-4 border" > */}

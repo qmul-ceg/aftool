@@ -173,7 +173,7 @@ const Import = () => {
             const differenceInDateInMs = Math.abs(dateToday - dateOfReport)
             const differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
             // setDifferenceInReportDate(differenceInDateInDays)
-            console.log(dateOfReport, differenceInDateInMs, differenceInDateInDays)
+            
             // setCompareDate(parseDate(cleanedRelativeRunDate))
             parseData(file, skipRows, null, differenceInDateInDays);
             status = "success"
@@ -194,7 +194,7 @@ const Import = () => {
          }
 
          try{
-            const response = await axios.post ("http://18.133.219.114:8000/log", {
+            const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
                tool: "AF tool",
                gp_system: "EMIS Web",
                file_name: file.name,
@@ -254,9 +254,10 @@ const Import = () => {
          }
 
          try{
-            const response = await axios.post ("http://18.133.219.114:8000/log", {
+            const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
                tool: "AF tool",
                gp_system: "SystmOne",
+               
                file_name: file.name,
                ods_code: "11111",
                status: status,
@@ -384,7 +385,7 @@ const Import = () => {
          {
             displayLatestReportAlert && (
                <div style={overlay} className= "">
-                  <Alert className= " m-auto fixed top-[500px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
+                  <Alert className= " m-auto fixed top-[450px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
                      
                      {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
                      <p>The report data is over 2 weeks old, would you like to continue with the import?</p>

@@ -8,7 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 
 function App() {
-   console.log("App component loaded");
+
 
    //State checks desktop to see if it can be displayed 
    const [isDesktop, setIsDesktop] = useState(true)
@@ -33,7 +33,7 @@ function App() {
       };
    }, [])
 
-   console.log("Current path:", window.location.pathname);
+  
    const overlay ={
       position : 'fixed',
       top:0,
