@@ -257,7 +257,7 @@ const Import = () => {
             const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
                tool: "AF tool",
                gp_system: "SystmOne",
-               
+
                file_name: file.name,
                ods_code: "11111",
                status: status,
@@ -283,10 +283,7 @@ const Import = () => {
    const cancelImport = () => {
       setDisplayLatestReportAlert(false)
    }
-   // console.log(gpSystemSelected)
-   // console.log(displayLatestReportAlert)
-
-
+  
    const displayData = (data, reportDate) => {
       // console.log(reportDate)
       if(reportDate > 14){
