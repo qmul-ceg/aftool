@@ -22,9 +22,6 @@ import {
 import { transformS1ImportedData } from './helper/S1DataTransform'
 import axios from 'axios'
 
-
-
-
 const Import = () => {
    
    const { 
@@ -64,9 +61,7 @@ const Import = () => {
          setImportError("Please select a clinical system before importing.")
          return;//Exits the function if no system is selected
       }
-      // if(fileInputRef.current){
-      //    fileInputRef.current.value = "";
-      // }
+
       // Triggers the file input if a valid GP system is selected 
       if(fileInputRef.current){
          fileInputRef.current.value = "";
@@ -107,6 +102,7 @@ const Import = () => {
       let skipRows = 0; 
       let status;
       let odsCode;
+      let differenceInDateInDays;
       
       if (!file ) return;
       const reader = new FileReader()
@@ -171,13 +167,12 @@ const Import = () => {
             const dateToday = new Date();
 
             const differenceInDateInMs = Math.abs(dateToday - dateOfReport)
-            const differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
-            // setDifferenceInReportDate(differenceInDateInDays)
-            
-            // setCompareDate(parseDate(cleanedRelativeRunDate))
-            parseData(file, skipRows, null, differenceInDateInDays);
+            differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
             status = "success"
-            
+            parseData(file, skipRows, null, differenceInDateInDays);
+            // if (differenceInDateInDays > 14 ){
+            //    setDisplayLatestReportAlert(true)
+            // }          
          } 
          else {
             status = "failure"
@@ -192,6 +187,18 @@ const Import = () => {
                fileInputRef.current.value = "";
             }
          }
+
+         // const parse_info = {
+         //    file: file,
+         //    skipRows: skipRows,
+         //    tool : "AF tool",
+         //    gp_system: 'EMIS Web',
+         //    odsCode: odsCode,
+         //    status: status,
+         //    reportDate: differenceInDateInDays
+         // }
+
+         // console.log(parse_info)
 
          try{
             const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
@@ -297,7 +304,7 @@ const Import = () => {
       }
    }
 
-   const parseData = (file, skipLines, runDateTime = null,  reportDate = null) => {
+   const parseData = (file, skipLines, runDateTime = null,  reportDate = null, log_details) => {
       Papa.parse(file, {
          header : false,
          skipEmptyLines: false,
@@ -333,28 +340,10 @@ const Import = () => {
                      dataArray[index][AFibColumns.BP] = getBloodPressure(dataRow);                                
                   });
               }
-              
-               // const currentDate = new Date();
-               // console.log(currentDate)
-               // console.log(compareDate)
-               // const date_difference = Math.abs(currentDate - compareDate) / (1000 * 60 * 60 * 24)
-               // // console.log(date_difference)
-               // if (date_difference > 14){
-               //    setDisplayLatestReportAlert(true)
-               //    setImportedData(dataArray)
-               //    setContinueImport(prev => true)
-               // }
-               // else {
-               //    setImportedData(dataArray)
-               //    navigate("/display"); 
-               // }
+  
                displayData(dataArray, reportDate)
                // setImportedData(dataArray)
-               // navigate("/display"); 
-
-               
-               
-               
+               // navigate("/display");  
             },
          error: function (error) {
             console.error("Error parsing the CSV file:", error);
@@ -464,7 +453,9 @@ const Import = () => {
 }
 
 export default Import
-     // Handles invalid reports 
+
+
+   // Handles invalid reports 
    //  const handleInvalidReport = (gpSystemSelected) => {
    //    setGpSystemSelected(GpSystems.gpSystemSelected);
    //    setImportError("");
@@ -505,4 +496,18 @@ export default Import
    // console.log(continueImport)   // const [currentDate, setCurrentDate] = useState(null);
    // const [compareDate, setCompareDate] = useState(null);
    // const [continueImport, setContinueImport] = useState(false);
-   // const [differenceInReportDate, setDifferenceInReportDate] = useState(null)
+   // const [differenceInReportDate, setDifferenceInReportDate] = useState(null)            
+   // const currentDate = new Date();
+   // console.log(currentDate)
+   // console.log(compareDate)
+   // const date_difference = Math.abs(currentDate - compareDate) / (1000 * 60 * 60 * 24)
+   // // console.log(date_difference)
+   // if (date_difference > 14){
+   //    setDisplayLatestReportAlert(true)
+   //    setImportedData(dataArray)
+   //    setContinueImport(prev => true)
+   // }
+   // else {
+   //    setImportedData(dataArray)
+   //    navigate("/display"); 
+   // }
