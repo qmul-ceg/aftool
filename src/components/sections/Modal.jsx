@@ -954,7 +954,7 @@ const Modal = ({open, }) => {
 
                                }}>{selectedPatientData[AFibColumns.AnticoagContraCodeTerm] ? "YES" : null }
                            </td>
-                           <td></td>
+                           <td className="py-1 pl-4">{selectedPatientData[AFibColumns.AnticoagContraCodeTerm]}</td>
                            <td className="py-1 pl-4">{selectedPatientData[AFibColumns.AnticoagContraDate]}</td>
                         </tr>
                         
@@ -969,7 +969,7 @@ const Modal = ({open, }) => {
 
                                }}>{selectedPatientData[AFibColumns.AnticoagDeclineCodeTerm] ? "YES" : null }
                            </td>
-                           <td></td>
+                           <td className="py-1 pl-4">{selectedPatientData[AFibColumns.AnticoagDeclineCodeTerm]}</td>
                            <td className="py-1 pl-4">{selectedPatientData[AFibColumns.AnticoagDeclineDate]}</td>
                         </tr>
                           
