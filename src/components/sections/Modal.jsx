@@ -201,7 +201,7 @@ const Modal = ({open, }) => {
          dateRecorded: selectedPatientData[AFibColumns.CreatClearanceDate]
       },
       {
-         process: "Serum creatinine level (latest ever)", 
+         process: "Serum creatinine level (µmol/L)(latest ever)", 
          colorCode: "", 
          value: selectedPatientData[AFibColumns.SerumCreatValue], 
          dateRecorded: selectedPatientData[AFibColumns.SerumCreatDate]
@@ -213,7 +213,7 @@ const Modal = ({open, }) => {
          dateRecorded: selectedPatientData[AFibColumns.ALT_LFT_Date]
       },
       {
-         process: "Haemoglobin (latest ever)", 
+         process: "Haemoglobin (g/L)(latest ever)", 
          colorCode: "", 
          value: selectedPatientData[AFibColumns.HaemEstimateValue], 
          dateRecorded: selectedPatientData[AFibColumns.HaemEstimateDate]
