@@ -188,35 +188,25 @@ const Import = () => {
             }
          }
 
-         // const parse_info = {
-         //    file: file,
-         //    skipRows: skipRows,
-         //    tool : "AF tool",
-         //    gp_system: 'EMIS Web',
-         //    odsCode: odsCode,
-         //    status: status,
-         //    reportDate: differenceInDateInDays
+         
+
+         // try{
+         //    const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
+         //       tool: "AF tool",
+         //       gp_system: "EMIS Web",
+         //       file_name: file.name,
+         //       ods_code: odsCode,
+         //       status: status,
+         //    },
+         //    {
+         //       headers: {
+         //          'Content-Type': 'application/json',
+         //       }
+         //    });
+         //    console.log("Response:", response.data);
+         // }catch(error){
+         //    console.error("Error:", error.response?.data)
          // }
-
-         // console.log(parse_info)
-
-         try{
-            const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
-               tool: "AF tool",
-               gp_system: "EMIS Web",
-               file_name: file.name,
-               ods_code: odsCode,
-               status: status,
-            },
-            {
-               headers: {
-                  'Content-Type': 'application/json',
-               }
-            });
-            console.log("Response:", response.data);
-         }catch(error){
-            console.error("Error:", error.response?.data)
-         }
       };
    };
       

@@ -26,9 +26,6 @@ const MainProvider = ({ children }) => {
    const [exportListType, setExportListType] =useState("")
    const [emptyExportListAlert, setEmptyExportListAlert] = useState(false)
    
-
-
-
    //FILTER STATES
    const defaultFilters ={
       selectedAnti: null,
@@ -215,7 +212,6 @@ const MainProvider = ({ children }) => {
          else {
             return [...prev, {value, label}]
          }
-         
       })
    }
    
@@ -231,6 +227,7 @@ const MainProvider = ({ children }) => {
       }
    
       const [systolic, diastolic] = bp.split("/").map(Number);
+      // const [systolic, diastolic] = bp.split("/").map(value => parseInt(value, 10));
 
       // Check if the split results are valid numbers
       if (isNaN(systolic) || isNaN(diastolic)) {
@@ -240,45 +237,18 @@ const MainProvider = ({ children }) => {
    
       return { systolic, diastolic };
    };
-
+   // console.log(parseBloodPressure)
    const checkPatientBloodPressure = (systolic, diastolic) => {
       for (let object of selectedBP){
-         if(object.value === "lt140-90" && systolic < 140 && diastolic < 90){
+         if(object.value === "lt140-90" && (systolic < 140 && diastolic < 90)){
             return true;
          }
-         if(object.value === "gte140-90" && systolic >= 140 || diastolic >= 90){
+         if(object.value === "gte140-90" && (systolic >= 140 || diastolic >= 90)){
             return true;
          }
-         if(object.value === "gte150-90" && systolic >= 150 && diastolic > 0 ){
+         if(object.value === "gte150-90" && (systolic >= 150 && diastolic > 0 )){
             return true;
          }
-         
-         //Second example
-         // if(object.value === "lt140-90" && systolic < 140 && diastolic < 90){
-         //    return true;
-         // }
-         // if(object.value === "gte140-90" && systolic >= 140 && diastolic >= 90){
-         //    return true;
-         // }
-         // if(object.value === "gte150-90" && systolic >= 150 && diastolic >= 90){
-         //    return true;
-         // }
-         
-         
-         
-         
-         // if(object.value === "lt130-80" && systolic < 130 && diastolic < 80) {
-         //    return true
-         // }
-         // if(object.value === "lt140-90" && systolic < 140 && diastolic < 90 ){
-         //    return true
-         // }
-         // if(object.value === "140/90-149/90" && (systolic >= 140 && systolic <= 149 || diastolic >= 90)){
-         //    return true
-         // }
-         // if(object.value ==="gte150-90" && (systolic >= 150 || diastolic >= 90)){
-         //    return true
-         // }
       }
       return false
    }

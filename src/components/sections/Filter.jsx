@@ -367,7 +367,6 @@ const Filter = () => {
                         </div>
                      )
                   )}
-                  
                </div>
             </div>
             
@@ -650,11 +649,9 @@ const Filter = () => {
                                  <div className="custom_checkbox"></div>
                                  <span>{selectedRecordedDateLabel[item]}</span>
                               </label>
-                        ))}
-                        
-                        
-                           
-                        </SelectContent>
+                           )
+                        )}
+                     </SelectContent>
                   </Select>
 
                   {/* ORBIT FILTER*/}
