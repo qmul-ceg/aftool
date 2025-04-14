@@ -179,7 +179,8 @@ const Modal = ({open, }) => {
       {
          process: "Alcohol consumption", 
          colorCode: "", 
-         value: selectedPatientData[AFibColumns.AlcoholValue], 
+         value: selectedPatientData[AFibColumns.AlcoholConcept] && selectedPatientData[AFibColumns.AlcoholValue] ? `${selectedPatientData[AFibColumns.AlcoholConcept]}: ${selectedPatientData[AFibColumns.AlcoholValue]}` : selectedPatientData[AFibColumns.AlcoholConcept],
+         // value: selectedPatientData[AFibColumns.AlcoholValue], 
          dateRecorded: selectedPatientData[AFibColumns.AlcoholDate] 
       },
       {
