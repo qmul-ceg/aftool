@@ -207,7 +207,7 @@ const Modal = ({open, }) => {
          dateRecorded: selectedPatientData[AFibColumns.SerumCreatDate]
       },
       {
-         process: "Serum ALT or ASP (latest ever)", 
+         process: "Serum ALT (U/L)", 
          colorCode: "", 
          value: selectedPatientData[AFibColumns.ALT_LFT_Value], 
          dateRecorded: selectedPatientData[AFibColumns.ALT_LFT_Date]
