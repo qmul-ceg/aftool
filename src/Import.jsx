@@ -357,7 +357,6 @@ const Import = () => {
   return (
    <>
       <div className = "flex justify-center  items-start h-screen bg-[#21376A]">
-
          {
             displayLatestReportAlert && (
                <div style={overlay} className= "">

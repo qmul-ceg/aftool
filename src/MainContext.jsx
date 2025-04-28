@@ -447,12 +447,10 @@ const MainProvider = ({ children }) => {
       
       // setSelectedQuickFilter(value)
       if(value && value === "option_one"){
-
-        
          handleChdValue('gte2')
          handleChdDate('<12m')
          handleAntiFilter('no_anticoagulant', 'None')
-         // applyOptionOneQuickFilter();
+         
       }
       else if(value && value === "option_two"){
          
@@ -470,7 +468,7 @@ const MainProvider = ({ children }) => {
       else if(value && value === "option_four"){
          
          handleMedReview('Yes')
-         handleChdDate('>12m')
+         // handleChdDate('>12m')
          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
       }
       else if(value && value === "option_five"){
