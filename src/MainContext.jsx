@@ -143,6 +143,56 @@ const MainProvider = ({ children }) => {
 
 
    /////FILTER SELECTIONS
+
+   //Filtering functionality
+   const forceSetAntiFilter = (value, label) => {
+      setSelectedAnti({value, label})
+   }
+   const forceSetMedReview = (value) => {
+      setMedReview(value)
+   }
+
+   const forceSetVulnerabilities = (value, label) => {
+      setSelectedVulnerabilities({value, label})
+   }
+
+   const forceSetChdValue = (value) => {
+      setSelectedChdValue([value])
+   }
+
+   const forceSetChdDate = (value) => {
+      setSelectedChdDate(value)
+   }
+
+   const forceSetOrbitValue = (value) => {
+      setSelectedOrbitValue(value)
+   }
+
+   const forceSetOrbitDateRecorded = (value) => {
+      setSelectedOrbitDateRecorded(value)
+   }
+
+   const forceSetStatin= (value) => {
+      setStatin(value)
+   }
+
+   const forceSetNsaid = (value) =>{
+      setNsaid(value)
+   }
+
+   const forceSetAges = (value) => {
+      setSelectedAges(value)
+   }
+
+   const forceSetCvd = (value) => {
+      setCvd(value)
+   }
+
+   const forceSetBP = (value) => {
+      setSelectedBP(value)
+   }
+
+
    //quickfilter
    //AntiFilter
    const handleAntiFilter =(value, label) => {
@@ -409,6 +459,7 @@ const MainProvider = ({ children }) => {
       setSelectedOrbitDateRecorded("")
       setQuickFilter("")
    }
+
    const removeBP = (value) => {
       setSelectedBP((prev) => (
          prev.filter(object => object.value !== value)
@@ -432,58 +483,133 @@ const MainProvider = ({ children }) => {
    }
 
    // QUICK FILTERS FUNCTIONALITY
-   const handleQuickFilter = (value)=> {
-      resetAllFilters();
-      // setSelectedAnti(null)
-      
-      if(quickFilter && quickFilter === value){
-            setQuickFilter("")
-            return;
-            // 
+
+   const quickFilterConfig = {
+      option_one: { chdValue: 'gte2', chdDate: '<12m', antiFilter: ['no_anticoagulant', 'None'] },
+      option_two: { chdValue: 'gte2', chdDate: '≥12m', antiFilter: ['no_anticoagulant', 'None'] },
+      option_three: { orbitValue: 'gte4', chdDate: '<12m', antiFilter: ['doac_warf', 'DOAC or Warfarin'] },
+      option_four: {medReview : 'Yes', antiFilter: ['doac_warf', 'DOAC or Warfarin']},
+      option_five: {nsaid: 'Yes', antiFilter: ['doac_warf', 'DOAC or Warfarin']},
+      option_six: {antiFilter: ['doac_warf', 'DOAC or Warfarin'], medReview: 'No'}
+    };
+
+   const handleQuickFilter = (value) =>{
+
+      if ( quickFilter && quickFilter === value){
+         resetFilters();
+         setQuickFilter("");
+         return;
       }
-      resetFilters();
+      resetFilters()
       setQuickFilter(value)
       
+
+      setTimeout(() => {
+        const config =  quickFilterConfig[value]
+
+        if (!config) return; // Just in case no config found
+
+         if (config.chdValue) {
+            forceSetChdValue(config.chdValue)
+            // handleChdValue(config.chdValue);
+         }
+         if (config.chdDate) {
+            forceSetChdDate(config.chdDate)
+            // handleChdDate(config.chdDate);
+         }
+         if (config.antiFilter) {
+            forceSetAntiFilter(config.antiFilter[0], config.antiFilter[1])
+            // handleAntiFilter(config.antiFilter[0], config.antiFilter[1]);
+         }
+         if (config.orbitValue) {
+            forceSetOrbitValue(config.orbitValue)
+            // handleOrbitValueSelection(config.orbitValue);
+         }
+         if (config.medReview) {
+            forceSetMedReview(config.medReview)
+            // handleMedReview(config.medReview);
+         }
+         if (config.nsaid) {
+            forceSetNsaid(config.nsaid)
+            // handleNSAID(config.nsaid);
+         }
+      }, 10)
+     
+   } 
+   
+   
+   // console.log(quickFilter)
+   // const handleQuickFilter = (value)=> {
+   //    // resetAllFilters();
+   //    // setSelectedAnti(null)
       
-      // setSelectedQuickFilter(value)
-      if(value && value === "option_one"){
-         handleChdValue('gte2')
-         handleChdDate('<12m')
-         handleAntiFilter('no_anticoagulant', 'None')
-         
-      }
-      else if(value && value === "option_two"){
-         
+   //    if(quickFilter && quickFilter === value){
+   //          setQuickFilter("")
+   //          return;
+   //          // 
+   //    }
       
-         handleChdValue('gte2')
-         handleChdDate('≥12m')
-         handleAntiFilter('no_anticoagulant', 'None')
-      }
-      else if(value && value === "option_three"){
-         
-         handleOrbitValueSelection('gte4')
-         handleChdDate('<12m')
-         handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-      }
-      else if(value && value === "option_four"){
-         
-         handleMedReview('Yes')
-         // handleChdDate('>12m')
-         handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-      }
-      else if(value && value === "option_five"){
+   //    setQuickFilter(value)
+   //    resetFilters();
+      
+      
+   //    // setSelectedQuickFilter(value)
+   //    if(value && value === "option_one"){
+
+
+   //       // resetAllFilters()
+   //       setTimeout(() => {
+   //          handleChdValue('gte2')
+   //          handleChdDate('<12m')
+   //          handleAntiFilter('no_anticoagulant', 'None')
+   //       }, 10)
         
-         handleNSAID('Yes')
-         handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-      }
-      else if(value && value === "option_six"){
-      
-         handleAntiFilter('dual', 'Dual therapy')
-         handleMedReview('No')
-      }
+         
+   //    }
+   //    else if(value && value === "option_two"){
+   //       // resetAllFilters()
+   //       setTimeout(() => {
+   //          handleChdValue('gte2')
+   //          handleChdDate('≥12m')
+   //          handleAntiFilter('no_anticoagulant', 'None')
+   //       }, 10)
+         
+   //    }
+   //    else if(value && value === "option_three"){
+   //       setTimeout(() => {
+   //          handleOrbitValueSelection('gte4')
+   //          handleChdDate('<12m')
+   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //       },10)
+   //       // handleOrbitValueSelection('gte4')
+   //       // handleChdDate('<12m')
+   //       // handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //    }
+   //    else if(value && value === "option_four"){
+   //       setTimeout(()=>{
+   //          handleMedReview('Yes')
+   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //       })
+         
+   //         // handleChdDate('>12m')
+   //    }
+   //    else if(value && value === "option_five"){
+   //       setTimeout(()=> {
+   //          handleNSAID('Yes')
+   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //       },10)
+         
+   //    }
+   //    else if(value && value === "option_six"){
+   //       setTimeout(()=> {
+   //          handleAntiFilter('dual', 'Dual therapy')
+   //          handleMedReview('No')
+   //       },10)
+         
+   //    }
 
     
-   }
+   // }
 
    //EXPORTING FUNCTIONALITY
    //Export to excel 
@@ -627,15 +753,6 @@ const MainProvider = ({ children }) => {
       }
    }  
    
-
-
-
-
-
-
-
-
-
    
    //FILTER LOGIC
    const getFilteredPatients = () =>{
