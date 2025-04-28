@@ -186,7 +186,8 @@ const Modal = ({open, }) => {
       {
          process: "AUDIT scores (latest ever)", 
          colorCode: "", 
-         value: selectedPatientData[AFibColumns.AuditScoresValue], 
+         value: selectedPatientData[AFibColumns.AuditScoresConcept] && selectedPatientData[AFibColumns.AuditScoresValue] ? `${selectedPatientData[AFibColumns.AuditScoresConcept]}: ${selectedPatientData[AFibColumns.AuditScoresValue]}` : selectedPatientData[AFibColumns.AuditScoresConcept],
+         // value: selectedPatientData[AFibColumns.AuditScoresValue], 
          dateRecorded: selectedPatientData[AFibColumns.AuditScoresDate] 
       },
       {
