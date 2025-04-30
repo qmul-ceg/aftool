@@ -186,8 +186,12 @@ const Modal = ({open, }) => {
       {
          process: "AUDIT scores (latest ever)", 
          colorCode: "", 
-         value: selectedPatientData[AFibColumns.AuditScoresConcept] && selectedPatientData[AFibColumns.AuditScoresValue] ? `${selectedPatientData[AFibColumns.AuditScoresConcept]}: ${selectedPatientData[AFibColumns.AuditScoresValue]}` : selectedPatientData[AFibColumns.AuditScoresConcept],
-         // value: selectedPatientData[AFibColumns.AuditScoresValue], 
+         value: (
+            selectedPatientData[AFibColumns.AuditScoresConcept] && selectedPatientData[AFibColumns.AuditScoresConcept] == "763256006") ? `AUDIT-C: ${selectedPatientData[AFibColumns.AuditScoresValue]}` 
+         :
+            (
+               selectedPatientData[AFibColumns.AuditScoresConcept] && selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005")? `AUDIT: ${selectedPatientData[AFibColumns.AuditScoresValue]}` : "",
+          
          dateRecorded: selectedPatientData[AFibColumns.AuditScoresDate] 
       },
       {
@@ -876,7 +880,12 @@ const Modal = ({open, }) => {
                                           && selectedPatientData[AFibColumns.AlcoholValue] >= 14) ||
                                           (item.process === "eGFR (mL/min)(latest ever)"
                                           && ((selectedPatientData[AFibColumns.eGFR_Value] < 60) &&
-                                          (selectedPatientData[AFibColumns.eGFR_Value] > 0)))
+                                          (selectedPatientData[AFibColumns.eGFR_Value] > 0))) ||
+                                          (item.process === "AUDIT scores (latest ever)" && 
+                                             
+                                             ((selectedPatientData[AFibColumns.AuditScoresConcept] == "763256006" && selectedPatientData[AFibColumns.AuditScoresValue]) > 5) ||
+                                             (selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005" && selectedPatientData[AFibColumns.AuditScoresValue]) > 15)
+                                             // "443280005"
                                        ? cegColors.orange
                                        : null
                                     }}
