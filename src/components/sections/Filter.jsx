@@ -237,10 +237,10 @@ const Filter = () => {
                <div className=" ml-6 items-center flex gap-2 flex-wrap mr-6 ">
                   {/* ANTICOAGULANTS DISPLAY */}
                   {(importedData.length > 0 && selectedAnti) && (
-                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md ">
+                     <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                         <strong className ="mr-2">AntiCoag/AntiP:</strong> {selectedAnti.label } 
                        
-                        {<button className="  ml-2 text-red-500 text-xs hover:text-sm" onClick={()=>removeAntiFilter()}>&#10005;</button>}
+                        {<button className="ml-2 text-red-500 text-xs hover:text-sm" onClick={()=>removeAntiFilter()}>&#10005;</button>}
                      </div>
                   )}
 
@@ -248,7 +248,7 @@ const Filter = () => {
                   {(importedData.length > 0 && displayMedReview[0].value !== "") && (
                      <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication review ≥ 12m:</strong> {displayMedReview[0].value } 
-                        {<button className=" ml-2 font-bold text-red-500 text-xs hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
+                        {<button className=" ml-2 text-red-500 text-xs hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
                      </div>
                   )}
                   

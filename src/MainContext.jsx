@@ -490,7 +490,7 @@ const MainProvider = ({ children }) => {
       option_three: { orbitValue: 'gte4', antiFilter: ['doac_warf', 'DOAC or Warfarin'] },
       option_four: {medReview : 'Yes', antiFilter: ['doac_warf', 'DOAC or Warfarin']},
       option_five: {nsaid: 'Yes', antiFilter: ['doac_warf', 'DOAC or Warfarin']},
-      option_six: {antiFilter: ['doac_warf', 'DOAC or Warfarin'], medReview: 'No'}
+      option_six: {antiFilter: ['dual', 'Dual therapy'], medReview: 'No'}
     };
 
    const handleQuickFilter = (value) =>{
