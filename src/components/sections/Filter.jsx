@@ -247,7 +247,7 @@ const Filter = () => {
                   {/* MEDICATION REVIEW DISPLAY */}
                   {(importedData.length > 0 && displayMedReview[0].value !== "") && (
                      <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
-                         <strong className ="mr-2">Medication review:</strong> {displayMedReview[0].value } 
+                         <strong className ="mr-2">Medication review ≥ 12m:</strong> {displayMedReview[0].value } 
                         {<button className=" ml-2 font-bold text-red-500 text-xs hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
                      </div>
                   )}
