@@ -377,7 +377,6 @@ const MainProvider = ({ children }) => {
 
    //CONERT DATE TO JS FORMAT
    const convertDate = (dateString) => {
-      console.log(dateString)
       if (dateString){
          const [day, month, year] = dateString.split('-');
          const months = { "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12" };
@@ -389,13 +388,10 @@ const MainProvider = ({ children }) => {
 
    //CHECK RELATIVE RUN DATE 
    const recordedOverTwelveMonths = (recordedDate, relativeRunDate) => {
-      console.log(recordedDate, relativeRunDate)
-      
       const recorded = new Date(recordedDate); // Convert to Date object
       
       const cutoffDate = new Date(relativeRunDate); // Reference date
       cutoffDate.setFullYear(cutoffDate.getFullYear() - 1); // Subtract 12 months
-      console.log(`Recorded date : ${recorded}, cutoffDate: ${cutoffDate}`)
       return recorded <= cutoffDate; // Check if recorded is over 12 months ago
    }
 
