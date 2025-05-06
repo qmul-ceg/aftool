@@ -487,7 +487,7 @@ const MainProvider = ({ children }) => {
    const quickFilterConfig = {
       option_one: { chdValue: 'gte2', chdDate: '<12m', antiFilter: ['no_anticoagulant', 'None'] },
       option_two: { chdValue: 'gte2', chdDate: '≥12m', antiFilter: ['no_anticoagulant', 'None'] },
-      option_three: { orbitValue: 'gte4', chdDate: '<12m', antiFilter: ['doac_warf', 'DOAC or Warfarin'] },
+      option_three: { orbitValue: 'gte4', antiFilter: ['doac_warf', 'DOAC or Warfarin'] },
       option_four: {medReview : 'Yes', antiFilter: ['doac_warf', 'DOAC or Warfarin']},
       option_five: {nsaid: 'Yes', antiFilter: ['doac_warf', 'DOAC or Warfarin']},
       option_six: {antiFilter: ['doac_warf', 'DOAC or Warfarin'], medReview: 'No'}

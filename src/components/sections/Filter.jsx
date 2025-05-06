@@ -417,7 +417,7 @@ const Filter = () => {
                               {[
                                  { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
                                  { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
-                                 { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
+                                 { value: "option_three", label: "ORBIT ≥ 4, on anticoagulation (6m)"},
                                  { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
                                  { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
                                  { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
@@ -464,7 +464,7 @@ const Filter = () => {
                            {[
                               { value: "option_one", label: "CHA₂DS₂-VASc ≥ 2 (<12m), no anticoagulation (6m)"},
                               { value: "option_two", label: "CHA₂DS₂-VASc ≥ 2 (≥12m), no anticoagulation (6m)"},
-                              { value: "option_three", label: "ORBIT ≥ 4 (<12m), on anticoagulation (6m)"},
+                              { value: "option_three", label: "ORBIT ≥ 4, on anticoagulation (6m)"},
                               { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
                               { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
                               { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
