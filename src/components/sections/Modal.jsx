@@ -427,14 +427,14 @@ const Modal = ({open, }) => {
                                  <td 
                                     className="text-center text-white font-semibold"
                                     style = {{
-                                       backgroundColor : (item.medication ==="Warfarin (6m)" ||
+                                       backgroundColor : (item.medication === "Warfarin (6m)" ||
                                           item.medication === "DOAC (6m)" ||
                                           item.medication === "Third party prescribing (12m)" ||
                                           item.medication === "Other oral anticoagulants (12m)" ||
                                           item.medication === "PPI medication (6m)" ||
                                           item.medication === "Statin (6m)") && item.medicationName ? cegColors.green
                                           : (item.medication ==="Aspirin (12m)"|| item.medication ==="Other antiplatelets (12m)") && item.medicationName ? cegColors.orange
-                                          : item.medication ==="NSAID (excluding Aspirin)(6m)" && item.medicationName ? cegColors.orange 
+                                          : item.medication ==="NSAID (excluding aspirin) (6m)" && item.medicationName ? cegColors.red
                                           : null
                                     }}
                                  >
@@ -523,10 +523,7 @@ const Modal = ({open, }) => {
                                                    <td className=" w-[22em] pl-4">Sex Female</td>
                                                    <td className =" py-1 pl-2 text-center">1</td>
                                                 </tr>
-                                                
-
                                              </tbody>
-
                                           </table>
                                        </PopoverContent>
                                     </Popover>
