@@ -1,5 +1,5 @@
 import React, { useState, createContext, useMemo, useEffect, } from 'react'
-import patientsData from '/src/data/patient_data.json'
+
 import { GpSystems } from './enums/GPsystems.js'
 import { AFibColumns } from './enums/AFibColumns'
 import * as XLSX from 'xlsx'
@@ -11,7 +11,7 @@ export const MainContext = createContext()
 const MainProvider = ({ children }) => {
 
    //STATE MANAGEMENT
-   const [patients] = useState(patientsData) //Static because we are not setting our patient data
+
    const [importedData, setImportedData] = useState([])
    const [relativeRunDate, setRelativeRunDate] = useState("")
    const [isModalOpen, setIsModalOpen] =useState(false)
@@ -330,13 +330,9 @@ const MainProvider = ({ children }) => {
       if(selectedOrbitValue === value){
          setSelectedOrbitValue("")
       } else {
-         setSelectedOrbitValue(value)
-         
+         setSelectedOrbitValue(value) 
       }
-     
-   
    }
-   //  console.log(selectedOrbitValue)
 
    const handleOrbitDateRecordedSelection = (value) => {
       if(selectedOrbitDateRecorded === value){
@@ -381,21 +377,25 @@ const MainProvider = ({ children }) => {
 
    //CONERT DATE TO JS FORMAT
    const convertDate = (dateString) => {
+      console.log(dateString)
       if (dateString){
          const [day, month, year] = dateString.split('-');
          const months = { "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04", "May": "05", "Jun": "06", "Jul": "07", "Aug": "08", "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12" };
       
-         return `20${year}-${months[month]}-${day}`; 
+         return `${year}-${months[month]}-${day}`; 
       }
       else return ""
-      
   }
 
    //CHECK RELATIVE RUN DATE 
    const recordedOverTwelveMonths = (recordedDate, relativeRunDate) => {
+      console.log(recordedDate, relativeRunDate)
+      
       const recorded = new Date(recordedDate); // Convert to Date object
+      
       const cutoffDate = new Date(relativeRunDate); // Reference date
       cutoffDate.setFullYear(cutoffDate.getFullYear() - 1); // Subtract 12 months
+      console.log(`Recorded date : ${recorded}, cutoffDate: ${cutoffDate}`)
       return recorded <= cutoffDate; // Check if recorded is over 12 months ago
    }
 
@@ -538,81 +538,7 @@ const MainProvider = ({ children }) => {
    } 
    
    
-   // console.log(quickFilter)
-   // const handleQuickFilter = (value)=> {
-   //    // resetAllFilters();
-   //    // setSelectedAnti(null)
-      
-   //    if(quickFilter && quickFilter === value){
-   //          setQuickFilter("")
-   //          return;
-   //          // 
-   //    }
-      
-   //    setQuickFilter(value)
-   //    resetFilters();
-      
-      
-   //    // setSelectedQuickFilter(value)
-   //    if(value && value === "option_one"){
 
-
-   //       // resetAllFilters()
-   //       setTimeout(() => {
-   //          handleChdValue('gte2')
-   //          handleChdDate('<12m')
-   //          handleAntiFilter('no_anticoagulant', 'None')
-   //       }, 10)
-        
-         
-   //    }
-   //    else if(value && value === "option_two"){
-   //       // resetAllFilters()
-   //       setTimeout(() => {
-   //          handleChdValue('gte2')
-   //          handleChdDate('≥12m')
-   //          handleAntiFilter('no_anticoagulant', 'None')
-   //       }, 10)
-         
-   //    }
-   //    else if(value && value === "option_three"){
-   //       setTimeout(() => {
-   //          handleOrbitValueSelection('gte4')
-   //          handleChdDate('<12m')
-   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //       },10)
-   //       // handleOrbitValueSelection('gte4')
-   //       // handleChdDate('<12m')
-   //       // handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //    }
-   //    else if(value && value === "option_four"){
-   //       setTimeout(()=>{
-   //          handleMedReview('Yes')
-   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //       })
-         
-   //         // handleChdDate('>12m')
-   //    }
-   //    else if(value && value === "option_five"){
-   //       setTimeout(()=> {
-   //          handleNSAID('Yes')
-   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //       },10)
-         
-   //    }
-   //    else if(value && value === "option_six"){
-   //       setTimeout(()=> {
-   //          handleAntiFilter('dual', 'Dual therapy')
-   //          handleMedReview('No')
-   //       },10)
-         
-   //    }
-
-    
-   // }
-
-   //EXPORTING FUNCTIONALITY
-   //Export to excel 
 
 
 
@@ -661,7 +587,6 @@ const MainProvider = ({ children }) => {
                CVD: patientInfo[95],
                BP: patientInfo[97],
                "Medication Review Date": patientInfo[90]
-               
             }
          })
          
@@ -674,18 +599,12 @@ const MainProvider = ({ children }) => {
             [["Patient Data Export"]],
             {origin: "A1"}
          );
-        
-         
-
          const workbook = XLSX.utils.book_new();
          XLSX.utils.book_append_sheet(workbook, worksheet, "Patients")
    
          XLSX.writeFile(workbook, "Patients.xlsx")
          setExportListType("")
       }
-      
-      
-      
    };
 
    const exportAccuRxList = (selectedForExport, data, selGpSystem) => {
@@ -752,7 +671,7 @@ const MainProvider = ({ children }) => {
          setExportListType("")
       }
    }  
-   
+   // console.log(importedData[AFibColumns.MedsReviewDate])
    
    //FILTER LOGIC
    const getFilteredPatients = () =>{
@@ -790,9 +709,6 @@ const MainProvider = ({ children }) => {
                (!patient[AFibColumns.OnAnticoagulant].includes("YES - Warf")))
                // (patient[AFibColumns.OnAnticoagulant] != "YES - Warf"))
             
-
-
-
          const ageFilter = 
             (selectedAges.some(item => item.value === "<65") && patient[AFibColumns.Age] < 65) ||
             (selectedAges.some(item => item.value === "65-79") && patient[AFibColumns.Age] >= 65 && patient[AFibColumns.Age] <= 79) ||
@@ -915,7 +831,8 @@ const MainProvider = ({ children }) => {
          const medReviewFilter = 
             !medReview ||
             (medReview === "Yes" && 
-               (!patient[AFibColumns.MedsReviewDate] || 
+               (!patient[AFibColumns.MedsReviewDate] 
+                  || 
                recordedOverTwelveMonths(
                   convertDate(patient[AFibColumns.MedsReviewDate]), 
                   convertRelativeRunDate(relativeRunDate)
@@ -967,19 +884,7 @@ const MainProvider = ({ children }) => {
          return valueB - valueA;
         
       })
-      // if (sortChdValue === 'asc') {
-      //     return [...filteredPatients].sort((a, b) => {
-      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
-      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
-      //         return valueA - valueB; // Ascending
-      //     });
-      // } else {
-      //     return [...filteredPatients].sort((a, b) => {
-      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
-      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
-      //         return valueB - valueA; // Descending
-      //     });
-      // }
+      
    };
 
    React.useEffect(() => {
@@ -1017,7 +922,7 @@ const MainProvider = ({ children }) => {
 
 
    const contextValue ={
-      patients, getFilteredPatients, 
+       getFilteredPatients, 
       selectedAges, handleAgeSelection, removeAgeDisplay,
       nsaid, handleNSAID,
       cvd, handleCVD,
@@ -1204,4 +1109,91 @@ export default MainProvider
             
          //    return chdFilter 
          // }  
-  
+     // console.log(quickFilter)
+   // const handleQuickFilter = (value)=> {
+   //    // resetAllFilters();
+   //    // setSelectedAnti(null)
+      
+   //    if(quickFilter && quickFilter === value){
+   //          setQuickFilter("")
+   //          return;
+   //          // 
+   //    }
+      
+   //    setQuickFilter(value)
+   //    resetFilters();
+      
+      
+   //    // setSelectedQuickFilter(value)
+   //    if(value && value === "option_one"){
+
+
+   //       // resetAllFilters()
+   //       setTimeout(() => {
+   //          handleChdValue('gte2')
+   //          handleChdDate('<12m')
+   //          handleAntiFilter('no_anticoagulant', 'None')
+   //       }, 10)
+        
+         
+   //    }
+   //    else if(value && value === "option_two"){
+   //       // resetAllFilters()
+   //       setTimeout(() => {
+   //          handleChdValue('gte2')
+   //          handleChdDate('≥12m')
+   //          handleAntiFilter('no_anticoagulant', 'None')
+   //       }, 10)
+         
+   //    }
+   //    else if(value && value === "option_three"){
+   //       setTimeout(() => {
+   //          handleOrbitValueSelection('gte4')
+   //          handleChdDate('<12m')
+   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //       },10)
+   //       // handleOrbitValueSelection('gte4')
+   //       // handleChdDate('<12m')
+   //       // handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //    }
+   //    else if(value && value === "option_four"){
+   //       setTimeout(()=>{
+   //          handleMedReview('Yes')
+   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //       })
+         
+   //         // handleChdDate('>12m')
+   //    }
+   //    else if(value && value === "option_five"){
+   //       setTimeout(()=> {
+   //          handleNSAID('Yes')
+   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
+   //       },10)
+         
+   //    }
+   //    else if(value && value === "option_six"){
+   //       setTimeout(()=> {
+   //          handleAntiFilter('dual', 'Dual therapy')
+   //          handleMedReview('No')
+   //       },10)
+         
+   //    }
+
+    
+   // }
+
+   //EXPORTING FUNCTIONALITY
+   //Export to excel 
+   // // if (sortChdValue === 'asc') {
+      //     return [...filteredPatients].sort((a, b) => {
+      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
+      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
+      //         return valueA - valueB; // Ascending
+      //     });
+      // } else {
+      //     return [...filteredPatients].sort((a, b) => {
+      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
+      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
+      //         return valueB - valueA; // Descending
+      //     });
+      // }

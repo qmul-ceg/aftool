@@ -170,9 +170,7 @@ const Import = () => {
             differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
             status = "success"
             parseData(file, skipRows, null, differenceInDateInDays);
-            // if (differenceInDateInDays > 14 ){
-            //    setDisplayLatestReportAlert(true)
-            // }          
+               
          } 
          else {
             status = "failure"
