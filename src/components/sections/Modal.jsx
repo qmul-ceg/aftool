@@ -628,15 +628,10 @@ const Modal = ({open, }) => {
 
 
                                  </td>
-                                 <td className={`
-                                       ${
-                                          !item.score && 
-                                          item.risk === "CHA₂DS₂-VASc (latest ever)" ? "bg-red-500" : null
-                                       }
-                                    `}>
-                                      
-
-                                    </td>
+                                 <td 
+                                    style = {{ backgroundColor: !item.score && item.risk === "CHA₂DS₂-VASc (latest ever)" ? cegColors.red : null }}
+                                 >
+                                 </td>
                                  <td className="py-1 pl-4"> {!item.score ? "Not Recorded" : item.score}</td>
                                  <td className="py-1 pl-4">{item.dateRecorded}</td>
                               </tr>
