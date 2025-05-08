@@ -2,12 +2,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate} from'react-router-dom'
 import Papa from 'papaparse'
-
 import { Button } from './components/ui/button.jsx'
 import { GpSystems } from './enums/GPsystems.js'
 import { MainContext } from './MainContext'
 import { AFibColumns } from './enums/AFibColumns'
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert  } from "@/components/ui/alert";
 
 import { 
    getBloodPressure,
@@ -128,7 +127,6 @@ const Import = () => {
             if (line[0].includes("Last Run") || line[0].includes("Last run")) {
                runDateTime = line[3];
             }
-            //Check for the "Patient Details" line and validate the report structure
             if (line[0].includes("Patient Details") || line[0].toLowerCase().includes("patient details")) {
                skipRows++;
 
@@ -138,34 +136,28 @@ const Import = () => {
                   status = "failure";
                   setTimeout(() => {
                      setImportError("EMIS Web report is not valid. Please import the correct report version. ")
-                     // console.log("hi" + line.length)
                   }, 10)
                   if(fileInputRef.current){
                      fileInputRef.current.value = "";
                   }
-                  // break;
                   break;
                  
                }
                else{
-                  setImportError("") // Clear any previous errors 
+                  setImportError("")
                }
                break;
             }
             skipRows++;
          }
 
-         // If a valid run date is found, process the report
          if (runDateTime) {
             
             relativeRunDate = runDateTime.split(' ')[0];
-            
             let cleanedRelativeRunDate = relativeRunDate.replace(/"/g, '')
             setRelativeRunDate(cleanedRelativeRunDate);
-            
             const dateOfReport = parseDate(cleanedRelativeRunDate)
             const dateToday = new Date();
-
             const differenceInDateInMs = Math.abs(dateToday - dateOfReport)
             differenceInDateInDays = Math.floor(differenceInDateInMs / (1000 * 60 * 60 * 24))
             status = "success"
@@ -188,23 +180,22 @@ const Import = () => {
 
          
 
-         try{
-            const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
-               tool: "AF tool",
-               gp_system: "EMIS Web",
-               file_name: file.name,
-               ods_code: odsCode,
-               status: status,
-            },
-            {
-               headers: {
-                  'Content-Type': 'application/json',
-               }
-            });
-            console.log("Response:", response.data);
-         }catch(error){
-            console.error("Error:", error.response?.data)
-         }
+         // try{
+         //    const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
+         //       tool: "AF tool",
+         //       gp_system: "EMIS Web",
+         //       file_name: file.name,
+         //       ods_code: odsCode,
+         //       status: status,
+         //    },
+         //    {
+         //       headers: {
+         //          'Content-Type': 'application/json',
+         //       }
+         //    });
+         // }catch(error){
+         //    console.error("Error:", error.response?.data)
+         // }
       };
    };
       
@@ -233,17 +224,14 @@ const Import = () => {
             status="failure"
             setGpSystemSelected(GpSystems.SystmOne)
             setImportError("")
-            // status = "failure";
             setTimeout(() => {
                setImportError("EMIS Web report is not valid. Please import the correct report version. ")
             }, 10)
             if(fileInputRef.current){
                fileInputRef.current.value = "";
             }
-            // return;
          }else {
 
-            //Skip rows passed a 1 - skips first row.
             parseData(file, 1, runDateTime); 
             status = "success"
          }
@@ -280,11 +268,9 @@ const Import = () => {
    }
   
    const displayData = (data, reportDate) => {
-      // console.log(reportDate)
       if(reportDate > 14){
          setDisplayLatestReportAlert(true)
          setImportedData(data)
-         // setContinueImport(prev => true)
       }
       else {
          setImportedData(data)
@@ -330,8 +316,6 @@ const Import = () => {
               }
   
                displayData(dataArray, reportDate)
-               // setImportedData(dataArray)
-               // navigate("/display");  
             },
          error: function (error) {
             console.error("Error parsing the CSV file:", error);
@@ -359,8 +343,6 @@ const Import = () => {
             displayLatestReportAlert && (
                <div style={overlay} className= "">
                   <Alert className= " m-auto fixed top-[450px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[42em] flex flex-col text-center justify-center items-center bg-[#21376A] text-white py-2">
-                     
-                     {/* <AlertTitle>Export Alert!</AlertTitle> </AlertDescription>*/}
                      <p>The report data is over 2 weeks old, would you like to continue with the import?</p>
                      <div className="flex gap-4 mt-2">
                         <button className="w-[6em] font-semibold text-[#21376A] bg-white hover:text-black px-2 py-1 rounded-md " onClick= {confirmImport}>Continue</button>
@@ -440,61 +422,3 @@ const Import = () => {
 }
 
 export default Import
-
-
-   // Handles invalid reports 
-   //  const handleInvalidReport = (gpSystemSelected) => {
-   //    setGpSystemSelected(GpSystems.gpSystemSelected);
-   //    setImportError("");
-
-   //    setTimeout(()=> {
-   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
-   //    }, 10);
-   //    if(fileInputRef.current){
-         
-   //       fileInputRef.current.value = ""; //Reset file input
-   //    }
-   // } // // Handles invalid reports 
-   // const handleInvalidReport = (gpSystemSelected) => {
-   //    setGpSystemSelected(GpSystems.gpSystemSelected);
-   //    setImportError("");
-
-   //    setTimeout(()=> {
-   //       setImportError(`${gpSystemSelected} report is not valid. Please import the correct report version.`);
-   //    }, 10);
-   //    if(fileInputRef.current){
-         
-   //       fileInputRef.current.value = ""; //Reset file input
-   //    }
-   // }   // console.log(compareDate)
-   // const confirmImport = () => {
-   //    navigate("/display")
-   //    setDisplayLatestReportAlert(false)
-   // }
-      // useEffect(()=>{
-      // if(continueImport){
-      //    navigate("/display"); 
-      // }
-      // }, [continueImport])
-
-   
-   // navigate("/display"); 
-
-   // console.log(continueImport)   // const [currentDate, setCurrentDate] = useState(null);
-   // const [compareDate, setCompareDate] = useState(null);
-   // const [continueImport, setContinueImport] = useState(false);
-   // const [differenceInReportDate, setDifferenceInReportDate] = useState(null)            
-   // const currentDate = new Date();
-   // console.log(currentDate)
-   // console.log(compareDate)
-   // const date_difference = Math.abs(currentDate - compareDate) / (1000 * 60 * 60 * 24)
-   // // console.log(date_difference)
-   // if (date_difference > 14){
-   //    setDisplayLatestReportAlert(true)
-   //    setImportedData(dataArray)
-   //    setContinueImport(prev => true)
-   // }
-   // else {
-   //    setImportedData(dataArray)
-   //    navigate("/display"); 
-   // }

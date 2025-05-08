@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import { MainContext } from '@/MainContext'
 import { AFibColumns } from '@/enums/AFibColumns'
 
-// import { useReactTable } from '@tanstack/react-table'
 
 
 const Data = () => {
@@ -22,7 +20,6 @@ const Data = () => {
 
    useEffect(()=>{
       //put all patients in an array 
-      // setSelectedForExport({})
       const patientsSelectedForExport = {}
 
       const updateSelectedForExport = () => {
@@ -50,7 +47,7 @@ const Data = () => {
 
 
    const handleMasterCheckBox = () => {
-      //Sets master checkbox when we click it 
+      //Sets master checkbox when clicked
       setMasterCheckbox((prevMasterCheckBoxState) => {
          const newMasterCheckBoxState = !prevMasterCheckBoxState;
 
@@ -106,8 +103,6 @@ const Data = () => {
 
   return (
 
-   // max-h-[400px]
-   // <div className="border-[0.1em] rounded-t-lg  border-[#21376A] max-h-[400px] overflow-y-auto "> 
    <div className=" rounded-t-lg  ">   
       <table className="w-full border-separate border-spacing-0 ">
         
@@ -115,19 +110,16 @@ const Data = () => {
             <tr className="text-[#21376A] ">
                <th 
                   rowSpan={2} 
-                  // className="w-[2%] border-l-[0.1em] border-[#21376A]"
                   className="w-[2%] relative"
                >
                      <input
+                        id="masterCheckbox"
                         type="checkbox"
                         checked={masterCheckbox}
                         className="header_checkbox"
                         onChange={handleMasterCheckBox}
                      />
-                     {/* // onChange={()=>setSelectAll(!selectAll)}
-                        // checked={selectAll} */}
-                     {/* below div is for customised check box, styling can be found in index.css */}
-                     <div className="custom_header_checkbox"></div> 
+                     <label className="custom_header_checkbox" htmlFor="masterCheckbox"></label> 
                </th>
                <th rowSpan={2} className="w-[15%] ">Full name</th>
                <th rowSpan={2} className="w-[2%]  ">Age</th>
@@ -140,7 +132,6 @@ const Data = () => {
                <th rowSpan={2} className="w-[3%]">NSAID</th>
                <th rowSpan={2} className="w-[5%] ">Statin issued (6m)</th>
                <th rowSpan={2} className="w-[4%] ">CVD</th>
-               {/* <th rowSpan={2} className="w-[4%]">HTN</th> */}
                <th rowSpan={2} className="w-[2%] ">BP</th>
                <th rowSpan={2} className="w-[8%] med_review">Med review date</th>
             </tr>
@@ -167,15 +158,17 @@ const Data = () => {
                 (
                   //Changed key to AFib Columns ... 
                   <tr key={patient[AFibColumns.PatientReference]} className="border-b hover:bg-gray-100 relative" >
-                     <td className=" ">
+                     <td>
+                        
                         <input
+                           id={`patient_checkbox_${patient[0]}`}
                            type="checkbox"
                            checked={!!selectedForExport[patient[0]]}
                            className="patient_checkbox"
                            onChange={()=>toggleSelectedPatient(patient[0])}
                         />
                            {/* below div is for customised check box, styling can be found in index.css */}
-                           <div className="custom_patient_checkbox"></div> 
+                        <label htmlFor={`patient_checkbox_${patient[0]}`} className="custom_patient_checkbox"></label> 
                         
                      </td>
                      <td className="font-medium text-left px-4 cursor-pointer text-blue-600 hover:underline"

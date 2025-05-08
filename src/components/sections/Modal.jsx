@@ -372,7 +372,7 @@ const Modal = ({open, }) => {
                            >
                               i              
                            </PopoverTrigger>
-                              <PopoverContent className="p-0 w-[16em] text-sm">
+                              <PopoverContent className="p-0 w-[13.5em] text-sm">
                                  <div className="px-4 py-2 flex flex-col gap-2">
                                     <div className="flex gap-2">
                                        <div className=" w-14 h-5 "
@@ -393,7 +393,7 @@ const Modal = ({open, }) => {
                                     <div className="flex  gap-2">
                                        <div className=" w-14 h-5 "
                                        style={{backgroundColor: cegColors.green}}></div>
-                                       <span>Optimal treatment</span>
+                                       <span></span>
                                     </div>
                                     
                                  </div>
@@ -443,6 +443,7 @@ const Modal = ({open, }) => {
                                  <td className="py-1 pl-4">{item.medicationName}</td>
                                  <td className="py-1 pl-4">{item.dateOfIssue}</td>
                               </tr>
+                              
                            ) )
                         }
                      </tbody>
@@ -992,68 +993,4 @@ const Modal = ({open, }) => {
 export default Modal
 
 
- // STOPS BACKGROUND FROM SCROLLING
-//    useEffect(() => {
-//       if (open) {
-//           document.body.classList.add('no-scroll');
-//       } else {
-//           document.body.classList.remove('no-scroll');
-//       }
-  
-//       // Clean up effect
-//       return () => {
-//           document.body.classList.remove('no-scroll');
-//       };
-//   }, [open]);
-// // className={`text-center text-white font-semibold
-   //    ${
-   //       item.comorbidity ==="HF, CKD 3-5, IHD, Stroke/TIA, PAD, HTN, Diab (T1/T2)" 
-   //       && 
-   //       (
-   //          (selectedPatientData[AFibColumns.HF_Concept]) ||
-   //          (selectedPatientData[AFibColumns.CKD3_5_Concept]) ||
-   //          (selectedPatientData[AFibColumns.IHD_Concept])||
-   //          (selectedPatientData[AFibColumns.StrokeTIA_Concept]) ||
-   //          (selectedPatientData[AFibColumns.NonHaemStrokeConcept]) ||
-   //          (selectedPatientData[AFibColumns.PAD_Concept]) ||
-   //          (selectedPatientData[AFibColumns.Hypertension]) ||
-   //          (selectedPatientData[AFibColumns.DiabetesConcept])
-   //       )
-   //       ? " bg-orange-400" 
-   //       : null
-   //    }
-   //    ${
-   //       item.comorbidity ==="Liver Failure" &&
-   //       selectedPatientData[AFibColumns.LiverFailureConcept] ? " bg-orange-400" : null
-         
-   //    }
-   //    ${
-   //       item.comorbidity ==="Heart Valve" &&
-   //       selectedPatientData[AFibColumns.HeartValveConcept] ? " bg-orange-400" : null
-         
-   //    }
-   //    ${
-   //       item.comorbidity ==="Bleeding history" &&
-   //       selectedPatientData[AFibColumns.BleedConcept] ? " bg-red-600" : null
-         
-   //    }
-   //    ${
-   //       item.comorbidity ==="Palliative Care" &&
-   //       selectedPatientData[AFibColumns.PalliativeCareConcept] ? " bg-red-600" : null
-         
-   //    }
-   //    ${
-   //       item.comorbidity ==="Dementia" &&
-   //       selectedPatientData[AFibColumns.DementiaConcept] ? " bg-orange-400" : null
-         
-   //    }
-   //    ${
-   //       item.comorbidity ==="SMI/Learning Disability/Housebound" &&
-   //       (selectedPatientData[AFibColumns.SMI_Concept] ||
-   //       selectedPatientData[AFibColumns.LD_Concept] ||
-   //       selectedPatientData[AFibColumns.HouseboundConcept]) ?  "bg-orange-400" : null
-         
-         
-   //    }            
-   //               `
-   // }
+ 

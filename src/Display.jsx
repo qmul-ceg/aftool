@@ -73,7 +73,7 @@ const Display = () => {
                      alt="Creative Commons NC SA logo"
                      src={nc_sa_logo}
                   />
-            </div>
+               </div>
             </div>
              <div className="text-xs">
                v.0.3.0

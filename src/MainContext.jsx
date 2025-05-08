@@ -32,7 +32,7 @@ const MainProvider = ({ children }) => {
       selectedAges: [],
       nsaid:"",
       statin: "",
-      cvd: "",
+      cvd: { value: "", label: "" },
       selectedBP: [],
       selectedChdValue: [],
       selectedChdDate: "",
@@ -196,16 +196,11 @@ const MainProvider = ({ children }) => {
    //quickfilter
    //AntiFilter
    const handleAntiFilter =(value, label) => {
-      // setQuickFilter(defaultFilters.quickFilter)
-      
-      // console.log("handleAntiFilter called with ", {value, label});
+ 
       if (quickFilter){
          setSelectedAnti({ value, label });
       }
       else {
-         // setQuickFilter("")
-         // setQuickFilter(defaultFilters.quickFilter)
-         // resetAllFilters()
 
          if (selectedAnti && selectedAnti.value === value) {
             setSelectedAnti(null);
@@ -245,7 +240,7 @@ const MainProvider = ({ children }) => {
     //CVD Filter Logic
    const handleCVD = (value, label) => {
       if (cvd && cvd.value === value) {
-         setCvd(null);
+         setCvd({ value: "", label: "" });
       } else {
          setCvd({ value, label });
       }
@@ -422,7 +417,7 @@ const MainProvider = ({ children }) => {
    }
 
    const removeCvdFilter =()=>{
-      setCvd("")
+      setCvd({ value: "", label: "" })
       setQuickFilter("")
    }
 
@@ -722,9 +717,9 @@ const MainProvider = ({ children }) => {
             !statin;
 
          const cvdFilter =
-            (cvd && cvd.value === "Yes" && patient[AFibColumns.CVD]  ==="YES") ||
-            (cvd && cvd.value === "No" && patient[AFibColumns.CVD]  === "NO") ||
-            !cvd;
+            (cvd.value === "Yes" && patient[AFibColumns.CVD]  ==="YES") ||
+            (cvd.value === "No" && patient[AFibColumns.CVD]  === "NO") ||
+            cvd.value==="";
          
 
          const { systolic, diastolic } = parseBloodPressure(patient[AFibColumns.BP] );
@@ -991,205 +986,3 @@ const MainProvider = ({ children }) => {
 export default MainProvider
 
 
-
-
-
-    // openModal, setOpenModal,
-      // modalOpen
-
-      // handleGpSystem
-      // parseBloodPressure,
-      // checkPatientBloodPressure
-
-// handleVulnerabilities,
-// const gteTwo = selectedChdValue.some(item => item.value === "gte2" && patient[AFibColumns.CHADSVAScValue] >= 2);
-         // const equalToOne = selectedChdValue.some(item => item.value === "1" && patient[AFibColumns.CHADSVAScValue]  == 1)
-         // const equalToZero = selectedChdValue.some(item => item.value === "0" && patient[AFibColumns.CHADSVAScValue]  === '0')
-         // //Date Variables
-         // const overTwelveMonths = (selectedChdDate && selectedChdDate.value === ">12m" && recordedOverTwelveMonths(patient[AFibColumns.CHADSVAScDate], convertRelativeRunDate(relativeRunDate)));    
-         // const notRecorded = (selectedChdDate && selectedChdDate.value === "not_recorded" && (!convertDate(patient[AFibColumns.CHADSVAScDate]) || convertDate(patient[AFibColumns.CHADSVAScDate]).trim() === ""));
-         // const lessThanTwelveMonths = (selectedChdDate && selectedChdDate.value === "<12m" && 
-         //    !recordedOverTwelveMonths(patient[AFibColumns.CHADSVAScDate], convertRelativeRunDate(relativeRunDate)) && 
-         //    convertDate(patient[AFibColumns.CHADSVAScDate]) && 
-         //    convertDate(patient[AFibColumns.CHADSVAScDate]).trim() !== "");
-
-         // const chdFilter =
-         //    //Ony value selection no date selection 
-         //    selectedChdValue.length === 0 && selectedChdDate === null ||
-         //    //One CHADVASC value selection
-         //    (gteTwo && selectedChdDate === null) ||
-         //    (equalToOne && selectedChdDate === null) ||
-         //    (equalToZero && selectedChdDate === null) ||
-   
-         //    //Only dates selection
-         //    (selectedChdValue.length === 0 && overTwelveMonths) ||
-         //    (selectedChdValue.length === 0 && notRecorded) ||
-         //    (selectedChdValue.length === 0 && lessThanTwelveMonths) ||
-
-         //    //CHDVASC Value and Date combinations
-         //    (gteTwo && overTwelveMonths) ||     
-         //    (gteTwo && notRecorded) ||      
-         //    (gteTwo && lessThanTwelveMonths) ||
-           
-         //    (equalToOne && overTwelveMonths) ||   
-         //    (equalToOne && notRecorded) ||           
-         //    (equalToOne && lessThanTwelveMonths) ||
-           
-         //    (equalToZero && overTwelveMonths) ||   
-         //    (equalToZero && notRecorded) ||           
-         //    (equalToZero && lessThanTwelveMonths); 
-         // selectedVulnerabilities.includes("smi") && patient[AFibColumns.SMI_Concept].trim() !== "" ||
-            // selectedVulnerabilities.includes("learning_disability") && patient[AFibColumns.LD_Concept].trim() !== "" ||
-            // selectedVulnerabilities.includes("dementia") && patient[AFibColumns.DementiaConcept].trim() !== "" ||
-            // selectedVulnerabilities.includes("housebound") && patient[AFibColumns.HouseboundConcept].trim() !== ""         
-   
-               //&&  chdFilter   
-               //CHA₂DS₂-VASc Filters
-   // const [selectedChdDate, setSelectedChdDate] = useState(null)
-   // const handleChdValue = (value, label) => {
-   //    setSelectedChdValue((prev) => {
-   //       const exists = prev.some(object => object.value === value)
-   //       if(exists){
-   //          return prev.filter((object) => object.value != value)
-   //       }else{
-   //          return [...prev, {value, label}]
-   //       }
-   //    })
-   // }
-   // const getChdValueSelection = (selectedChdValue, patient) => {
-
-         //    if(!Array.isArray(selectedChdValue)){
-         //       console.log("Chd value is not an array:", selectedChdValue)
-         //       selectedChdValue = []
-         //    }
-         //    const gteTwo = selectedChdValue.some(item => item.value === "gte2") && patient[AFibColumns.CHADSVAScValue] >= 2;
-         //    const equalToOne = selectedChdValue.some(item => item.value === "1") && patient[AFibColumns.CHADSVAScValue]  == 1;
-         //    const equalToZero = selectedChdValue.some(item => item.value === "0") && patient[AFibColumns.CHADSVAScValue]  === '0';
-
-         //    return {gteTwo, equalToOne, equalToZero}
-         
-         // }
-
-         // const getChdDateSelection = (selectedChdDate, patient, relativeRunDate ) => {
-         //    const overTwelveMonths = (selectedChdDate?.value === ">12m" && recordedOverTwelveMonths(patient[AFibColumns.CHADSVAScDate], convertRelativeRunDate(relativeRunDate)));
-         //    const notRecorded = (selectedChdDate?.value === "not_recorded" && (!convertDate(patient[AFibColumns.CHADSVAScDate]) || convertDate(patient[AFibColumns.CHADSVAScDate]).trim() === ""));
-         //    const lessThanTwelveMonths = (selectedChdDate?.value === "<12m" && 
-         //       !recordedOverTwelveMonths(patient[AFibColumns.CHADSVAScDate], convertRelativeRunDate(relativeRunDate)) && 
-         //       convertDate(patient[AFibColumns.CHADSVAScDate]) && 
-         //       convertDate(patient[AFibColumns.CHADSVAScDate]).trim() !== "");
-
-         //    return {overTwelveMonths, notRecorded, lessThanTwelveMonths}
-         // }
-
-         // const applyChdFilters = (selectedChdDate, selectedChdValue, patient, relativeRunDate) => {
-         //    // console.log("hi")
-         //    const {gteTwo, equalToOne, equalToZero} = getChdValueSelection(selectedChdDate, patient);
-         //    const {overTwelveMonths, notRecorded, lessThanTwelveMonths} = getChdDateSelection(selectedChdDate, patient, relativeRunDate);
-
-         //    const chdFilter = 
-         //       //When nothing is selected
-         //       (selectedChdValue.length === 0 && selectedChdDate === null) ||
-
-         //       // When only value is selected and no date is selected
-         //       (gteTwo && selectedChdDate === null) ||
-         //       (equalToOne && selectedChdDate === null) ||
-         //       (equalToZero && selectedChdDate === null) ||
-
-         //       //When only the date is selected
-         //       (selectedChdValue.length === 0 && (overTwelveMonths || notRecorded || lessThanTwelveMonths)) ||
-
-         //       // Value and date combination
-         //       (gteTwo && (overTwelveMonths || notRecorded || lessThanTwelveMonths)) ||
-         //       (equalToOne && (overTwelveMonths || notRecorded || lessThanTwelveMonths)) ||
-         //       (equalToZero && (overTwelveMonths || notRecorded || lessThanTwelveMonths)) 
-            
-         //    return chdFilter 
-         // }  
-     // console.log(quickFilter)
-   // const handleQuickFilter = (value)=> {
-   //    // resetAllFilters();
-   //    // setSelectedAnti(null)
-      
-   //    if(quickFilter && quickFilter === value){
-   //          setQuickFilter("")
-   //          return;
-   //          // 
-   //    }
-      
-   //    setQuickFilter(value)
-   //    resetFilters();
-      
-      
-   //    // setSelectedQuickFilter(value)
-   //    if(value && value === "option_one"){
-
-
-   //       // resetAllFilters()
-   //       setTimeout(() => {
-   //          handleChdValue('gte2')
-   //          handleChdDate('<12m')
-   //          handleAntiFilter('no_anticoagulant', 'None')
-   //       }, 10)
-        
-         
-   //    }
-   //    else if(value && value === "option_two"){
-   //       // resetAllFilters()
-   //       setTimeout(() => {
-   //          handleChdValue('gte2')
-   //          handleChdDate('≥12m')
-   //          handleAntiFilter('no_anticoagulant', 'None')
-   //       }, 10)
-         
-   //    }
-   //    else if(value && value === "option_three"){
-   //       setTimeout(() => {
-   //          handleOrbitValueSelection('gte4')
-   //          handleChdDate('<12m')
-   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //       },10)
-   //       // handleOrbitValueSelection('gte4')
-   //       // handleChdDate('<12m')
-   //       // handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //    }
-   //    else if(value && value === "option_four"){
-   //       setTimeout(()=>{
-   //          handleMedReview('Yes')
-   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //       })
-         
-   //         // handleChdDate('>12m')
-   //    }
-   //    else if(value && value === "option_five"){
-   //       setTimeout(()=> {
-   //          handleNSAID('Yes')
-   //          handleAntiFilter('doac_warf', 'DOAC or Warfarin')
-   //       },10)
-         
-   //    }
-   //    else if(value && value === "option_six"){
-   //       setTimeout(()=> {
-   //          handleAntiFilter('dual', 'Dual therapy')
-   //          handleMedReview('No')
-   //       },10)
-         
-   //    }
-
-    
-   // }
-
-   //EXPORTING FUNCTIONALITY
-   //Export to excel 
-   // // if (sortChdValue === 'asc') {
-      //     return [...filteredPatients].sort((a, b) => {
-      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
-      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
-      //         return valueA - valueB; // Ascending
-      //     });
-      // } else {
-      //     return [...filteredPatients].sort((a, b) => {
-      //         const valueA = parseFloat(a[AFibColumns.CHADSVAScValue]) || 0;
-      //         const valueB = parseFloat(b[AFibColumns.CHADSVAScValue]) || 0;
-      //         return valueB - valueA; // Descending
-      //     });
-      // }

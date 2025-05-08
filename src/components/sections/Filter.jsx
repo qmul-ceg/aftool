@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { FiChevronDown, FiChevronUp, FiInfo } from 'react-icons/fi'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
+import { FiChevronDown, FiChevronUp, } from 'react-icons/fi'
+import { Select, SelectContent,  SelectTrigger } from "@/components/ui/select"
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { MainContext } from '@/MainContext'
 import { useContext } from 'react'
@@ -8,7 +8,7 @@ import { AFibColumns } from '@/enums/AFibColumns'
 
 const Filter = () => {
 
-   //functions and state variables from MainContext
+
    const{  
       selectedAges, handleAgeSelection, removeAgeDisplay,
       nsaid, handleNSAID, 
@@ -16,7 +16,6 @@ const Filter = () => {
       selectedBP, handleBP, removeBP,
       selectedChdValue,handleChdValue,  removeChdValue,
       selectedChdDate,handleChdDate, removeChdDate,
-      // selectedChd, handleChd,
       selectedOrbit, handleOrbit, removeOrbitDisplay,
       medReview, handleMedReview, setMedReview,
       handleVulnerabilitesFilter,
@@ -43,7 +42,6 @@ const Filter = () => {
    const[showQuickFilter, setShowQuickFilter] = useState(true)
 
    //FILTER DISPLAY FEATURE
-   // const [displayAntiFilter] = useState(selectedAnti)
 
    const [selectedAntiLabel, setSelectedAntiLabel] = useState()
    const [resizeQuickFilter, setResizeQuickFilter] = useState(true)
@@ -67,7 +65,7 @@ const Filter = () => {
    }
 
    useEffect(() => {
-      checkScreenSize(); //Calls checkScreenSize when we first mount 
+      checkScreenSize(); 
       checkScreenSizeForProgressBar();
       window.addEventListener('resize', checkScreenSize)
       window.addEventListener('resize', checkScreenSizeForProgressBar)
@@ -118,11 +116,6 @@ const Filter = () => {
    const toggleFilter =() =>{
       setFilterMenu(!filterMenu)
    }
-
-   // const toggleQuickFilter =()=>{
-   //    setShowQuickFilter(!showQuickFilter)
-   // }
-
 
    //SUMMARY TABLE FUNCTIONALITY
    const chadsvasce2 = (chadsvasc2Cnt, patient) => {
@@ -285,7 +278,7 @@ const Filter = () => {
                   )}
 
                   {/* CVD DISPLAY */}
-                  {(importedData.length > 0 && cvd)  && (
+                  {(importedData.length > 0 && cvd.value)  && (
                      <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">CVD:</strong> {cvd.value } 
                         {<button className="ml-2 font-bold text-red-500 text-xs hover:text-sm" onClick={removeCvdFilter}> &#10005;</button>}
@@ -402,13 +395,12 @@ const Filter = () => {
                   // <div className=" min-w-[10px] ">
                   <div className=" mr-2  w-[10%] min-w-[7em]">
                      <Popover className="">
-                        {/* onClick= {()=>setShowQuickFilter(!showQuickFilter)} */}
+                      
                         <PopoverTrigger className="flex justify-center w-full" >
                            <header className="w-full border flex justify-between px-2 py-2 rounded-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
                               <span className ="font-semibold text-left text-xs  xl:text-sm 2xl:text-sm text-nowrap">Quick filters</span>
                               <div className=" flex mt-[0.1em]"> 
                                  <FiChevronDown />
-                                 {/* { showQuickFilter  ? <FiChevronUp/> : <FiChevronDown/> } */}
                               </div>
                            </header>
                         </PopoverTrigger>
@@ -422,6 +414,7 @@ const Filter = () => {
                                  { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
                                  { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
                               ].map((item) => {
+                                 const inputId= `quick-filter-${item.value}`
                                  return (
                                     <label
                                        // value={item.value}
@@ -430,6 +423,7 @@ const Filter = () => {
                                     >
                                        <input
                                           type="checkbox"
+                                          id={inputId}
                                           checked={quickFilter === item.value}
                                           onChange={()=>handleQuickFilter(item.value)} 
                                           className="checkbox_input"
@@ -453,9 +447,6 @@ const Filter = () => {
                      <div className =" flex flex-col">
                         <header className="flex justify-between px-2 py-2 rounded-t-lg  bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white" >
                            <p className ="font-semibold text-xs text-left xl:text-sm 2xl:text-sm pr-2">Quick filters</p>
-                           {/* <button onClick={toggleQuickFilter}>
-                              { showQuickFilter  ? <FiChevronDown /> : <FiChevronUp/> }
-                           </button> */}
                         </header>
                
                         {
@@ -469,6 +460,7 @@ const Filter = () => {
                               { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
                               { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
                            ].map((item) => {
+                              const inputId= `quick-filter-${item.value}`
                               return (
                                  <label
                                     key = {item.value}
@@ -476,6 +468,7 @@ const Filter = () => {
                                     className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
                                  >
                                     <input
+                                       id={inputId}
                                        type="checkbox"
                                        checked={quickFilter === item.value}
                                        onChange={()=>handleQuickFilter(item.value)}
@@ -508,32 +501,35 @@ const Filter = () => {
                      </SelectTrigger>
                      <SelectContent >
                         {[
-                           // {value: "none", label:"NONE", name: 'Anti'},
+
                            {value: "doac_warf", label: "DOAC or Warfarin", name: 'Anti'},
                            {value: "doac", label: "DOAC", name: 'Anti'},
                            {value: "warf", label: "Warfarin", name: 'Anti'},
                            {value: "no_anticoagulant", label: "No anticoagulant" , name: 'Anti'},
                            {value: "antiplatelets", label: "Antiplatelets only" , name: 'Anti'},
                            {value: "dual", label: "Dual therapy" , name: 'Anti'}, 
-                        ].map((item) => (
-                           <label 
-                              key={item.value}
-                              className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]"
-                              // for="filter_checkbox"
-                           >
-                              <input
-                                 type="checkbox"
-                                 value={item.value}
-                                 name="antiFilter"
-                                 checked={selectedAnti && selectedAnti.value === item.value || false}
-                                 onChange={() => handleAntiFilter(item.value, item.label)}
-                                 className="checkbox_input"
-                              />
-                              <div className="custom_checkbox"></div>
-                              <span>{item.label}</span>
-                              
-                           </label>
-                        ))}
+                        ].map((item) => {
+                           const inputId = `anti-${item.value}`;
+                           return(
+                              <label 
+                                 key={item.value}
+                                 className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]"
+                                 htmlFor={inputId}
+                              >
+                                 <input
+                                    type="checkbox"
+                                    id={inputId}
+                                    value={item.value}
+                                    name="antiFilter"
+                                    checked={selectedAnti && selectedAnti.value === item.value || false}
+                                    onChange={() => handleAntiFilter(item.value, item.label)}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{item.label}</span>
+                                 
+                              </label>
+                           )})}
                      </SelectContent>
                   </Select>
 
@@ -544,7 +540,7 @@ const Filter = () => {
                         
                      </SelectTrigger>
                      <SelectContent>
-                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="medreview_yes">
                            <input
                               type="checkbox"
                               name="medReview"
@@ -552,22 +548,24 @@ const Filter = () => {
                               checked = {medReview=== "Yes"}
                               onChange= {()=>handleMedReview("Yes")}
                               className="checkbox_input"
+                              id="medreview_yes"
                            />
                            <div className="custom_checkbox"></div>
                            <span>Yes</span>
                         </label>
 
-                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="medreview_no">
                            <input
-                                 type="checkbox"
-                                 name="medReview"
-                                 value="No"
-                                 checked={medReview === "No"}
-                                 onChange={()=>handleMedReview("No")}
-                                 className="checkbox_input"
-                              />
-                              <div className="custom_checkbox"></div>
-                              <span>No</span>
+                              id="medreview_no"
+                              type="checkbox"
+                              name="medReview"
+                              value="No"
+                              checked={medReview === "No"}
+                              onChange={()=>handleMedReview("No")}
+                              className="checkbox_input"
+                           />
+                           <div className="custom_checkbox"></div>
+                           <span>No</span>
                         </label>
                      </SelectContent>
                   </Select>
@@ -584,12 +582,16 @@ const Filter = () => {
                            {value: 'learning_disability', label: 'Learning disability' },
                            {value: 'dementia', label: 'Dementia' },
                            {value: 'housebound', label: 'Housebound' },
-                        ].map((item, index) =>
-                           (
+                        ].map((item, index) => {
+
+                           const inputId= `vulerabilities-${item.value}`
+                        
+                           return(
                               <label
                                  key = {item.value}
                                  value={item.value}
-                                 className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
+                                 className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]"
+                                 id={inputId} 
                               >
                                  <input
                                     type="checkbox"
@@ -597,11 +599,12 @@ const Filter = () => {
                                     checked={selectedVulnerabilities.some(object =>object.value === item.value)}
                                     onChange = {() => handleVulnerabilitesFilter(item.value, item.label)}
                                     className="checkbox_input"
+                                    id={inputId}
                                  />
                                  <div className="custom_checkbox"></div>
                                  <span>{item.label}</span>       
                               </label>
-                           ))}
+                           )})}
                      </SelectContent>
                   </Select>
                </div>
@@ -612,15 +615,17 @@ const Filter = () => {
                   {/* CHA₂DS₂-VASc FILTER */}
                   <Select>
                         <SelectTrigger className=" bg-[#21376A] text-white">
-                           <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">CHA₂DS₂-VASc</h1>
-                           {/* <SelectValue placeholder="CHA₂DS₂-VASc" /> */}
+                           <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">CHA₂DS₂-VASc</h1>                       
                         </SelectTrigger>
                         <SelectContent>
-                        {[ 'gte2', '1', '0'].map((item, index) => 
-                           (
+                        {[ 'gte2', '1', '0'].map((item, index) => {
+                              const inputId = `chdValue-${item}`
+                        
+                           return (
                            
-                              <label key={index} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label key={index} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor ={inputId}>
                                  <input
+                                    id= {inputId}
                                     type="checkbox"
                                     value={item}
                                     checked={selectedChdValue.includes(item)}
@@ -631,15 +636,16 @@ const Filter = () => {
                                  <div className="custom_checkbox"></div>
                                  <span>{selectedChdValueLabel[item]}</span>
                               </label>
-                           ))
+                           )})
                         }
                         
                         <div className="w-full border mt-1 mb-1"></div>
                         
                         {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
                            (
-                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor ={item}>
                                  <input
+                                    id={item}
                                     type="checkbox"
                                     value={item}
                                     checked= {selectedChdDate === item}
@@ -663,8 +669,9 @@ const Filter = () => {
                      <SelectContent>
                         
                         {/* ORBIT VALUE */}
-                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                        <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="orbitValue_input">
                            <input 
+                              id="orbitValue_input"
                               type="checkbox"
                               value ="gte4"
                               checked ={selectedOrbitValue === "gte4"}
@@ -679,8 +686,9 @@ const Filter = () => {
                         {/* ORBIT DATE RECORDED */}
                         {[ '≥12m', 'not_recorded', '<12m'].map((item, index) => 
                            (
-                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor={item}>
                                  <input
+                                    id={item}
                                     type="checkbox"
                                     value={item}
                                     checked= {selectedOrbitDateRecorded === item}
@@ -706,8 +714,9 @@ const Filter = () => {
                         <SelectContent>
                            <div>
                               <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm">Statin</p>
-                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="statin_yes_input"> 
                                  <input
+                                    id="statin_yes_input"
                                     type="checkbox"
                                     name="statin"
                                     value="Yes"
@@ -719,8 +728,9 @@ const Filter = () => {
                                  <span>{"Yes"}</span>
                               </label>
 
-                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="statin_no_input">
                                  <input
+                                    id="statin_no_input"
                                     type="checkbox"
                                     name="statin"
                                     value="No"
@@ -733,8 +743,9 @@ const Filter = () => {
                               </label>
                               <div className="w-full border mt-1 mb-1"></div>
                               <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">NSAID</p>
-                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="nsaid_yes_input">
                                  <input
+                                    id="nsaid_yes_input"
                                     type="checkbox"
                                     name="nsaid"
                                     value="Yes"
@@ -746,8 +757,9 @@ const Filter = () => {
                                  <span>{"Yes"}</span>
                               </label>
 
-                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="nsaid_no_input">
                                  <input
+                                       id ="nsaid_no_input"
                                        type="checkbox"
                                        name="nsaid"
                                        value="No"
@@ -777,9 +789,11 @@ const Filter = () => {
                            {value: "65-79", label : "65 - 79"},
                            {value: "80+", label : "80+"}
                         ].map((item, index) =>{
+                           const inputId=`age-${item.value}`
                            return (
-                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
+                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor={inputId}>
                               <input
+                                 id={inputId}
                                  type="checkbox"
                                  value={item.value}
                                  checked={selectedAges.some(object =>object.value === item.value)}
@@ -806,18 +820,20 @@ const Filter = () => {
                            {value: "No", label : "No"},
                   
                            ].map((item, index) =>{
-                           return (
-                              <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                              <input
-                                 type="checkbox"
-                                 value={item.value ?? ""}
-                                 checked={cvd && cvd.value === item.value}
-                                 onChange={() => handleCVD(item.value, item.label)}
-                                 className="checkbox_input"
-                              />
-                              <div className="custom_checkbox"></div>
-                              <span>{item.label}</span>
-                           </label>
+                              const inputId=`cvd-${item.value}`
+                              return (
+                                 <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor={inputId}>
+                                 <input
+                                    id={inputId}
+                                    type="checkbox"
+                                    value={item.value ?? ""}
+                                    checked={cvd.value === item.value}
+                                    onChange={() => handleCVD(item.value, item.label)}
+                                    className="checkbox_input"
+                                 />
+                                 <div className="custom_checkbox"></div>
+                                 <span>{item.label}</span>
+                              </label>
                            )
                         })}
                         </SelectContent>
@@ -835,11 +851,13 @@ const Filter = () => {
                               { value: "gte140-90", label: "≥ 140/90"},
                               { value: "gte150-90", label: "≥ 150/90"}
                            ].map((item) => {
+                              const inputId = `bp-${item.value}`
                               return (
                                  <label
                                     key = {item.value}
                                     value={item.value}
                                     className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" 
+                                    htmlFor ={inputId}
                                  >
                                     <input
                                        type="checkbox"
@@ -847,6 +865,7 @@ const Filter = () => {
                                        checked={selectedBP.some(object =>object.value === item.value)}
                                        onChange = {() => handleBP(item.value, item.label)}
                                        className="checkbox_input"
+                                       id={inputId}
                                        
                                     />
                                     <div className="custom_checkbox"></div>
@@ -861,9 +880,7 @@ const Filter = () => {
                   
                   
                   {/* SUMMARY  */} 
-                  {/* 
-                     <div className=" min-w-[660px] lg:max-w-[650px]lg:max-w-[620px] xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2">
-                  */}
+                 
                   <div className=" min-w-[500px]  xl:max-w-[610px] 2xl:max-w-[650px] flex-1 flex flex-col justify-between ml-2 summary_box">
                      <div>
                         <header className=" flex  rounded-t-lg px-2 py-2 bg-[#21376A] text-white">
@@ -1052,173 +1069,4 @@ export default Filter
 
 
 
- // setDisplayVulnerabilities((prev) => prev.filter((item) => item.value !== value));
-      // selectedVulnerabilities.map((item) => {
-      //    if(item === value){
-      //       return selectedVulnerabilities.filter((currentItems) => currentItems !== value )
-      //    }
-      // })
-      
-      
-      // setDisplayVulnerabilities((prev) => {
-
-      //    const exists = prev.some((item)=> item.value === value)
-
-      //    if(exists){
-      //       return prev.filter((item) => item.value !== value)
-      //    }else{
-      //       return [...prev, {value, label}];
-      //    }
-      // });
-      
-      
-      // handleVulnerabilities,
-
-      // {[
-      //    {value: "none", label:"NONE", name: 'Anti'},
-      //    {value: "doac_warf", label: "DOAC or WARFARIN", name: 'Anti'},
-      //    {value: "doac", label: "DOAC", name: 'Anti'},
-      //    {value: "warf", label: "WARFARIN", name: 'Anti'},
-      //    {value: "antiplatelets", label: "ANTIPLATELETS ONLY" , name: 'Anti'},
-      //    {value: "no_anticoagulant", label: "NO ANTICOAGULANT" , name: 'Anti'},
-      //    {value: "dual", label: "DUAL THERAPY" , name: 'Anti'},
-      // ].map((item) => (
-      //    <label 
-      //       key ={item.value}
-      //       className="flex items-center space-x-2 ml-4"
-      //    >
-      //       <input
-      //       type="radio"
-      //       value={item.value}
-      //       name="antiFilter"
-      //       checked={selectedAnti === item.value}
-      //       onChange={(event) => handleAntiChange(event, item.label, item.name)}
-            
-      //       />
-      //       <span>{item.label}</span>
-      //    </label>
-      // ))}
-      {/* <Button 
-               //    className = "bg-white text-xs font-semibold text-[#21376A] hover:bg-gray-400 hover:text-white"
-               //    // variant="outline"
-               //    onClick={resetFilters}>
-               //       Remove all filters
-               // </Button> */}
-
-   // const removeNsaidFilter =()=>{
-   //    handleNSAID("")
-   // }
-
-   // const removeCvdFilter =()=>{
-   //    handleCVD("")
-   // }
-
-   // const removeVulnerabilities = (value) =>{
-   //    setSelectedVulnerabilities((prev) => 
-   //       prev.filter((item) => item.value !== value)
-   //   );
-
-   // };
-{/* <div className="text-sm mt-10 border-b border-gray mb-2">
-                               *Modified QOF: no exclusions for contraindication or declined
-                            </div> */}{/* <div>
-                                                   <strong className="text-sm">EXTERNAL LINKS</strong>
-                                                   <ul className=" ml-4 text-sm">
-                                                      <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">https://www.qmul.ac.uk/ceg/</a></li>
-
-                                                   </ul>
-                                                </div> */}{/* {[
-                                 { value: 'gte2', label: '≥ 2' },
-                                 { value: '1', label: '1' },
-                                 { value: '0', label: '0' }
-                              ].map((item, index) => (
-                                 <label key={index} className="flex items-center space-x-2 ml-4">
-                                    <input
-                                       type="checkbox"
-                                       value={item.value}
-                                       checked={selectedChdValue.some(object => object.value === item.value)}
-                                       onChange={() => handleChdValue(item.value, item.label)}
-                                    
-                                    />
-                                    <span>{item.label}</span>
-                                 </label>
-                              ))}
-                              
-                              <div className="w-full border"></div>
-                              
-                              {[
-                                 { value: '>12m', label: 'Recorded > 12m' },
-                                 { value: 'not_recorded', label: 'Not Recorded' },
-                                 { value: '<12m', label: 'Recorded < 12m' }
-                              ].map((item, index) => (
-                                 <label key={index + 3} className="flex items-center space-x-2 ml-4">
-                                    <input
-                                    type="checkbox"
-                                    value={item.value}
-                                    checked= {selectedChdDate && selectedChdDate.value === item.value}
-                                    onChange={() => handleChdDate(item.value, item.label)}
-                                    />
-                                    <span>{item.label}</span>
-                                 </label>
-                              ))} */} 
-                               {/* {[
-                                 {value: "gte4", label : "≥ 4"},
-                                 {value: ">12m", label : "Recorded > 12m"},
-                                 {value: "not_recorded", label : "Not recorded"}
-                              ].map((item, index) =>{
-                                 return (
-                                    <label key={index + 3} className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]">
-                                    <input
-                                       type="checkbox"
-                                       value={item.value}
-                                       checked={selectedOrbit.some(object =>object.value === item.value)}
-                                       onChange={() => handleOrbit(item.value, item.label)}
-                                       className="checkbox_input"
-                                       
-                                    />
-                                    <div className="custom_checkbox"></div>
-                                    <span>{item.label}</span>
-                                    
-                                 </label>
-                                 )
-                              })} */}{/* <div className="flex border w-[4em] bg-white rounded-sm" >
-                                         <div className="w-[100%] bg-red-100"></div>
-                                         <span>10%</span>
-                                       </div> */}
-                                       
-                                       {/* <span className="">{ percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) }</span> */}
-                                       {/* <div className = "w-full h-full border bg-white">
-                                           // style ={{
-                                             //    width: `${percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0))}`,
-                                                
-                                             // }}
-                                          <span>10%</span>
-
-                                       </div> */}
-                                       {/* { percentageFormatter(importedData.reduce(chadsvasce2Anticoag,0), importedData.reduce(chadsvasce2,0)) } */} 
-                                       {/* EXTERNAL LINKS */}
-                        // { value: "gte150-90", label: "140/90 - 149/90"},
-                                    
-                     {/* <div>
-                        <Popover >
-                           <PopoverTrigger className="flex justify-center pr-4 ml-auto mt-2">
-
-                              <button className=" px-2 rounded-full font-serif font-semibold bg-gradient-to-r from-[#7B0E72] from-70%   to-[#E6007E] text-white">i</button>
-                              
-                           </PopoverTrigger>
-                           <PopoverContent>
-                              <div>
-                                 <strong className="text-sm">EXTERNAL LINKS</strong>
-                                 <ul className=" ml-4 text-sm">
-                                    <li><a href="https://www.qmul.ac.uk/ceg/" target="_blank" rel="noopener noreferrer">https://www.qmul.ac.uk/ceg/</a></li>
-
-                                 </ul>
-                              </div>
-                           </PopoverContent>
-                        </Popover>
-                     </div> */}{/* <td className=" relative rounded-r-sm">
-                                      { percentageFormatter(importedData.reduce(chadsvasce2NotOnAnticoag,0), importedData.reduce(chadsvasce2,0)) }
-                                    </td> */}
-                                    // rounded-r-sm className={` absolute h-full top-0 progress_fill
-                                             //              ${percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) )  === '100%'? 'rounded-sm' : 'rounded-l-sm'}
-                                             //    `}{/* <td className=" text-center">{ percentageFormatter(importedData.reduce(newChadsvasce2,0), (importedData.length - importedData.reduce(chadsvasc2RecordedPrior12m,0)) ) }</td> */}
+ 
