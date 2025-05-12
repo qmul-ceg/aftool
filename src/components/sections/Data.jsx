@@ -104,6 +104,7 @@ const Data = () => {
   return (
 
    <div className=" rounded-t-lg  ">   
+      
       <table className="w-full border-separate border-spacing-0 ">
         
          <thead ref = {theadRef} className=" text-[10em] lg:text-xs xl:text-sm 2xl:text-[1em] table_header ">
@@ -153,7 +154,7 @@ const Data = () => {
          {/* top-12 */}
 
 
-         <tbody className="text-center lg:text-xs xl:text-sm 2xl:text-sm ">
+         <tbody className="text-center lg:text-xs xl:text-sm 2xl:text-sm">
             {data.map((patient, id) => 
                 (
                   //Changed key to AFib Columns ... 

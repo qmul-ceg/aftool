@@ -61,7 +61,8 @@ const Display = () => {
          
          {/* DISPLAY DATA */}
         
-         <section className =" mx-4 mb-2 overflow-y-auto border border-[#21376A] rounded-t-lg ">
+         
+         <section className =" mx-4 mb-2 overflow-y-auto border border-[#21376A] rounded-t-lg table_scroll">
             <Data />
          </section>
             

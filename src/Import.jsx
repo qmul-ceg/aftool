@@ -135,7 +135,7 @@ const Import = () => {
                   setImportError("")
                   status = "failure";
                   setTimeout(() => {
-                     setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+                     setImportError("EMIS Web report is not valid. Please import the correct report version. 1")
                   }, 10)
                   if(fileInputRef.current){
                      fileInputRef.current.value = "";
@@ -169,7 +169,7 @@ const Import = () => {
             setGpSystemSelected(GpSystems.EMIS_Web)
             setImportError("")
             setTimeout(() => {
-               setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+               setImportError("EMIS Web report is not valid. Please import the correct report version.")
               
             }, 10)
 
@@ -273,6 +273,7 @@ const Import = () => {
          setImportedData(data)
       }
       else {
+         
          setImportedData(data)
          navigate("/display"); 
       }
