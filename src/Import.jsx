@@ -130,7 +130,8 @@ const Import = () => {
             if (line[0].includes("Patient Details") || line[0].toLowerCase().includes("patient details")) {
                skipRows++;
 
-               if (line.length !== REPORT_COLUMNS.EMIS) { 
+               if (line.length < REPORT_COLUMNS.EMIS || line.length > REPORT_COLUMNS.EMIS + 1) { 
+                  console.log(line.length)
                   setGpSystemSelected(GpSystems.EMIS_Web)
                   setImportError("")
                   status = "failure";
@@ -141,7 +142,6 @@ const Import = () => {
                      fileInputRef.current.value = "";
                   }
                   break;
-                 
                }
                else{
                   setImportError("")
@@ -177,8 +177,6 @@ const Import = () => {
                fileInputRef.current.value = "";
             }
          }
-
-         
 
          try{
             const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
@@ -216,8 +214,6 @@ const Import = () => {
       reader.onload = async () => {
          const lines = reader.result.split('\n');
          const firstLine = lines[0].split(',');
-
-
 
 
          if (firstLine.length !== REPORT_COLUMNS.S1) {
