@@ -187,10 +187,11 @@ const Modal = ({open, }) => {
          process: "AUDIT scores (latest ever)", 
          colorCode: "", 
          value: (
-            selectedPatientData[AFibColumns.AuditScoresConcept] && selectedPatientData[AFibColumns.AuditScoresConcept] == "763256006") ? `AUDIT-C: ${selectedPatientData[AFibColumns.AuditScoresValue]}` 
+            selectedPatientData[AFibColumns.AuditScoresConcept] && (selectedPatientData[AFibColumns.AuditScoresConcept] == "763256006" ) || selectedPatientData[AFibColumns.AuditScoresConcept] == "XaORP" || selectedPatientData[AFibColumns.AuditScoresConcept] == "XaORP") ? 
+            `AUDIT-C: ${selectedPatientData[AFibColumns.AuditScoresValue]}` 
          :
             (
-               selectedPatientData[AFibColumns.AuditScoresConcept] && selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005")? `AUDIT: ${selectedPatientData[AFibColumns.AuditScoresValue]}` : "",
+               selectedPatientData[AFibColumns.AuditScoresConcept] && (selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005" || selectedPatientData[AFibColumns.AuditScoresConcept] == "XaMwZ" || selectedPatientData[AFibColumns.AuditScoresConcept] == "XM0aD"))? `AUDIT: ${selectedPatientData[AFibColumns.AuditScoresValue]}` : "",
           
          dateRecorded: selectedPatientData[AFibColumns.AuditScoresDate] 
       },
