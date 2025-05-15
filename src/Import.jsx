@@ -111,15 +111,19 @@ const Import = () => {
 
 
          const lines = reader.result.split('\n');
-         let ods_array = lines[14].split(',');
+         let ods_array = lines[14].split('",');
          const odsCodeRegex = /^[A-Z]\d{4,5}$/;
-         if (odsCodeRegex.test(ods_array[8])){
-            odsCode = ods_array[8];
+         let value = ods_array[7]
+         // const cleaned_value = value.replace(/"/g, '')
+
+         if (odsCodeRegex.test(value)){
+            odsCode = value
          } else {
             odsCode = "UNKNOWN";
          }
          
-         // console.log(odsCode)
+         console.log(ods_array)
+         console.log(odsCode)
          for (let i = 0; i < lines.length; i++){
             const line = lines[i].split(',');
             
@@ -285,6 +289,7 @@ const Import = () => {
                   result.data.forEach((data, index) => {
                      if (index > skipLines && data[AFibColumns.FullName] !== "") {
                            dataArray.push(Object.values(data));
+                           
                            dataArray[dataArray.length - 1][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataArray[dataArray.length - 1]);
                            dataArray[dataArray.length - 1][AFibColumns.OnAspirinAntiplatelet] = onAspirinAntiplateletMeds(dataArray[dataArray.length - 1]);
                            dataArray[dataArray.length - 1][AFibColumns.OnNSAID] = onNSAIDMeds(dataArray[dataArray.length - 1]);
