@@ -677,16 +677,29 @@ const Modal = ({open, }) => {
                                           (selectedPatientData[AFibColumns.Hypertension]) ||
                                           (selectedPatientData[AFibColumns.DiabetesConcept]))
                                           ? cegColors.orange
-                                          : item.comorbidity ==="Liver failure" && selectedPatientData[AFibColumns.LiverFailureConcept] ? cegColors.orange
-                                          : item.comorbidity ==="Heart valve" && selectedPatientData[AFibColumns.HeartValveConcept] ? cegColors.orange
-                                          : item.comorbidity ==="Bleeding history" && selectedPatientData[AFibColumns.BleedConcept] ? cegColors.red
-                                          : item.comorbidity ==="Palliative care" && selectedPatientData[AFibColumns.PalliativeCareConcept] ? cegColors.red
-                                          : item.comorbidity ==="Dementia" && selectedPatientData[AFibColumns.DementiaConcept] ? cegColors.orange
-                                          : item.comorbidity ==="SMI/Learning Disability/Housebound" &&
-                                          (selectedPatientData[AFibColumns.SMI_Concept] ||
-                                          selectedPatientData[AFibColumns.LD_Concept] ||
-                                          selectedPatientData[AFibColumns.HouseboundConcept]) ?  cegColors.orange
-                                          :null 
+                                          :  item.comorbidity ==="Liver failure" && 
+                                             selectedPatientData[AFibColumns.LiverFailureConcept] 
+                                          ?  cegColors.orange
+                                          :  item.comorbidity ==="Heart valve" && 
+                                             selectedPatientData[AFibColumns.HeartValveConcept] 
+                                          ?  cegColors.orange
+                                          :  item.comorbidity ==="Bleeding history" && 
+                                             selectedPatientData[AFibColumns.BleedConcept] 
+                                          ?  cegColors.red
+                                          :  item.comorbidity ==="Palliative care" && 
+                                             selectedPatientData[AFibColumns.PalliativeCareConcept] 
+                                          ?  cegColors.red
+                                          :  item.comorbidity ==="Dementia" && 
+                                             selectedPatientData[AFibColumns.DementiaConcept] 
+                                          ?  cegColors.orange
+                                          :  item.comorbidity ==="SMI/Learning Disability/Housebound" &&
+                                             (
+                                                selectedPatientData[AFibColumns.SMI_Concept] ||
+                                                selectedPatientData[AFibColumns.LD_Concept] ||
+                                                selectedPatientData[AFibColumns.HouseboundConcept]
+                                             ) 
+                                          ?  cegColors.orange
+                                          :  null 
                                     }}
                                           
                                     
@@ -877,9 +890,28 @@ const Modal = ({open, }) => {
                                           (selectedPatientData[AFibColumns.eGFR_Value] > 0))) ||
                                           (item.process === "AUDIT scores (latest ever)" && 
                                              
-                                             ((selectedPatientData[AFibColumns.AuditScoresConcept] == "763256006" && selectedPatientData[AFibColumns.AuditScoresValue]) > 5) ||
-                                             (selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005" && selectedPatientData[AFibColumns.AuditScoresValue]) > 15)
+                                             (((selectedPatientData[AFibColumns.AuditScoresConcept] == "763256006" ||
+                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XaORP" ||
+                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XaMwb" )
+                                                && selectedPatientData[AFibColumns.AuditScoresValue] > 5) ||
+                                             (selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005" ||
+                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XaMwZ" ||
+                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XM0aD"
+                                                
+                                                && selectedPatientData[AFibColumns.AuditScoresValue] > 15))
                                              // "443280005"
+                                          ) ||
+                                          (
+                                             item.process === "Haemoglobin (g/L)(latest ever)" && 
+                                             (
+                                                (selectedPatientData[AFibColumns.Gender] === "Male" && 
+                                                   selectedPatientData[AFibColumns.HaemEstimateValue] > 0 && 
+                                                      selectedPatientData[AFibColumns.HaemEstimateValue] < 130 ) ||
+                                                (selectedPatientData[AFibColumns.Gender] === "Female" && 
+                                                   selectedPatientData[AFibColumns.HaemEstimateValue] > 0 && 
+                                                   selectedPatientData[AFibColumns.HaemEstimateValue] < 120 )
+                                             )
+                                          )
                                        ? cegColors.orange
                                        : null
                                     }}

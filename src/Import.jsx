@@ -120,7 +120,6 @@ const Import = () => {
          }
          const odsArray = odsObject.data[0]
          const odsValue = odsArray[7]
-         // console.log(odsCode) 
          
          const odsCodeRegex = /^[A-Z]\d{4,5}$/;
 
@@ -129,8 +128,7 @@ const Import = () => {
          } else {
             odsCode = "UNKNOWN";
          }
-         console.log(odsCode)
-         
+
          for (let i = 0; i < lines.length; i++){
             const line = lines[i].split(',');
             
