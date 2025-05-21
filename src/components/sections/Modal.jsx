@@ -890,16 +890,22 @@ const Modal = ({open, }) => {
                                           (selectedPatientData[AFibColumns.eGFR_Value] > 0))) ||
                                           (item.process === "AUDIT scores (latest ever)" && 
                                              
-                                             (((selectedPatientData[AFibColumns.AuditScoresConcept] == "763256006" ||
-                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XaORP" ||
-                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XaMwb" )
-                                                && selectedPatientData[AFibColumns.AuditScoresValue] > 5) ||
-                                             (selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005" ||
-                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XaMwZ" ||
-                                                selectedPatientData[AFibColumns.AuditScoresConcept] == "XM0aD"
+                                             (
+                                                (
+                                                   (selectedPatientData[AFibColumns.AuditScoresConcept] === "763256006" ||
+                                                   selectedPatientData[AFibColumns.AuditScoresConcept] === "XaORP" ||
+                                                   selectedPatientData[AFibColumns.AuditScoresConcept] === "XaMwb" )
+                                                   && selectedPatientData[AFibColumns.AuditScoresValue] > 5
+                                                ) ||
+                                                (
+                                                   (selectedPatientData[AFibColumns.AuditScoresConcept] == "443280005" ||
+                                                   selectedPatientData[AFibColumns.AuditScoresConcept] == "XaMwZ" ||
+                                                   selectedPatientData[AFibColumns.AuditScoresConcept] == "XM0aD")
                                                 
-                                                && selectedPatientData[AFibColumns.AuditScoresValue] > 15))
-                                             // "443280005"
+                                                   && selectedPatientData[AFibColumns.AuditScoresValue] > 15
+                                                )
+                                             )
+                                             
                                           ) ||
                                           (
                                              item.process === "Haemoglobin (g/L)(latest ever)" && 
