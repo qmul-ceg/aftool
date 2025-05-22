@@ -15,7 +15,8 @@ import {
    onAnticoagulantMeds, 
    onAspirinAntiplateletMeds, 
    onNSAIDMeds, 
-   onStatinsMeds 
+   onStatinsMeds,
+   getThirdPartyAnticoagulantMedsName
 } from './helper/AFibLTCmeds'
 
 import { transformS1ImportedData } from './helper/S1DataTransform'
@@ -111,23 +112,25 @@ const Import = () => {
 
 
          const lines = reader.result.split('\n');
-         const lineToCheck = "Patient Details"
-         let odsObject;
-         for (let i = 0; i < lines.length; i++){
-            if(lines[i].includes(lineToCheck)){
-               odsObject = Papa.parse(lines[i + 2])
-            }
-         }
-         const odsArray = odsObject.data[0]
-         const odsValue = odsArray[7]
+        
+         // const lineToCheck = "Patient Details"
+         // let odsObject;
+         // for (let i = 0; i < lines.length; i++){
+           
+         //    if(lines[i].includes(lineToCheck)){
+         //       odsObject = Papa.parse(lines[i + 2])
+         //    }
+         // }
+         // const odsArray = odsObject.data[0]
+         // const odsValue = odsArray[7]
          
-         const odsCodeRegex = /^[A-Z]\d{4,5}$/;
+         // const odsCodeRegex = /^[A-Z]\d{4,5}$/;
 
-         if (odsCodeRegex.test(odsValue)){
-            odsCode = odsValue
-         } else {
-            odsCode = "UNKNOWN";
-         }
+         // if (odsCodeRegex.test(odsValue)){
+         //    odsCode = odsValue
+         // } else {
+         //    odsCode = "UNKNOWN";
+         // }
 
          for (let i = 0; i < lines.length; i++){
             const line = lines[i].split(',');
@@ -153,6 +156,25 @@ const Import = () => {
                   break;
                }
                else{
+                  const lineToCheck = "Patient Details"
+                  let odsObject;
+                  for (let i = 0; i < lines.length; i++){
+                    
+                     if(lines[i].includes(lineToCheck)){
+                        odsObject = Papa.parse(lines[i + 2])
+                     }
+                  }
+                  const odsArray = odsObject.data[0]
+                  const odsValue = odsArray[7]
+                  
+                  const odsCodeRegex = /^[A-Z]\d{4,5}$/;
+         
+                  if (odsCodeRegex.test(odsValue)){
+                     odsCode = odsValue
+                  } else {
+                     odsCode = "UNKNOWN";
+                  }
+
                   setImportError("")
                }
                break;
@@ -227,7 +249,7 @@ const Import = () => {
             setGpSystemSelected(GpSystems.SystmOne)
             setImportError("")
             setTimeout(() => {
-               setImportError("EMIS Web report is not valid. Please import the correct report version. ")
+               setImportError("SystmOne report is not valid. Please import the correct report version. ")
             }, 10)
             if(fileInputRef.current){
                fileInputRef.current.value = "";
@@ -252,7 +274,7 @@ const Import = () => {
                   'Content-Type': 'application/json',
                }
             });
-            console.log("Response:", response.data);
+            // console.log("Response:", response.data);
             }catch(error){
             console.error("Error:", error.response?.data)
             }
@@ -305,10 +327,12 @@ const Import = () => {
                         }
                   });
                }
-
+               
               else if (gpSystemSelected === GpSystems.SystmOne) {                  
                   dataArray = transformS1ImportedData(result.data, runDateTime);
                   dataArray.forEach((dataRow, index) => {
+                     
+                     // console.log(getThirdPartyAnticoagulantMedsName(dataRow))
                      dataArray[index][AFibColumns.OnAnticoagulant] = onAnticoagulantMeds(dataRow);
                      dataArray[index][AFibColumns.OnAspirinAntiplatelet] = onAspirinAntiplateletMeds(dataRow);
                      dataArray[index][AFibColumns.OnNSAID] = onNSAIDMeds(dataRow);

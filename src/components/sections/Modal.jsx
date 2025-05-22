@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { MainContext } from '@/MainContext'
 import { AFibColumns } from '@/enums/AFibColumns'
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
+import { getThirdPartyAnticoagulantMedsName, getThirdPartyAnticoagulantIssueDate } from '../../helper/AFibLTCmeds'
 
 const Modal = ({open, }) => {
 
@@ -13,8 +14,13 @@ const Modal = ({open, }) => {
       isModalOpen,
       relativeRunDate,
       selectedForExport, setSelectedForExport, toggleSelectedPatient
-      } = useContext(MainContext)
+   } = useContext(MainContext)
 
+   // console.log({
+   //    code: selectedPatientData[AFibColumns.ThirdPartyCodeDate],
+   //    doac: selectedPatientData[AFibColumns.ThirdParty_DOAC_Date],
+   //    warf: selectedPatientData[AFibColumns.ThirdPartyWarfarinDate]
+   // });
 
    if (!open) return null
    
@@ -56,23 +62,24 @@ const Modal = ({open, }) => {
       {
          medication: "Third party prescribing (12m)", 
          colorCode: "", 
-         medicationName: "", 
-         dateOfIssue: "",
+         medicationName: getThirdPartyAnticoagulantMedsName(selectedPatientData), 
+         dateOfIssue: getThirdPartyAnticoagulantIssueDate(selectedPatientData),
       },
+
       {
-         medication: "Other oral anticoagulants (12m)", 
+         medication: "Other oral anticoagulants (6m)", 
          colorCode: "", 
          medicationName: selectedPatientData[AFibColumns.OtherAnticoagulantsMed], 
          dateOfIssue: selectedPatientData[AFibColumns.OtherAnticoagulantsDate] 
       },
       {
-         medication: "Aspirin (12m)", 
+         medication: "Aspirin (6m)", 
          colorCode: "", 
          medicationName: selectedPatientData[AFibColumns.AspirinMed], 
          dateOfIssue: selectedPatientData[AFibColumns.AspirinDate] 
       },
       {
-         medication: "Other antiplatelets (12m)", 
+         medication: "Other antiplatelets (6m)", 
          colorCode: "", 
          medicationName: selectedPatientData[AFibColumns.AntiplateletMed], 
          dateOfIssue: selectedPatientData[AFibColumns.AntiplateletDate] 
@@ -261,7 +268,6 @@ const Modal = ({open, }) => {
          return `${year}-${month}-${day}`;
       }
       else return ""
-      
    }
 
    return (
@@ -428,15 +434,34 @@ const Modal = ({open, }) => {
                                  <td 
                                     className="text-center text-white font-semibold"
                                     style = {{
-                                       backgroundColor : (item.medication === "Warfarin (6m)" ||
-                                          item.medication === "DOAC (6m)" ||
-                                          item.medication === "Third party prescribing (12m)" ||
-                                          item.medication === "Other oral anticoagulants (12m)" ||
-                                          item.medication === "PPI medication (6m)" ||
-                                          item.medication === "Statin (6m)") && item.medicationName ? cegColors.green
-                                          : (item.medication ==="Aspirin (12m)"|| item.medication ==="Other antiplatelets (12m)") && item.medicationName ? cegColors.orange
-                                          : item.medication ==="NSAID (excluding aspirin) (6m)" && item.medicationName ? cegColors.red
+                                       backgroundColor :(
+                                          (
+                                             (item.medication ==="Aspirin (6m)"|| item.medication ==="Other antiplatelets (6m)" ) &&
+                                             item.medicationName && 
+                                             !selectedPatientData[AFibColumns.OnAnticoagulant].includes("YES")
+                                          ) ? cegColors.red
+                                          :  (
+                                                (item.medication === "Warfarin (6m)" ||
+                                                item.medication === "DOAC (6m)" ||
+                                                item.medication === "Third party prescribing (12m)" ||
+                                                item.medication === "Other oral anticoagulants (6m)" ||
+                                                item.medication === "PPI medication (6m)" ||
+                                                item.medication === "Statin (6m)" ||
+                                                item.medication === "Third party prescribing (12m)") && item.medicationName
+                                             )  ? cegColors.green
+
+                                          // Amber Aspirin or Antiplatets with a value 
+                                          :  (
+                                                (item.medication ==="Aspirin (6m)"|| item.medication ==="Other antiplatelets (6m)")&&
+                                                item.medicationName
+                                             )  ? cegColors.orange
+                                          //red colour change
+                                          :  (
+                                                item.medication ==="NSAID (excluding aspirin) (6m)" && 
+                                                item.medicationName
+                                             ) ? cegColors.red
                                           : null
+                                       )
                                     }}
                                  >
                                        {item.medicationName ? "YES" : ""}
@@ -1021,9 +1046,6 @@ const Modal = ({open, }) => {
                   
             </div>
          </div>
-          {/* ))}  */}
-
-      
       </div>
       </>
    )
