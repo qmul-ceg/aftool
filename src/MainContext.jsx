@@ -536,8 +536,6 @@ const MainProvider = ({ children }) => {
 
 
    const handleContinueListExport = (listType)=> {
-      // console.log("hi")
-      // console.log(listType)
       if (listType == "excel"){
          exportExcel(selectedForExport, data);
       }
