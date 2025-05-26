@@ -61,7 +61,6 @@ const Display = () => {
          
          {/* DISPLAY DATA */}
         
-         
          <section className =" mx-4 mb-2 overflow-y-auto border border-[#21376A] rounded-t-lg table_scroll">
             <Data />
          </section>
@@ -77,7 +76,7 @@ const Display = () => {
                </div>
             </div>
              <div className="text-xs">
-               v.0.1.36
+               v.0.1.34
             </div>
          </footer>
       </div>
