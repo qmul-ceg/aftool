@@ -18,18 +18,20 @@ const Data = () => {
       } = useContext(MainContext)
 
 
+   //When ever data changes update our selected for export
    useEffect(()=>{
-      //put all patients in an array 
+      //Object to identify patients selected for export 
       const patientsSelectedForExport = {}
 
       const updateSelectedForExport = () => {
          data.forEach((patient) => {
-            patientsSelectedForExport[patient[0]] = true;
+            // patientsSelectedForExport[patient[0]] = true;
+            patientsSelectedForExport[patient[AFibColumns.NHS_Number]] = true;
+            
          })
          setSelectedForExport(patientsSelectedForExport) 
       }
-      
-      
+      console.log(patientsSelectedForExport)
       updateSelectedForExport()
    }, [ data])
 
@@ -56,7 +58,8 @@ const Data = () => {
 
 
             data.forEach((patient) => {
-               patientsSelectedForExport[patient[0]] = true;
+               patientsSelectedForExport[patient[AFibColumns.NHS_Number]] = true;
+               // patientsSelectedForExport[patient[0]] = true;
             })
             setSelectedForExport(patientsSelectedForExport)
          }
@@ -79,6 +82,13 @@ const Data = () => {
    
    const theadRef= useRef(null);
    const [headerHeight, setHeaderHeight] = useState(0)
+
+
+
+
+
+
+
 
    useEffect(() => {
 
@@ -164,9 +174,12 @@ const Data = () => {
                         <input
                            id={`patient_checkbox_${patient[0]}`}
                            type="checkbox"
-                           checked={!!selectedForExport[patient[0]]}
+                          
+                           checked={!!selectedForExport[patient[AFibColumns.NHS_Number]]}
+                           // checked={!!selectedForExport[patient[0]]}
                            className="patient_checkbox"
-                           onChange={()=>toggleSelectedPatient(patient[0])}
+                           onChange={()=>toggleSelectedPatient(patient[AFibColumns.NHS_Number])}
+                           // onChange={()=>toggleSelectedPatient(patient[0])}
                         />
                            {/* below div is for customised check box, styling can be found in index.css */}
                         <label htmlFor={`patient_checkbox_${patient[0]}`} className="custom_patient_checkbox"></label> 

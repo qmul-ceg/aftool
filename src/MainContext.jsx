@@ -560,30 +560,33 @@ const MainProvider = ({ children }) => {
       setDisplayExportListAlert(false)
       if (Object.keys(selectedForExportList).length > 0){
          const exportData = Object.keys(selectedForExportList).map((patient)=>{
-            const patientInfo = data.find((patientName) => patientName[0] === patient);
+            const patientInfo = data.find((patientDetails) => patientDetails[AFibColumns.NHS_Number] === patient);
    
             return{
-               Name : patientInfo[0],
-               Age: patientInfo[2],
-               Gender: patientInfo[3],
-               "Patient reference" : patientInfo[1],
-               "CHA₂DS₂-VASc - Value" : patientInfo[27],     
-               "CHA₂DS₂-VASc - Date)": patientInfo[26],
-               "ORBIT - Value": patientInfo[30],
-               "ORBIT - Date": patientInfo[31],
-               "Anticoagulant issued (6m)" : patientInfo[91],
-               "Aspirin / antiplatelet issued (6m)" : patientInfo[92],
-               NSAID: patientInfo[93],
-               "Statin issued": patientInfo[94],
-               CVD: patientInfo[95],
-               BP: patientInfo[97],
-               "Medication Review Date": patientInfo[90]
+               Name : patientInfo[AFibColumns.FullName],
+               Age: patientInfo[AFibColumns.Age],
+               Gender: patientInfo[AFibColumns.Gender],
+               "Patient reference" : patientInfo[AFibColumns.PatientReference],
+               "CHA₂DS₂-VASc - Value" : patientInfo[AFibColumns.CHADSVAScValue],     
+               "CHA₂DS₂-VASc - Date": patientInfo[AFibColumns.CHADSVAScDate],
+               "ORBIT - Value": patientInfo[AFibColumns.ORBIT_Value],
+               "ORBIT - Date": patientInfo[AFibColumns.ORBIT_Date],
+               "Anticoagulant issued (6m)" : patientInfo[AFibColumns.OnAnticoagulant],
+               "Aspirin / antiplatelet issued (6m)" : patientInfo[AFibColumns.OnAspirinAntiplatelet],
+               NSAID: patientInfo[AFibColumns.OnNSAID],
+               "Statin issued": patientInfo[AFibColumns.OnStatin],
+               CVD: patientInfo[AFibColumns.CVD],
+               BP: patientInfo[AFibColumns.BP],
+               "Medication Review Date": patientInfo[AFibColumns.MedsReviewDate]
             }
          })
+         const date = new Date()
          
          let worksheet = XLSX.utils.json_to_sheet(exportData, {origin: "A4"})
          XLSX.utils.sheet_add_aoa(worksheet, 
-            [["Ceg Atrial Fibrillation Tool"]], {origin: "A2"}); 
+            [["CEG Atrial Fibrillation Tool", date, `${date.getHours()}:${date.getMinutes()}`]], 
+            
+            {origin: "A2"}); 
             
             
          XLSX.utils.sheet_add_aoa(worksheet,
@@ -606,7 +609,8 @@ const MainProvider = ({ children }) => {
             outputContent += "EMIS Web, NHS Number"
 
             const patientsList = Object.keys(selectedForExport).map(key => {
-               const patientsToExport = data.find(patients => patients[0] === key) 
+               // const patientsToExport = data.find(patients => patients[0] === key) 
+               const patientsToExport = data.find(patients => patients[AFibColumns.NHS_Number] === key) 
                outputContent += "\n" + patientsToExport[AFibColumns.PatientReference] + "," + patientsToExport[AFibColumns.NHS_Number];
             })
          }
@@ -614,7 +618,8 @@ const MainProvider = ({ children }) => {
             outputContent = "NHS Number, Date of Birth, Mobile telephone";
 
             const patientsList = Object.keys(selectedForExport).map(key => {
-               const patientsToExport = data.find(patients => patients[0] === key) 
+               // const patientsToExport = data.find(patients => patients[0] === key) 
+               const patientsToExport = data.find(patients => patients[AFibColumns.NHS_Number] === key) 
                outputContent += "\n" + patients[AFibColumns.NHS_Number] + "," + patients[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
             })
          }
@@ -637,7 +642,8 @@ const MainProvider = ({ children }) => {
       setDisplayExportListAlert(false)
       if(Object.keys(selectedForExportList).length > 0){
          const patientsList = Object.keys(selectedForExportList).map(key => {
-            const patientsToExport = data.find(patients => patients[0] === key) 
+            // const patientsToExport = data.find(patients => patients[0] === key) 
+            const patientsToExport = data.find(patients => patients[AFibColumns.NHS_Number] === key) 
             return patientsToExport[AFibColumns.NHS_Number]   
          })
          setDisplayExportListAlert(false)
@@ -886,7 +892,7 @@ const MainProvider = ({ children }) => {
 
    
 
-
+//LIST EXPORTING FUNCTIONALITY 
    const toggleSelectedPatient = (patient) => {
       
       setSelectedForExport((prev) => { 
