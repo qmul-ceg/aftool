@@ -584,14 +584,14 @@ const MainProvider = ({ children }) => {
          
          let worksheet = XLSX.utils.json_to_sheet(exportData, {origin: "A4"})
          XLSX.utils.sheet_add_aoa(worksheet, 
-            [["CEG Atrial Fibrillation Tool", date, `${date.getHours()}:${date.getMinutes()}`]], 
+            [["CEG Atrial Fibrillation Tool"]], 
             
-            {origin: "A2"}); 
+            {origin: "A1"});  
             
             
          XLSX.utils.sheet_add_aoa(worksheet,
-            [["Patient Data Export"]],
-            {origin: "A1"}
+            [["Patient Data Export", date, `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`]],
+            {origin: "A2"}
          );
          const workbook = XLSX.utils.book_new();
          XLSX.utils.book_append_sheet(workbook, worksheet, "Patients")
