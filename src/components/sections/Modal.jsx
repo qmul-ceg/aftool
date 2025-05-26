@@ -373,8 +373,8 @@ const Modal = ({open, }) => {
                      <input
                         type="checkbox"
                         id="modalCheckBox"
-                        checked = {!!selectedForExport[selectedPatientData[0]]}
-                        onChange={()=>toggleSelectedPatient(selectedPatientData[0])}
+                        checked = {!!selectedForExport[selectedPatientData[AFibColumns.NHS_Number]]}
+                        onChange={()=>toggleSelectedPatient(selectedPatientData[AFibColumns.NHS_Number])}
                         className="ml-2 modal_checkbox"
                         //onclick toggle the select for export;
                      />
