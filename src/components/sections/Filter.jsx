@@ -412,7 +412,7 @@ const Filter = () => {
                                  { value: "option_three", label: "ORBIT ≥ 4, on anticoagulation (6m)"},
                                  { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
                                  { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
-                                 { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
+                                 { value: "option_six", label: "On dual therapy (6m), Med review ≥ 12m"}
                               ].map((item) => {
                                  const inputId= `quick-filter-${item.value}`
                                  return (
@@ -458,7 +458,7 @@ const Filter = () => {
                               { value: "option_three", label: "ORBIT ≥ 4, on anticoagulation (6m)"},
                               { value: "option_four", label: "Med review ≥ 12m, on anticoagulation (6m)"},
                               { value: "option_five", label: "On NSAIDs, on anticoagulant (6m)"},
-                              { value: "option_six", label: "On dual therapy (6m), no med review (<12m)"}
+                              { value: "option_six", label: "On dual therapy (6m), Med review ≥ 12m"}
                            ].map((item) => {
                               const inputId= `quick-filter-${item.value}`
                               return (
