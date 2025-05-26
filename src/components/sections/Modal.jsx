@@ -291,13 +291,13 @@ const Modal = ({open, }) => {
             <div className=" flex justify-center  gap-6 p-2  bg-white">
 
                <button className=" " onClick={handlePreviousPatient}>
-                  <div className="flex flex-col text-xs font-semibold hover:text-sm">
+                  <div className="flex flex-col text-sm hover:font-bold">
                      <span>Previous patient</span>
                      <span className="">&larr;</span>
                   </div>
                </button>
                <button className=" " onClick={handleNextPatient}>
-                  <div className="flex flex-col text-xs font-semibold hover:text-sm">
+                  <div className="flex flex-col text-sm hover:font-bold">
                      <span>Next patient</span>
                      <span className="">&rarr;</span>
                   </div>  
