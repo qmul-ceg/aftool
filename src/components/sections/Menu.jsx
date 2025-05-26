@@ -55,9 +55,17 @@ const Menu = () => {
                   </PopoverTrigger>
                   <PopoverContent className = "px-2 py-2 w-[14em] mr-28">
                      <div className=" text-sm ">
-                        <div>         
+                        <div> 
+                           {/* <a href = "https://www.qmul.ac.uk/ceg/support-for-gp-practices/resources/software-tools/aftool/user-guidance/"
+                              className="ml-2 menu_list_items">User guide</a>         */}
                            <ul className="ml-2 menu_list_items">
-                              <li>User guide</li>
+                              <li>
+                                 <a href = "https://www.qmul.ac.uk/ceg/support-for-gp-practices/resources/software-tools/aftool/user-guidance/"
+                                    target="_blank" rel="noopener noreferrer"
+                                 >
+                                    User guide
+                                 </a>
+                              </li>
                            </ul>
                         </div>
                         <div className="w-full border mt-1 mb-1"></div>

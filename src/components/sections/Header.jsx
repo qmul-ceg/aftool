@@ -9,17 +9,15 @@ const Header = () => {
       <header className="flex flex-col items-center justify-between ">
          
          <div className="flex justify-between w-full ">
-            <div className="text-left  lg:w-[24%] w-[18%] max-w-[260px]  ">
-            {/* <div className="text-left  w-[20%] md:w-[20%] lg:w-[20%] xl:w-[16%] 2xl:w-[13%] "> */}
+            <div className="text-left  lg:w-[24%] w-[18%] max-w-[260px]">
                <a href="https://www.qmul.ac.uk" target="_blank" rel="noopener noreferrer">
                   <img 
                      src={qmulLogo} 
                      alt="Clinical effectiveness group logo" 
-                     // className="w-full h-auo object-contain"
                   />
                </a>
             </div>
-         {/* 2xl:text-3xl  */}
+     
             <div className="text-center w-full sm:w-auto  flex-row flex-1">
                <h1 
                   className="text-2xl 
