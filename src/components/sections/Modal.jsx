@@ -324,9 +324,25 @@ const Modal = ({open, }) => {
                         <h2 className=" w-[30%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">NHS number</h2>
                         <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1">{selectedPatientData[AFibColumns.NHS_Number]}</div>
                      </div>
-                     <div className="flex">
+                     <div className="flex h-6">
                         <h2 className=" w-[30%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">Ethnicity</h2>
-                        <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1">{selectedPatientData[AFibColumns.EthnicityCodeTerm]}</div>
+                        <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1 overflow-hidden">
+                         {(()=>{
+                           const removeString = " - ethnic category 2001 census"
+                           if (selectedPatientData[AFibColumns.EthnicityCodeTerm].includes(removeString)){
+                              const cleaned = selectedPatientData[AFibColumns.EthnicityCodeTerm].replace(removeString, "")
+                              return cleaned
+                           }
+                           else{
+                              return selectedPatientData[AFibColumns.EthnicityCodeTerm]
+                           }
+                           
+                         })()}
+                        
+                         
+                           
+                        
+                        </div>
                      </div>
                   </div>
 
@@ -344,9 +360,9 @@ const Modal = ({open, }) => {
                         <h2 className="w-[36%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">Age</h2>
                         <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1">{selectedPatientData[AFibColumns.Age]}</div>
                      </div>
-                     <div className="flex">
+                     <div className="flex h-6">
                         <h2 className="w-[36%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">Mobile telephone</h2>
-                        <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1">{selectedPatientData[AFibColumns.MobileTelephone]}</div>
+                        <div className="border border-gray-400 w-[65%]  rounded-r-lg pl-2 py-1">{selectedPatientData[AFibColumns.MobileTelephone]}</div>
                      </div>
                   </div>
                </div>
