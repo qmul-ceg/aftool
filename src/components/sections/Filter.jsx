@@ -574,7 +574,7 @@ const Filter = () => {
                   <Select>
                      <SelectTrigger className=" bg-[#21376A]  text-white">
                      <h1 className="text-xs font-semibold text-left xl:text-sm 2xl:text-sm pr-2">Vulnerabilities</h1>
-                     {/* <SelectValue placeholder="VULNERABILITIES" /> */}
+                     
                      </SelectTrigger>
                      <SelectContent>
                         {[
