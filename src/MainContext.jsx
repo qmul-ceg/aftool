@@ -640,7 +640,6 @@ const MainProvider = ({ children }) => {
       setDisplayExportListAlert(false)
       if(Object.keys(selectedForExportList).length > 0){
          const patientsList = Object.keys(selectedForExportList).map(key => {
-            // const patientsToExport = data.find(patients => patients[0] === key) 
             const patientsToExport = data.find(patients => patients[AFibColumns.NHS_Number] === key) 
             return patientsToExport[AFibColumns.NHS_Number]   
          })
@@ -666,7 +665,6 @@ const MainProvider = ({ children }) => {
          setExportListType("")
       }
    }  
-   // console.log(importedData[AFibColumns.MedsReviewDate])
    
    //FILTER LOGIC
    const getFilteredPatients = () =>{
@@ -693,7 +691,7 @@ const MainProvider = ({ children }) => {
             (antiplatelets && 
                (patient[AFibColumns.OnAspirinAntiplatelet] === "YES") &&
                !patient[AFibColumns.OnAnticoagulant].includes("YES"))
-// (patient[AFibColumns.OnAnticoagulant] != "YES"))  
+
                ||
             (dualTherapy && 
                   (patient[AFibColumns.OnAspirinAntiplatelet] === "YES") && 
