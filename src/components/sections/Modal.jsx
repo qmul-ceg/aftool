@@ -771,31 +771,36 @@ const Modal = ({open, }) => {
                                  </td>
                               
                                  <td className="py-1 pl-4">
-                                 {/* HF, CKD 3-5, IHD, Stroke/TIA, PAD, HTN, Diab (T1/T2) */}
+                              
                                     {(() => {
-                                          
-
                                           if(item.comorbidity ==="HF, CKD 3-5, IHD, Stroke/TIA, PAD, HTN, Diab (T1/T2)"){
                                              let description = [];
                                              if (selectedPatientData[AFibColumns.HF_Concept]) {
+                                           
                                                 description.push("Heart Failure");
                                              }
                                              if (selectedPatientData[AFibColumns.CKD3_5_Concept]) {
+                                               
                                                 description.push("CKD 3-5");
                                              }
                                              if (selectedPatientData[AFibColumns.IHD_Concept]) {
+                                               
                                                 description.push("IHD");
                                              }
                                              if (selectedPatientData[AFibColumns.StrokeTIA_Concept] || selectedPatientData[AFibColumns.NonHaemStrokeConcept]) {
+                                               
                                                 description.push("Stroke/TIA");
                                              }
                                              if (selectedPatientData[AFibColumns.PAD_Concept]) {
+                           
                                                 description.push("PAD");
                                              }
-                                             if (selectedPatientData[AFibColumns.Hypertension]) {
+                                             if (selectedPatientData[AFibColumns.Hypertension] === "YES") {
+                                               
                                                 description.push("Hypertension");
                                              }
                                              if (selectedPatientData[AFibColumns.DiabetesConcept]) {
+                                 
                                                 description.push("Diabetes");
                                              }
 
@@ -831,8 +836,6 @@ const Modal = ({open, }) => {
                                           else if(item.comorbidity ==="Palliative Care"){
                                              return selectedPatientData[AFibColumns.PalliativeCareConcept] ? "Palliative care" : null
                                           }
-
-                                          
                                        })()}
                                  </td>
                                  <td className="py-1 pl-4">{item.dateRecorded}</td>
