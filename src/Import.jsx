@@ -209,22 +209,22 @@ const Import = () => {
             }
          }
 
-         try{
-            const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
-               tool: "AF tool",
-               gp_system: "EMIS Web",
-               file_name: file.name,
-               ods_code: odsCode,
-               status: status,
-            },
-            {
-               headers: {
-                  'Content-Type': 'application/json',
-               }
-            });
-         }catch(error){
-            console.error("Error:", error.response?.data)
-         }
+         // try{
+         //    const response = await axios.post ("https://dashboard.qmul-ceg.net:8450/log", {
+         //       tool: "AF tool",
+         //       gp_system: "EMIS Web",
+         //       file_name: file.name,
+         //       ods_code: odsCode,
+         //       status: status,
+         //    },
+         //    {
+         //       headers: {
+         //          'Content-Type': 'application/json',
+         //       }
+         //    });
+         // }catch(error){
+         //    console.error("Error:", error.response?.data)
+         // }
       };
    };
 

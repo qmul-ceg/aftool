@@ -809,9 +809,9 @@ const Modal = ({open, }) => {
                                           else if(item.comorbidity ==="Heart Valve"){
                                              return selectedPatientData[AFibColumns.HeartValveConcept] ? "Heart Failure" : null
                                           }
-                                          else if(item.comorbidity ==="Bleeding history"){
-                                             return selectedPatientData[AFibColumns.BleedConcept] ? "Bleeding history" : null
-                                          }
+                                          // else if(item.comorbidity ==="Bleeding history"){
+                                          //    return selectedPatientData[AFibColumns.BleedConcept] ? "Bleeding history" : null
+                                          // }
                                           else if(item.comorbidity ==="SMI/Learning Disability/Housebound"){
                                              let smiArray=[]
                                              if (selectedPatientData[AFibColumns.SMI_Concept]) {
@@ -825,9 +825,10 @@ const Modal = ({open, }) => {
                                              }
                                              return smiArray.length > 0 ? smiArray.join(", ") : null;
                                           }
-                                          else if(item.comorbidity ==="Dementia"){
-                                             return selectedPatientData[AFibColumns.DementiaConcept] ? "Dementia" : null
-                                          }else if(item.comorbidity ==="Palliative Care"){
+                                          // else if(item.comorbidity ==="Dementia"){
+                                          //    return selectedPatientData[AFibColumns.DementiaConcept] ? "Dementia" : null
+                                          // }
+                                          else if(item.comorbidity ==="Palliative Care"){
                                              return selectedPatientData[AFibColumns.PalliativeCareConcept] ? "Palliative care" : null
                                           }
 
