@@ -113,24 +113,7 @@ const Import = () => {
 
          const lines = reader.result.split('\n');
         
-         // const lineToCheck = "Patient Details"
-         // let odsObject;
-         // for (let i = 0; i < lines.length; i++){
-           
-         //    if(lines[i].includes(lineToCheck)){
-         //       odsObject = Papa.parse(lines[i + 2])
-         //    }
-         // }
-         // const odsArray = odsObject.data[0]
-         // const odsValue = odsArray[7]
          
-         // const odsCodeRegex = /^[A-Z]\d{4,5}$/;
-
-         // if (odsCodeRegex.test(odsValue)){
-         //    odsCode = odsValue
-         // } else {
-         //    odsCode = "UNKNOWN";
-         // }
 
          for (let i = 0; i < lines.length; i++){
             const line = lines[i].split(',');
