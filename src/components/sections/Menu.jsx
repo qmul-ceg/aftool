@@ -98,9 +98,9 @@ const Menu = () => {
                         <div className="text-sm">
                            <strong className="text-sm">EXPORT SELECTED PATIENTS LIST</strong>
                            <ul className=" ml-2 menu_list_items">
-                              <li><button onClick= {()=> handleExport("excel")}>Excel list</button> </li>
-                              <li><button onClick= {()=> handleExport("accurx")}>Accurx list</button> </li>
-                              <li><button onClick= {()=> handleExport("nhs_list")}>NHS No. list</button> </li>
+                              <li><button onClick= {()=> handleExport("excel")}>Excel list (.xlsx)</button> </li>
+                              <li><button onClick= {()=> handleExport("accurx")}>Accurx list (.csv)</button> </li>
+                              <li><button onClick= {()=> handleExport("nhs_list")}>NHS No. list (.txt)</button> </li>
                            </ul>
                         </div>
                         

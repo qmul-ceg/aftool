@@ -76,7 +76,7 @@ const Display = () => {
                </div>
             </div>
              <div className="text-xs">
-               v.0.1.37
+               v.0.1.38
             </div>
          </footer>
       </div>
