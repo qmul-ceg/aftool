@@ -291,13 +291,13 @@ const Modal = ({open, }) => {
             <div className=" flex justify-center  gap-6 p-2  bg-white">
 
                <button className=" " onClick={handlePreviousPatient}>
-                  <div className="flex flex-col text-sm hover:font-bold">
+                  <div className="flex flex-col text-sm hover:font-medium">
                      <span>Previous patient</span>
                      <span className="">&larr;</span>
                   </div>
                </button>
                <button className=" " onClick={handleNextPatient}>
-                  <div className="flex flex-col text-sm hover:font-bold">
+                  <div className="flex flex-col text-sm hover:font-medium">
                      <span>Next patient</span>
                      <span className="">&rarr;</span>
                   </div>  
@@ -324,10 +324,10 @@ const Modal = ({open, }) => {
                         <h2 className=" w-[30%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">NHS number</h2>
                         <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1">{selectedPatientData[AFibColumns.NHS_Number]}</div>
                      </div>
-                     <div className="flex h-6">
+                     <div className="flex h-14">
                         <h2 className=" w-[30%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">Ethnicity</h2>
-                        <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1 overflow-hidden">
-                         {(()=>{
+                        <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1 ">
+                           {/* {(()=>{
                            const removeString = " - ethnic category 2001 census"
                            if (selectedPatientData[AFibColumns.EthnicityCodeTerm].includes(removeString)){
                               const cleaned = selectedPatientData[AFibColumns.EthnicityCodeTerm].replace(removeString, "")
@@ -337,11 +337,8 @@ const Modal = ({open, }) => {
                               return selectedPatientData[AFibColumns.EthnicityCodeTerm]
                            }
                            
-                         })()}
-                        
-                         
-                           
-                        
+                           })()} */}
+                           {selectedPatientData[AFibColumns.EthnicityCodeTerm]}
                         </div>
                      </div>
                   </div>
@@ -364,10 +361,24 @@ const Modal = ({open, }) => {
                         <h2 className="w-[36%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">Mobile telephone</h2>
                         <div className="border border-gray-400 w-[65%]  rounded-r-lg pl-2 py-1">{selectedPatientData[AFibColumns.MobileTelephone]}</div>
                      </div>
+                     <div className="text-left text-sm ml-1">
+                        <label className=" inline-flex gap-2 items-center cursor-pointer font-bold" htmlFor="modalCheckBox">
+                           Select for export
+                        <input
+                        type="checkbox"
+                        id="modalCheckBox"
+                        checked = {!!selectedForExport[selectedPatientData[AFibColumns.NHS_Number]]}
+                        onChange={()=>toggleSelectedPatient(selectedPatientData[AFibColumns.NHS_Number])}
+                        className="ml-2 modal_checkbox"
+                        //onclick toggle the select for export;
+                     />
+                     <div className = "custom_modal_checkbox "></div>
+                  </label>
+               </div>
                   </div>
                </div>
                
-               <div className=" mt-2 text-center text-sm ">
+               {/* <div className=" mt-2 text-center text-sm ">
                   <label className=" inline-flex gap-2 items-center cursor-pointer font-bold" htmlFor="modalCheckBox">
                      Select for export
                      <input
@@ -380,9 +391,9 @@ const Modal = ({open, }) => {
                      />
                      <div className = "custom_modal_checkbox "></div>
                   </label>
-               </div>
+               </div> */}
                {/* NOTE AND COLOURS LEGEND */}
-               <div className=" text-center mt-2  flex justify-between items-center pl-2 pr-4">
+               <div className=" text-center mt-6  flex justify-between items-center pl-2 pr-4">
                   <strong>*NOTE: This list of medication is not exhaustive and the patient may be on additional medication not shown below.</strong>
                   
                   <div className=" flex " >
