@@ -608,21 +608,25 @@ const MainProvider = ({ children }) => {
       if (Object.keys(selectedForExport).length > 0){
          let outputContent = "";
          if(selGpSystem == GpSystems.EMIS_Web){
-            outputContent += "EMIS Web, NHS Number"
+            // outputContent += "EMIS Web, NHS Number"
+            outputContent = "NHS Number"
 
             const patientsList = Object.keys(selectedForExport).map(key => {
                // const patientsToExport = data.find(patients => patients[0] === key) 
                const patientsToExport = data.find(patients => patients[AFibColumns.NHS_Number] === key) 
-               outputContent += "\n" + patientsToExport[AFibColumns.PatientReference] + "," + patientsToExport[AFibColumns.NHS_Number];
+               outputContent += "\n" + patientsToExport[AFibColumns.NHS_Number];
+               // outputContent += "\n" + patientsToExport[AFibColumns.PatientReference] + "," + patientsToExport[AFibColumns.NHS_Number];
             })
          }
          else if(selGpSystem == GpSystems.SystmOne){
-            outputContent = "NHS Number, Date of Birth, Mobile telephone";
+            // outputContent = "NHS Number, Date of Birth, Mobile telephone";
+            outputContent = "NHS Number";
 
             const patientsList = Object.keys(selectedForExport).map(key => {
                // const patientsToExport = data.find(patients => patients[0] === key) 
                const patientsToExport = data.find(patients => patients[AFibColumns.NHS_Number] === key) 
-               outputContent += "\n" + patients[AFibColumns.NHS_Number] + "," + patients[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
+               outputContent += "\n" + patients[AFibColumns.NHS_Number];
+               // outputContent += "\n" + patients[AFibColumns.NHS_Number] + "," + patients[AFibColumns.DateOfBirth] + "," + patient[AFibColumns.MobileTelephone];
             })
          }
          const file = new Blob([outputContent], { type : "text/plain"});
