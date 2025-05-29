@@ -17,7 +17,7 @@ const Filter = () => {
       selectedChdValue,handleChdValue,  removeChdValue,
       selectedChdDate,handleChdDate, removeChdDate,
       selectedOrbit, handleOrbit, removeOrbitDisplay,
-      medReview, handleMedReview, setMedReview,
+      medReview, handleMedReview, setMedReview, removeMedReview,
       handleVulnerabilitesFilter,
       selectedAnti, handleAntiFilter, setSelectedAnti, removeAntiFilter,
       selectedVulnerabilities, 
@@ -241,7 +241,7 @@ const Filter = () => {
                   {(importedData.length > 0 && displayMedReview[0].value !== "") && (
                      <div className=" text-xs bg-white text-[#21376A] px-2 rounded-md flex items-center text-center">
                          <strong className ="mr-2">Medication review ≥ 12m:</strong> {displayMedReview[0].value } 
-                        {<button className=" ml-2 text-red-500 text-xs hover:text-sm"onClick={() => handleMedReview("")}>&#10005;</button>}
+                        {<button className=" ml-2 text-red-500 text-xs hover:text-sm"onClick={removeMedReview}>&#10005;</button>}
                      </div>
                   )}
                   

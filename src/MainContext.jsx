@@ -473,6 +473,10 @@ const MainProvider = ({ children }) => {
       setQuickFilter("")
    }
 
+   const removeMedReview = () => {
+      setMedReview("")
+      setQuickFilter("")
+   }
    // QUICK FILTERS FUNCTIONALITY
 
    const quickFilterConfig = {
@@ -942,12 +946,12 @@ const MainProvider = ({ children }) => {
       resetAllFilters,
 
       //REMOVE FILTERS
-      removeNsaidFilter, removeCvdFilter, removeVulnerabilities, removeStatinFilter,
+      removeNsaidFilter, removeCvdFilter, removeVulnerabilities, removeStatinFilter,removeMedReview,
 
       //ORBIT FUNCTIONS AND STATES
       handleOrbitValueSelection, handleOrbitDateRecordedSelection,
       selectedOrbitValue, selectedOrbitDateRecorded, removeSelectedOrbitValue,
-      removeSelectedOrbitDate,
+      removeSelectedOrbitDate, 
 
       //EXPORT COUNT
       exportCount, setExportCount,
