@@ -413,11 +413,11 @@ const Modal = ({open, }) => {
                                        style={{backgroundColor: cegColors.yellow}}></div>
                                        <span>Mild risk</span>
                                     </div>
-                                    <div className="flex  gap-2">
+                                    {/* <div className="flex  gap-2">
                                        <div className=" w-14 h-5 "
                                        style={{backgroundColor: cegColors.green}}></div>
                                        <span></span>
-                                    </div>
+                                    </div> */}
                                     
                                  </div>
                               </PopoverContent>
