@@ -42,7 +42,6 @@ const Menu = () => {
    return (
       <>
          <div className="flex">
-
             <div className="mr-2 my-auto">
                <Popover>
                   <PopoverTrigger 

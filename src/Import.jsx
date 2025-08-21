@@ -261,7 +261,6 @@ const Import = () => {
             }catch(error){
             console.error("Error:", error.response?.data)
             }
-
       };
    };   
 

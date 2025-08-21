@@ -13,7 +13,7 @@ const Header = () => {
                <a href="https://www.qmul.ac.uk" target="_blank" rel="noopener noreferrer">
                   <img 
                      src={qmulLogo} 
-                     alt="Clinical effectiveness group logo" 
+                     alt="QMUL logo" 
                   />
                </a>
             </div>
