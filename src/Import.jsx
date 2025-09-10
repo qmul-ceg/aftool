@@ -264,9 +264,16 @@ const Import = () => {
       };
    };   
 
+   //Resets the imported data [] so that data does not persist when user uses back button 
+   useEffect(()=> {
+      setImportedData([])
+   }, [])
+
+
    const confirmImport = () => {
       setDisplayLatestReportAlert(false)
       navigate("/display")
+      
    }
 
    const cancelImport = () => {
@@ -282,6 +289,7 @@ const Import = () => {
          
          setImportedData(data)
          navigate("/display"); 
+         // setImportedData([])
       }
    }
 

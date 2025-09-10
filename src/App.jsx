@@ -61,14 +61,13 @@ function App() {
             )
          }
          <div>
-            {/* <Router basename="/aftool/"> */}
+           
             <Router>
                <Routes>
                   <Route path="*" element={<Import />} />
                   <Route path = "/" element = {<Import />}/>
                   <Route path = "/display" element = {<Display />}/>
-                  {/* <Route path = "/modal" element = {<Modal />}/>  */}
-                  {/* DELETE ABOVE PATH AFTER BUILDING MODAL */}
+               
 
                </Routes>
             </Router>

@@ -8,7 +8,7 @@ import { MainContext } from './MainContext'
 import nc_sa_logo from '/images/nc_sa_logo.png'
 import ExportAlert from './components/alerts/ExportAlert'
 import EmptyExportAlert from './components/alerts/EmptyExportAlert'
-
+import { useNavigate } from 'react-router-dom'
 
 
 const Display = () => {
@@ -18,10 +18,17 @@ const Display = () => {
       isModalOpen, dataCount, relativeRunDate, exportCount,
       displayExportListAlert, setDisplayExportListAlert,
       handleContinueListExport, exportListType,
-      emptyExportListAlert, setEmptyExportListAlert
+      emptyExportListAlert, setEmptyExportListAlert, importedData
    } = useContext(MainContext)
   
-   
+   // const navigate = useNavigate()
+   // if(!importedData){
+   //    navigate('/import');
+   //    return null;
+   // }
+   console.log(importedData )
+
+
    return (
       <div className="h-screen display_container pt-1 display_screen max-w-[2800px] m-auto ">
       {/* ERROR COMPONENTS */}
