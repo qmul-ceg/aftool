@@ -411,7 +411,8 @@ const Import = () => {
             
             <div className="flex justify-center ">
                <Button 
-                  className="text-center bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white w-[6em] text-lg import_button"       
+                  // className="text-center bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white w-[6em] text-lg import_button"       
+                  className="text-center bg-gradient-to-br from-[#7B0E72] to-[#E6007E] text-white w-[6em] text-lg import_button"
                   onClick={handleImportButtonClick}
                >
                   Import

@@ -16,11 +16,7 @@ const Modal = ({open, }) => {
       selectedForExport, setSelectedForExport, toggleSelectedPatient
    } = useContext(MainContext)
 
-   // console.log({
-   //    code: selectedPatientData[AFibColumns.ThirdPartyCodeDate],
-   //    doac: selectedPatientData[AFibColumns.ThirdParty_DOAC_Date],
-   //    warf: selectedPatientData[AFibColumns.ThirdPartyWarfarinDate]
-   // });
+
 
    if (!open) return null
    
@@ -327,17 +323,7 @@ const Modal = ({open, }) => {
                      <div className="flex h-14">
                         <h2 className=" w-[30%] text-white pl-2 bg-[#21376A] font-semibold py-1 rounded-l-lg">Ethnicity</h2>
                         <div className="border border-gray-400 w-[65%] rounded-r-lg pl-2 py-1 ">
-                           {/* {(()=>{
-                           const removeString = " - ethnic category 2001 census"
-                           if (selectedPatientData[AFibColumns.EthnicityCodeTerm].includes(removeString)){
-                              const cleaned = selectedPatientData[AFibColumns.EthnicityCodeTerm].replace(removeString, "")
-                              return cleaned
-                           }
-                           else{
-                              return selectedPatientData[AFibColumns.EthnicityCodeTerm]
-                           }
-                           
-                           })()} */}
+                          
                            {selectedPatientData[AFibColumns.EthnicityCodeTerm]}
                         </div>
                      </div>
@@ -364,17 +350,17 @@ const Modal = ({open, }) => {
                      <div className="text-left text-sm ml-1">
                         <label className=" inline-flex gap-2 items-center cursor-pointer font-bold" htmlFor="modalCheckBox">
                            Select for export
-                        <input
-                        type="checkbox"
-                        id="modalCheckBox"
-                        checked = {!!selectedForExport[selectedPatientData[AFibColumns.NHS_Number]]}
-                        onChange={()=>toggleSelectedPatient(selectedPatientData[AFibColumns.NHS_Number])}
-                        className="ml-2 modal_checkbox"
-                        //onclick toggle the select for export;
-                     />
-                     <div className = "custom_modal_checkbox "></div>
-                  </label>
-               </div>
+                           <input
+                              type="checkbox"
+                              id="modalCheckBox"
+                              checked = {!!selectedForExport[selectedPatientData[AFibColumns.NHS_Number]]}
+                              onChange={()=>toggleSelectedPatient(selectedPatientData[AFibColumns.NHS_Number])}
+                              className="ml-2 modal_checkbox"
+                           //onclick toggle the select for export;
+                           />
+                           <div className = "custom_modal_checkbox "></div>
+                        </label>
+                     </div>
                   </div>
                </div>
                
@@ -392,6 +378,8 @@ const Modal = ({open, }) => {
                      <div className = "custom_modal_checkbox "></div>
                   </label>
                </div> */}
+
+               
                {/* NOTE AND COLOURS LEGEND */}
                <div className=" text-center mt-6  flex justify-between items-center pl-2 pr-4">
                   <strong>*NOTE: This list of medication is not exhaustive and the patient may be on additional medication not shown below.</strong>
@@ -402,7 +390,7 @@ const Modal = ({open, }) => {
                            <PopoverTrigger 
                               className="flex justify-center items-center
                               font-serif text-xs px-[0.51em]  rounded-full font-semibold
-                              bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
+                              bg-gradient-to-br from-[#7B0E72] to-[#E6007E] text-white "
                            >
                               i              
                            </PopoverTrigger>
@@ -531,7 +519,7 @@ const Modal = ({open, }) => {
                                            <PopoverTrigger 
                                                    className=" ml-2 justify-center items-center
                                                    font-serif text-xs px-[0.51em]  rounded-full font-semibold
-                                                   bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
+                                                   bg-gradient-to-br from-[#7B0E72] to-[#E6007E] text-white "
                                                 >i
                                              </PopoverTrigger>
                                        <PopoverContent className="p-0 w-[30em] text-sm">
@@ -591,7 +579,7 @@ const Modal = ({open, }) => {
                                                 <PopoverTrigger 
                                                    className=" ml-2 justify-center items-center
                                                    font-serif text-xs px-[0.51em]  rounded-full font-semibold
-                                                   bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
+                                                   bg-gradient-to-br from-[#7B0E72] to-[#E6007E] text-white "
                                                 >i
                                                 </PopoverTrigger>
                                                 <PopoverContent className="p-0 w-[40em] text-sm">
@@ -904,7 +892,7 @@ const Modal = ({open, }) => {
                                              <PopoverTrigger 
                                                    className=" ml-2 justify-center items-center
                                                    font-serif text-xs px-[0.51em]  rounded-full font-semibold
-                                                   bg-gradient-to-r from-[#7B0E72] from-70% to-[#E6007E] text-white "
+                                                   bg-gradient-to-br from-[#7B0E72] to-[#E6007E] text-white "
                                                    >
                                                       i
                                              </PopoverTrigger>
@@ -1085,4 +1073,14 @@ const Modal = ({open, }) => {
 export default Modal
 
 
- 
+  {/* {(()=>{
+                           const removeString = " - ethnic category 2001 census"
+                           if (selectedPatientData[AFibColumns.EthnicityCodeTerm].includes(removeString)){
+                              const cleaned = selectedPatientData[AFibColumns.EthnicityCodeTerm].replace(removeString, "")
+                              return cleaned
+                           }
+                           else{
+                              return selectedPatientData[AFibColumns.EthnicityCodeTerm]
+                           }
+                           
+                           })()} */}
