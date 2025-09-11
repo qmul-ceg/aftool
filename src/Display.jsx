@@ -21,12 +21,16 @@ const Display = () => {
       emptyExportListAlert, setEmptyExportListAlert, importedData
    } = useContext(MainContext)
   
-   // const navigate = useNavigate()
-   // if(!importedData){
-   //    navigate('/import');
-   //    return null;
-   // }
-   console.log(importedData )
+   const navigate = useNavigate()
+   
+   useEffect(()=>{
+      if(importedData.length == 0){
+         navigate('/');
+      }
+   }, [importedData])
+
+
+
 
 
    return (

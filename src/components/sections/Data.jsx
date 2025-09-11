@@ -31,7 +31,7 @@ const Data = () => {
          })
          setSelectedForExport(patientsSelectedForExport) 
       }
-      console.log(patientsSelectedForExport)
+  
       updateSelectedForExport()
    }, [ data])
 
