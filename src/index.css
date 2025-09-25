@@ -228,6 +228,11 @@
 
 .checkbox_input{
    display:none;
+
+}
+
+.filterText{
+   cursor: pointer;
 }
 
 .custom_checkbox{
@@ -239,6 +244,7 @@
    align-items: center;
    justify-content: center;
    flex-shrink:0 ;
+   cursor: pointer;
 }
 
 .checkbox_input:checked + .custom_checkbox::after{

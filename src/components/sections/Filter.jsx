@@ -430,7 +430,7 @@ const Filter = () => {
                                           
                                        />
                                        <div className="custom_checkbox"></div>
-                                       <span>{item.label}</span>       
+                                       <span className="filterText">{item.label}</span>       
                                     </label>
                                  )
                               })}
@@ -475,7 +475,7 @@ const Filter = () => {
                                        className="checkbox_input"
                                     />
                                     <div className="custom_checkbox"></div>
-                                    <span>{item.label}</span>       
+                                    <span className="filterText">{item.label}</span>       
                                  </label>
 
                               )
@@ -526,7 +526,7 @@ const Filter = () => {
                                     className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{item.label}</span>
+                                 <span className="filterText">{item.label}</span>
                                  
                               </label>
                            )})}
@@ -551,7 +551,7 @@ const Filter = () => {
                               id="medreview_yes"
                            />
                            <div className="custom_checkbox"></div>
-                           <span>Yes</span>
+                           <span className="filterText">Yes</span>
                         </label>
 
                         <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="medreview_no">
@@ -565,7 +565,7 @@ const Filter = () => {
                               className="checkbox_input"
                            />
                            <div className="custom_checkbox"></div>
-                           <span>No</span>
+                           <span className="filterText">No</span>
                         </label>
                      </SelectContent>
                   </Select>
@@ -602,7 +602,7 @@ const Filter = () => {
                                     id={inputId}
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{item.label}</span>       
+                                 <span className="filterText">{item.label}</span>       
                               </label>
                            )})}
                      </SelectContent>
@@ -634,7 +634,7 @@ const Filter = () => {
                                  
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{selectedChdValueLabel[item]}</span>
+                                 <span className="filterText">{selectedChdValueLabel[item]}</span>
                               </label>
                            )})
                         }
@@ -653,7 +653,7 @@ const Filter = () => {
                                     className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{selectedRecordedDateLabel[item]}</span>
+                                 <span className="filterText">{selectedRecordedDateLabel[item]}</span>
                               </label>
                            )
                         )}
@@ -679,7 +679,7 @@ const Filter = () => {
                               className="checkbox_input"
                            />
                            <div className="custom_checkbox"></div>
-                           <span>≥ 4</span>
+                           <span className="filterText">≥ 4</span>
                         </label>
 
                         <div className="w-full border mt-1 mb-1"></div>
@@ -696,7 +696,7 @@ const Filter = () => {
                                     className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{selectedRecordedDateLabel[item]}</span>
+                                 <span className="filterText">{selectedRecordedDateLabel[item]}</span>
                               </label>
                         ))}
                         
@@ -725,7 +725,7 @@ const Filter = () => {
                                     className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{"Yes"}</span>
+                                 <span className="filterText">{"Yes"}</span>
                               </label>
 
                               <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="statin_no_input">
@@ -739,7 +739,7 @@ const Filter = () => {
                                     className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{"No"}</span>
+                                 <span className="filterText">{"No"}</span>
                               </label>
                               <div className="w-full border mt-1 mb-1"></div>
                               <p className="ml-2 text-xs font-semibold text-left xl:text-sm 2xl:text-sm ">NSAID</p>
@@ -754,7 +754,7 @@ const Filter = () => {
                                     className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{"Yes"}</span>
+                                 <span className="filterText">{"Yes"}</span>
                               </label>
 
                               <label className="flex items-center space-x-2 lg:text-xs  xl:text-sm 2xl:text-[1em]" htmlFor="nsaid_no_input">
@@ -768,7 +768,7 @@ const Filter = () => {
                                        className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{"No"}</span>
+                                 <span className="filterText">{"No"}</span>
                               </label>
                            </div>
                         </SelectContent>
@@ -801,7 +801,7 @@ const Filter = () => {
                                  className="checkbox_input"
                               />
                               <div className="custom_checkbox"></div>
-                              <span>{item.label}</span>
+                              <span className="filterText">{item.label}</span>
                            </label>
                            )
                         })}
@@ -832,7 +832,7 @@ const Filter = () => {
                                     className="checkbox_input"
                                  />
                                  <div className="custom_checkbox"></div>
-                                 <span>{item.label}</span>
+                                 <span className="filterText">{item.label}</span>
                               </label>
                            )
                         })}
@@ -869,7 +869,7 @@ const Filter = () => {
                                        
                                     />
                                     <div className="custom_checkbox"></div>
-                                    <span>{item.label}</span>       
+                                    <span className="filterText">{item.label}</span>       
                                  </label>
                               )
                            })}

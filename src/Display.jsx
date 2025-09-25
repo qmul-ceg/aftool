@@ -82,7 +82,7 @@ const Display = () => {
                
             </div>
              <div className="text-xs">
-               v.1.1.40
+               v.1.1.41
             </div>
          </footer>
       </div>
