@@ -76,18 +76,18 @@ const Display = () => {
             <Data />
          </section>
             
-         <footer className=" flex gap-2  mx-4 mb-2 justify-between items-center lg:text-xs xl:text-sm 2xl:text-sm sticky mt-auto  ">
+         <footer className=" flex gap-2  mx-4 mb-2 justify-between items-center lg:text-xs xl:text-sm  sticky mt-auto  ">
             <div className="flex mx-auto">
-               <p className="font-semibold">© Clinical Effectiveness Group (CEG), Queen Mary University of London. All rights reserved. Attribution-NonCommercial-ShareAlike CC BY-NC-SA.</p> 
-               <div className="w-[4em] ml-2">
+               <p className="font-semibold">© Clinical Effectiveness Group (CEG), Queen Mary University of London. All rights reserved. </p> 
+               {/* <div className="w-[4em] ml-2">
                   <img 
                      alt="Creative Commons NC SA logo"
                      src={nc_sa_logo}
                   />
-               </div>
+               </div> */}
             </div>
              <div className="text-xs">
-               v.0.1.39
+               v.1.1.40
             </div>
          </footer>
       </div>
